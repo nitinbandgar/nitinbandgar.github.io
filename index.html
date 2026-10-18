@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="How First Principles Studio films are made in code: script, open-source voice, timeline, frame-by-frame animation, synthesised music and Whisper checks.">
+<meta property="og:title" content="Films made in code · First Principles Studio">
+<meta property="og:description" content="A step-by-step guide to making explainer videos with code and open-source models.">
+<title>Films Made in Code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an edit-suite "production sheet" — one reading column, each stage of the pipeline is a numbered reel with its timecode, the real file it reads or writes, and a plain-language explanation. */
+:root {
+  --paper: #f6f4ef;
+  --sheet: #fffdf8;
+  --ink: #1d1f24;
+  --muted: #5d606b;
+  --rule: #ded9cc;
+  --accent: #c2410c;      /* safelight orange, like a darkroom / edit-suite tally light */
+  --accent-soft: #fbe6d8;
+  --code-bg: #f0ece2;
+  --ok: #2f7d4b;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --body: "Literata", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15161a; --sheet: #1c1d22; --ink: #ecebe6; --muted: #a3a3ab; --rule: #33343b;
+    --accent: #fb8a4c; --accent-soft: #3a2418; --code-bg: #24252b; --ok: #6cc28c; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15161a; --sheet: #1c1d22; --ink: #ecebe6; --muted: #a3a3ab; --rule: #33343b;
+  --accent: #fb8a4c; --accent-soft: #3a2418; --code-bg: #24252b; --ok: #6cc28c; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.65;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 80px; margin: 0;
+}
+main { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.45rem, 3.4vw, 1.9rem); font-weight: 700; }
+h3 { font-size: 1.08rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 14px; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.lede { font-size: 1.14rem; color: var(--muted); max-width: 62ch; }
+.mono { font-family: var(--mono); font-size: 0.88em; }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+pre { margin: 0; overflow-x: auto; background: var(--code-bg); border-radius: 8px; padding: 14px 16px; font-family: var(--mono); font-size: 0.8rem; line-height: 1.6; }
+pre code { background: none; padding: 0; font-size: inherit; }
+.c { color: var(--muted); }
+.k { color: var(--accent); }
+a { color: var(--accent); }
+
+/* the one-paragraph summary */
+.summary { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; }
+.summary p { font-size: 1.05rem; }
+
+/* the pipeline strip */
+.strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.stage { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.stage .tc { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); }
+.stage b { font-family: var(--display); font-size: 1rem; }
+.stage span { font-size: 0.84rem; color: var(--muted); line-height: 1.4; }
+.strip-note { font-size: 0.9rem; color: var(--muted); }
+
+/* reels (the steps) */
+.reel { display: grid; grid-template-columns: 64px 1fr; gap: 20px; border-top: 1px solid var(--rule); padding-top: 26px; }
+.reel-no { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); display: flex; flex-direction: column; gap: 2px; padding-top: 6px; }
+.reel-no strong { font-family: var(--display); font-size: 2rem; color: var(--accent); line-height: 1; }
+.reel-body { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.files { display: flex; flex-wrap: wrap; gap: 8px; }
+.file { font-family: var(--mono); font-size: 0.76rem; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; color: var(--muted); background: var(--sheet); }
+.file.out { border-color: var(--accent); color: var(--accent); }
+ul.plain { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.96rem; }
+
+/* tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--sheet); }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; min-width: 560px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+tr:last-child td { border-bottom: none; }
+td.num { font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 0.82rem; white-space: nowrap; }
+
+/* frame-by-frame mini demo */
+.demo { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.demo canvas { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 6px; background: #0d0f15; display: block; }
+.demo-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.demo label { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+.demo input[type=range] { flex: 1 1 220px; accent-color: var(--accent); }
+.demo output { font-family: var(--mono); font-size: 0.82rem; font-variant-numeric: tabular-nums; min-width: 15ch; }
+button { font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--accent); background: transparent; color: var(--accent); padding: 5px 12px; border-radius: 6px; cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.two > div { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 20px; }
+
+@media (max-width: 520px) {
+  .reel { grid-template-columns: 1fr; gap: 8px; }
+  .reel-no { flex-direction: row; align-items: baseline; gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<main>
+
+<header class="stack">
+  <div class="eyebrow">First Principles Studio · production notes</div>
+  <h1>Films made in code</h1>
+  <p class="lede">How every First Principles video is produced: no camera, no editing timeline, no stock footage. Each film is a set of text files and programs that a computer turns into an MP4. This page walks through it step by step, using the real files from <em>How ChatGPT Actually Works</em> and its Hindi version.</p>
+</header>
+
+<section class="summary" aria-label="In one paragraph">
+  <div class="eyebrow">In one paragraph</div>
+  <p>We write a script as a text file, with every sentence tagged with a label. An open-source text-to-speech model reads each sentence aloud, and the program measures how long each one takes. That gives a <strong>timeline</strong>: the exact second every sentence starts. Then everything else follows that clock. The animation is code that draws each frame (30 per second) based on which sentence is playing. The music is synthesised from maths, with its big moments placed on the key sentences. Subtitles come straight from the script. Finally, a speech-recognition model listens to our own audio to check the pronunciation, and FFmpeg stitches picture and sound into the final video.</p>
+</section>
+
+<section class="stack" aria-label="The pipeline">
+  <h2>The pipeline at a glance</h2>
+  <div class="strip">
+    <div class="stage"><span class="tc">01</span><b>Story</b><span>research, outline, beats</span></div>
+    <div class="stage"><span class="tc">02</span><b>Script</b><span>narration.txt with cue labels</span></div>
+    <div class="stage"><span class="tc">03</span><b>Voice</b><span>Kokoro TTS, one clip per line</span></div>
+    <div class="stage"><span class="tc">04</span><b>Timeline</b><span>timeline.json, the master clock</span></div>
+    <div class="stage"><span class="tc">05</span><b>Animation</b><span>code draws every frame</span></div>
+    <div class="stage"><span class="tc">06</span><b>Subtitles</b><span>from the script + timeline</span></div>
+    <div class="stage"><span class="tc">07</span><b>Music &amp; sound</b><span>synthesised, placed on cues</span></div>
+    <div class="stage"><span class="tc">08</span><b>Checks</b><span>Whisper, frames, loudness</span></div>
+    <div class="stage"><span class="tc">09</span><b>Assemble</b><span>FFmpeg: film, Shorts, thumbnails</span></div>
+  </div>
+  <p class="strip-note">Steps 5, 6 and 7 all read the same timeline from step 4. That is why the picture, words and music stay in sync without anyone dragging clips around.</p>
+</section>
+
+<!-- 1 -->
+<section class="reel" aria-labelledby="s1">
+  <div class="reel-no"><strong>1</strong>story</div>
+  <div class="reel-body">
+    <h2 id="s1">Research and story</h2>
+    <p>Everything starts with a question a normal viewer would ask ("how does ChatGPT actually work?"). The AI assistant (Claude) researches it from primary sources (the 2017 <em>Attention Is All You Need</em> paper, the GPT-3 paper, and so on), then builds the story in layers:</p>
+    <ul class="plain">
+      <li><strong>Chapters:</strong> the big ideas in the order a beginner needs them (the guessing game → words become numbers → context → attention → layers → training → assistant → mistakes → recap).</li>
+      <li><strong>Beats:</strong> inside each chapter, one idea per beat, each with a concrete example from the viewer's life: "a cup of hot… chai", Sachin Tendulkar, a rishta website, a viva exam.</li>
+      <li><strong>Hook and payoff:</strong> a question in the first 30 seconds, and a last line that answers it ("Attention, really, is all you need").</li>
+      <li><strong>Fact-check:</strong> every number in the script (175 billion parameters, 300 billion tokens) is checked against its source and listed in the description.</li>
+    </ul>
+    <div class="callout">The creator stays the editor: you pick the topic, approve the outline, and reject anything that doesn't feel right. In this channel, for example, the music went through eight rounds before the "Organ &amp; Time" style was approved.</div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="reel" aria-labelledby="s2">
+  <div class="reel-no"><strong>2</strong>script</div>
+  <div class="reel-body">
+    <h2 id="s2">The script is a text file with labels</h2>
+    <p>The script is plain text, but every sentence has a short label in brackets. The labels are what the animation and music hook onto later. A scene starts with <code>@</code>, and a <code>~</code> number is the pause after a line.</p>
+    <div class="files"><span class="file">narration.txt</span><span class="file">narration_hi.txt</span></div>
+<pre><code><span class="k">@ game</span> lead=0.4 tail=0.6
+- <span class="k">[a]</span> Let's start with a game. I'll give you half a sentence, and you complete it. <span class="c">~0.4</span>
+- <span class="k">[b]</span> "A cup of hot..." <span class="c">~1.6</span>          <span class="c"># 1.6 s silence: the viewer guesses</span>
+- <span class="k">[c]</span> You probably said tea. Or maybe coffee. <span class="c">~0.4</span>
+- <span class="k">[d]</span> Now try this one. "Sachin Tendulkar is a famous..." <span class="c">~1.4</span>
+- <span class="k">[e]</span> Cricketer! Easy. <span class="c">~0.5</span></code></pre>
+    <p>When a word is hard to pronounce, the line can carry a spoken version in braces: <code>{…}</code>. The subtitles show the written text, and the voice reads the braces.</p>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="reel" aria-labelledby="s3">
+  <div class="reel-no"><strong>3</strong>voice</div>
+  <div class="reel-body">
+    <h2 id="s3">The narration: an open-source voice model</h2>
+    <p>The voice is <strong>Kokoro</strong>, an open-weights text-to-speech model (82 million parameters, Apache 2.0 licence) that runs on an ordinary CPU through ONNX Runtime. No cloud service, no per-minute cost.</p>
+    <ul class="plain">
+      <li><strong>One clip per line.</strong> Each sentence is synthesised separately and saved as its own WAV file. Changing one sentence only re-records that sentence.</li>
+      <li><strong>A custom voice by blending.</strong> Kokoro voices are vectors, so they can be mixed. The channel's narrator is 65% of a Hindi male voice and 35% of an American male voice, which gives an Indian-English accent.</li>
+      <li><strong>Pronunciation fixes.</strong> Words the model gets wrong are respelled before synthesis ("ChatGPT" → "Chat G.P.T."; for Hindi, "चैट जी पी टी"). A phonemizer (eSpeak NG) turns the text into sounds first, including Hindi.</li>
+      <li><strong>Disclosure.</strong> It is a synthetic voice, and the description says so.</li>
+    </ul>
+    <div class="files"><span class="file">engine/audio/tts.py</span><span class="file out">build/voice/*.wav</span><span class="file out">build/voice.wav</span></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="reel" aria-labelledby="s4">
+  <div class="reel-no"><strong>4</strong>clock</div>
+  <div class="reel-body">
+    <h2 id="s4">The timeline: one clock for everything</h2>
+    <p>While recording, the program measures each clip and lays the lines end to end with their pauses. The result is a small file that says exactly when every scene and every line starts. This file is the heart of the system.</p>
+    <div class="files"><span class="file out">build/timeline.json</span></div>
+<pre><code>{ "id": "game", "start": <span class="k">53.567</span>, "dur": 30.6,
+  "lines": [
+    { "label": "a", "start": 0.4,  "end": 4.9 },
+    { "label": "b", "start": 5.3,  "end": 6.6 },   <span class="c">// "A cup of hot..."</span>
+    { "label": "c", "start": 8.2,  "end": 10.9 },  <span class="c">// "You probably said tea."</span>
+    ...</code></pre>
+    <p>Change the script, re-record, and the timeline updates itself. The animation, subtitles and music all move with it automatically. That is also how the Hindi film works. Hindi sentences run about 30% longer, so each Hindi line stores a stretch factor, and the animation inside that line slows down to match.</p>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="reel" aria-labelledby="s5">
+  <div class="reel-no"><strong>5</strong>frames</div>
+  <div class="reel-body">
+    <h2 id="s5">Animation, frame by frame</h2>
+    <p>There is no animation software. Each scene is a JavaScript function that answers one question: <em>"what should the screen look like at time t?"</em> It draws shapes and text onto a 1920×1080 canvas (Node.js with Skia, through the <code>@napi-rs/canvas</code> library). The renderer calls it 30 times for every second of film.</p>
+<pre><code><span class="c">// the "A cup of hot …" moment, simplified from scenes/a.mjs</span>
+function game(ctx, S) {
+  <span class="c">// S.at('b', 0, 0.8) goes 0 → 1 over 0.8 s, starting when line [b] is spoken</span>
+  const show = S.at(<span class="k">'b'</span>, 0, 0.8);
+  text(ctx, 'A cup of hot', CX, CY, { size: 92, alpha: show });
+
+  <span class="c">// the answer pops in exactly when the narrator says "tea" (line [c])</span>
+  const pop = S.at(<span class="k">'c'</span>, 0, 0.6, E.outBack);
+  text(ctx, 'tea', CX + 380, CY, { size: 92 * pop, color: YELLOW });
+}</code></pre>
+    <p>Because the scene asks for "when line <code>c</code> starts" rather than "at 61.8 seconds", it never goes out of sync, even after the script changes.</p>
+
+    <div class="demo" aria-label="Interactive demo: scrub through the frames">
+      <canvas id="demo" width="960" height="540" aria-label="A miniature of the scene being drawn for the chosen frame"></canvas>
+      <div class="demo-row">
+        <label for="scrub">frame</label>
+        <input id="scrub" type="range" min="0" max="239" value="96">
+        <output id="tc" for="scrub">frame 96</output>
+        <button id="play" type="button">Play</button>
+      </div>
+      <p class="strip-note">Try it: this miniature is drawn the same way. Drag the slider and the function is called again for that frame number. Line [b] starts at frame 30, and line [c] ("tea") at frame 120.</p>
+    </div>
+
+    <ul class="plain">
+      <li><strong>A visual kit per film:</strong> the palette, fonts, the mascot "Tokku", icons, token chips and probability bars, all written once and reused in every scene.</li>
+      <li><strong>Raw frames to video:</strong> each frame's pixels are piped straight into FFmpeg, which encodes H.264. Four workers each render a quarter of the film at the same time.</li>
+      <li><strong>Scale:</strong> the 17½-minute Hindi film is 31,738 frames and took about 35 minutes to render on a 4-core machine. The scenes for this film are about 1,900 lines of code.</li>
+      <li><strong>Languages:</strong> every word on screen is written as <code>tr('English', 'हिंदी')</code>, so one switch renders the Hindi version of every scene.</li>
+    </ul>
+    <div class="files"><span class="file">engine/video/render.mjs</span><span class="file">videos/…/scenes/*.mjs</span><span class="file">kit.mjs</span><span class="file out">build/video_only.mp4</span></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="reel" aria-labelledby="s6">
+  <div class="reel-no"><strong>6</strong>words</div>
+  <div class="reel-body">
+    <h2 id="s6">Subtitles come from the script, not from listening</h2>
+    <p>We already know every word and when each line is spoken, so subtitles need no speech recognition. Long lines are split at sentence breaks into cues of at most two lines, and two-line cues are balanced so no word sits alone on the second line. The renderer draws them into the frame (burned-in), and the same cues are saved as an <code>.srt</code> caption file for YouTube.</p>
+    <div class="files"><span class="file">engine/audio/subtitles.py</span><span class="file out">subs.json</span><span class="file out">subtitles.srt</span></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="reel" aria-labelledby="s7">
+  <div class="reel-no"><strong>7</strong>sound</div>
+  <div class="reel-body">
+    <h2 id="s7">Music and sound effects, synthesised from maths</h2>
+    <p>The background score is not made by an AI music generator and uses no samples or stock tracks, so there is nothing to license and no copyright claims. It is written as Python code (NumPy and SciPy) that builds every sound from waves:</p>
+    <ul class="plain">
+      <li><strong>Instruments as maths.</strong> A pipe organ is a sum of sine-wave harmonics (the "ranks" of an organ). A piano note is a quick attack with a decaying tone. Choir, strings and timpani are built the same way, and reverb is added by convolution, which simulates a large hall.</li>
+      <li><strong>The score follows the timeline.</strong> Each scene is given a harmony and a level. New layers come in on chosen lines, and a climax (a timpani roll, full organ, choir) is placed so its downbeat lands exactly on the key sentence, for example "That's it. That's the whole trick."</li>
+      <li><strong>Sound effects</strong> (pops when something appears, whooshes on chapter cards, a bell on the subscribe button) are placed on the same cue labels as the animation.</li>
+      <li><strong>Mixing for clear speech.</strong> Whenever the narrator speaks, only the music's speech frequencies (500–4,500 Hz) dip, so the voice stays clear without the music disappearing. The final mix is set to −14 LUFS, YouTube's loudness standard.</li>
+    </ul>
+    <div class="files"><span class="file">engine/audio/organ.py</span><span class="file">music_film.py</span><span class="file">music.py</span><span class="file out">organ_mix.wav</span></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="reel" aria-labelledby="s8">
+  <div class="reel-no"><strong>8</strong>checks</div>
+  <div class="reel-body">
+    <h2 id="s8">Quality checks with a speech-recognition model</h2>
+    <p>Here is where transcription comes in: not to make subtitles, but as a <strong>listening test</strong>. <strong>Whisper</strong> (OpenAI's open-source speech recognizer, MIT licence, run locally through <code>faster-whisper</code>) transcribes our own narration. If Whisper can't understand a word, a viewer probably can't either.</p>
+    <ul class="plain">
+      <li><strong>Pronunciation score.</strong> For every line, the transcript is compared with the script letter by letter (the character error rate). For the Hindi film, the 110 lines averaged 3–6%, and most of that was spelling differences.</li>
+      <li><strong>Catching real problems.</strong> It found that "अटेंशन हेड्स" sounded like "addition hills" and "चैटजीपीटी" like "JGPT". Both were reworded or respelled, and the check was run again.</li>
+      <li><strong>Choosing a voice.</strong> Four Hindi voices were tested the same way, and the clearest one won.</li>
+      <li><strong>Picture and sound.</strong> Contact sheets show one frame from every line, to catch overlapping or untranslated text. Loudness is measured, and a few lines are transcribed from the final MP4 to prove the sound is in sync.</li>
+    </ul>
+    <div class="callout">A machine check is a proxy. It catches unclear words, not a wrong tone of voice, so the creator still watches the film before publishing.</div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="reel" aria-labelledby="s9">
+  <div class="reel-no"><strong>9</strong>deliver</div>
+  <div class="reel-body">
+    <h2 id="s9">Assemble, cut Shorts, make thumbnails</h2>
+    <ul class="plain">
+      <li><strong>The film:</strong> FFmpeg joins the rendered picture and the final mix into an MP4, plus an <code>.srt</code> caption file.</li>
+      <li><strong>Shorts:</strong> chosen line ranges are re-rendered and placed in a vertical 1080×1920 frame with a big title and subtitles. Each Short gets its own score that builds to a climax on its key line.</li>
+      <li><strong>Thumbnails:</strong> drawn with the same visual kit, in two or three variants for YouTube's Test &amp; compare.</li>
+      <li><strong>Upload kit:</strong> title options, description with chapter times taken from the timeline, tags, pinned comment, quiz and settings.</li>
+      <li><strong>Storage:</strong> everything lives in a Git repository. Full-quality masters are split into 95 MB pieces on a separate branch, with join scripts to rebuild them.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="stack" aria-labelledby="tools">
+  <h2 id="tools">The toolbox</h2>
+  <p>Everything runs on one ordinary computer (4 CPU cores, no graphics card). All of it is free and open source, apart from the AI assistant that writes the script and code.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Job</th><th>Tool</th><th>Licence</th></tr></thead>
+      <tbody>
+        <tr><td>Research, script, scene code</td><td>Claude (AI assistant), steered by the creator</td><td>subscription</td></tr>
+        <tr><td>Narration</td><td>Kokoro-82M via kokoro-onnx + ONNX Runtime</td><td>Apache 2.0</td></tr>
+        <tr><td>Text → sounds (incl. Hindi)</td><td>eSpeak NG phonemizer</td><td>GPL-3.0</td></tr>
+        <tr><td>Pronunciation check</td><td>Whisper large-v3-turbo via faster-whisper</td><td>MIT</td></tr>
+        <tr><td>Drawing frames</td><td>Node.js + @napi-rs/canvas (Skia)</td><td>MIT</td></tr>
+        <tr><td>Music and sound</td><td>Python, NumPy, SciPy</td><td>BSD</td></tr>
+        <tr><td>Loudness</td><td>pyloudnorm (EBU R128 / −14 LUFS)</td><td>MIT</td></tr>
+        <tr><td>Encoding, Shorts, captions</td><td>FFmpeg + libx264 + libass</td><td>LGPL / GPL</td></tr>
+        <tr><td>Thumbnails, images</td><td>the same canvas kit, Pillow</td><td>MIT / HPND</td></tr>
+        <tr><td>Fonts</td><td>Baloo 2 (with Devanagari), Inter and others from Google Fonts</td><td>SIL OFL</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="stack" aria-labelledby="numbers">
+  <h2 id="numbers">One film in numbers</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>How ChatGPT Actually Works (Hindi)</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Length</td><td class="num">17:38</td></tr>
+        <tr><td>Scenes / narrated lines</td><td class="num">31 / 110</td></tr>
+        <tr><td>Frames rendered (30 fps, 1920×1080)</td><td class="num">31,738</td></tr>
+        <tr><td>Render time on 4 CPU cores</td><td class="num">≈ 35 min</td></tr>
+        <tr><td>Voice synthesis, all lines</td><td class="num">a few minutes</td></tr>
+        <tr><td>Score + mix</td><td class="num">≈ 5 min</td></tr>
+        <tr><td>Pronunciation check, all lines</td><td class="num">≈ 30 min</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="stack" aria-labelledby="start">
+  <h2 id="start">If you want to try this yourself</h2>
+  <p>Start small. The whole idea fits in five steps, and each one can be a short script:</p>
+  <div class="two">
+    <div><h3>1 · Script with labels</h3><p>Write 10 sentences in a text file, one per line, each with a label.</p></div>
+    <div><h3>2 · Voice + timeline</h3><p>Run a TTS model on each line. Measure each clip and write down when each line starts.</p></div>
+    <div><h3>3 · One scene function</h3><p>Write a function that draws a frame for time <em>t</em>, using "seconds since line X started".</p></div>
+    <div><h3>4 · Frames to video</h3><p>Call it 30 times per second and pipe the frames into FFmpeg.</p></div>
+    <div><h3>5 · Music on cues</h3><p>Start with a simple pad, and add one swell on your most important line.</p></div>
+  </div>
+  <p>The rest (Shorts, translation, thumbnails, quality checks) is the same idea reused: <strong>one clock, and everything else follows it.</strong></p>
+</section>
+
+<footer>First Principles Studio · Every film on the channel is made this way: animation, narration, music and subtitles, all in code.</footer>
+</main>
+
+<script>
+(function () {
+  const cv = document.getElementById('demo'), ctx = cv.getContext('2d');
+  const scrub = document.getElementById('scrub'), out = document.getElementById('tc'), btn = document.getElementById('play');
+  const FPS = 30, LINE_B = 30, LINE_C = 120;      // frames where line [b] and line [c] start
+  const ease = (u) => { u = Math.max(0, Math.min(1, u)); return 1 + 2.7 * Math.pow(u - 1, 3) + 1.7 * Math.pow(u - 1, 2); };
+  const at = (start, f, len) => ease((f - start) / (len * FPS));
+  function draw(f) {
+    const W = cv.width, H = cv.height;
+    ctx.fillStyle = '#0d0f15'; ctx.fillRect(0, 0, W, H);
+    const g = ctx.createRadialGradient(W / 2, H / 2, 20, W / 2, H / 2, W * 0.6); g.addColorStop(0, '#1b2030'); g.addColorStop(1, '#0d0f15');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    ctx.textBaseline = 'middle';
+    const show = Math.max(0, Math.min(1, (f - LINE_B) / (0.8 * FPS)));
+    ctx.globalAlpha = show; ctx.fillStyle = '#f4f3ee'; ctx.font = '700 58px "Bricolage Grotesque", sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText('A cup of hot', W / 2 + 40, H / 2);
+    const pop = f >= LINE_C ? at(LINE_C, f, 0.6) : 0;
+    if (pop <= 0 && show > 0) { if (Math.floor(f / 15) % 2) { ctx.fillStyle = '#FFD84D'; ctx.fillRect(W / 2 + 70, H / 2 + 26, 190, 6); } }
+    if (pop > 0) {
+      ctx.save(); ctx.globalAlpha = Math.min(1, pop * 2); ctx.translate(W / 2 + 165, H / 2); ctx.scale(pop, pop);
+      ctx.fillStyle = '#FFD84D'; ctx.shadowColor = '#FFD84D'; ctx.shadowBlur = 24; ctx.textAlign = 'center'; ctx.fillText('tea', 0, 0); ctx.restore();
+    }
+    ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+    ctx.font = '500 18px "IBM Plex Mono", monospace'; ctx.textAlign = 'left'; ctx.fillStyle = '#9aa1b3';
+    const line = f < LINE_B ? '[a] Let’s start with a game…' : f < LINE_C ? '[b] "A cup of hot..."' : '[c] You probably said tea.';
+    ctx.fillText('narrator: ' + line, 28, H - 34);
+    ctx.textAlign = 'right'; ctx.fillText('frame ' + f + ' · t = ' + (f / FPS).toFixed(2) + ' s', W - 28, 34);
+    out.textContent = 'frame ' + f + ' · ' + (f / FPS).toFixed(2) + ' s';
+  }
+  let playing = null;
+  scrub.addEventListener('input', () => draw(+scrub.value));
+  btn.addEventListener('click', () => {
+    if (playing) { cancelAnimationFrame(playing); playing = null; btn.textContent = 'Play'; return; }
+    btn.textContent = 'Pause'; let last = performance.now(); if (+scrub.value >= +scrub.max) scrub.value = 0;
+    const tick = (now) => {
+      if (now - last >= 1000 / FPS) { last = now; let f = +scrub.value + 1; if (f > +scrub.max) { f = +scrub.max; draw(f); scrub.value = f; playing = null; btn.textContent = 'Play'; return; } scrub.value = f; draw(f); }
+      playing = requestAnimationFrame(tick);
+    };
+    playing = requestAnimationFrame(tick);
+  });
+  draw(+scrub.value);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => draw(+scrub.value));
+})();
+</script>
+</body>
+</html>
