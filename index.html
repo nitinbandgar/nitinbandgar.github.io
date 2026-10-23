@@ -2,26 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="How First Principles Studio films are made in code: script, open-source voice, timeline, frame-by-frame animation, synthesised music and Whisper checks.">
-<meta property="og:title" content="Films made in code · First Principles Studio">
-<meta property="og:description" content="A step-by-step guide to making explainer videos with code and open-source models.">
-<title>Films Made in Code</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="First Principles Studio's content pipeline: how every film, Short, language version and interactive experience is made in code, organised by what you are making, with a production tracker.">
+<meta property="og:title" content="The content pipeline · First Principles Studio">
+<meta property="og:description" content="Pick what you are making, follow the steps, track the production. Films, Shorts and interactive experiences, all made in code.">
+<title>Content Pipeline</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: an edit-suite "production sheet" — one reading column, each stage of the pipeline is a numbered reel with its timecode, the real file it reads or writes, and a plain-language explanation. */
+/* Layout: an edit-suite "production handbook". One reading column: pick a format, follow the shared stages, then
+   manage productions in the tracker. Tokens are shared by light and dark themes. */
 :root {
-  --paper: #f6f4ef;
-  --sheet: #fffdf8;
-  --ink: #1d1f24;
-  --muted: #5d606b;
-  --rule: #ded9cc;
-  --accent: #c2410c;      /* safelight orange, like a darkroom / edit-suite tally light */
-  --accent-soft: #fbe6d8;
-  --code-bg: #f0ece2;
-  --ok: #2f7d4b;
+  --paper: #f6f4ef; --sheet: #fffdf8; --ink: #1d1f24; --muted: #5d606b; --rule: #ded9cc;
+  --accent: #c2410c; --accent-soft: #fbe6d8; --code-bg: #f0ece2; --ok: #2f7d4b; --ok-soft: #e1f0e5;
   --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
   --body: "Literata", Georgia, "Times New Roman", serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -30,20 +24,21 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #15161a; --sheet: #1c1d22; --ink: #ecebe6; --muted: #a3a3ab; --rule: #33343b;
-    --accent: #fb8a4c; --accent-soft: #3a2418; --code-bg: #24252b; --ok: #6cc28c; color-scheme: dark;
+    --accent: #fb8a4c; --accent-soft: #3a2418; --code-bg: #24252b; --ok: #6cc28c; --ok-soft: #1d2d22; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #15161a; --sheet: #1c1d22; --ink: #ecebe6; --muted: #a3a3ab; --rule: #33343b;
-  --accent: #fb8a4c; --accent-soft: #3a2418; --code-bg: #24252b; --ok: #6cc28c; color-scheme: dark;
+  --accent: #fb8a4c; --accent-soft: #3a2418; --code-bg: #24252b; --ok: #6cc28c; --ok-soft: #1d2d22; color-scheme: dark;
 }
 * { box-sizing: border-box; }
+html { height: 100%; scroll-behavior: smooth; }
 body {
   background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.65;
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
   padding-block: 40px 80px; margin: 0;
 }
-main { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+main { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 60px; }
 h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
 h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); font-weight: 800; letter-spacing: -0.02em; }
 h2 { font-size: clamp(1.45rem, 3.4vw, 1.9rem); font-weight: 700; }
@@ -52,36 +47,52 @@ p { margin: 0; }
 .stack { display: flex; flex-direction: column; gap: 14px; }
 .eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
 .lede { font-size: 1.14rem; color: var(--muted); max-width: 62ch; }
-.mono { font-family: var(--mono); font-size: 0.88em; }
-code { font-family: var(--mono); font-size: 0.86em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+.note { font-size: 0.9rem; color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
 pre { margin: 0; overflow-x: auto; background: var(--code-bg); border-radius: 8px; padding: 14px 16px; font-family: var(--mono); font-size: 0.8rem; line-height: 1.6; }
-pre code { background: none; padding: 0; font-size: inherit; }
+pre code { background: none; padding: 0; font-size: inherit; overflow-wrap: normal; }
 .c { color: var(--muted); }
 .k { color: var(--accent); }
 a { color: var(--accent); }
+ul.plain, ol.plain { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.96rem; }
 
-/* the one-paragraph summary */
+/* quick navigation */
+.jump { display: flex; flex-wrap: wrap; gap: 8px; }
+.jump a { font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--sheet); border-radius: 999px; padding: 4px 12px; }
+.jump a:hover { border-color: var(--accent); color: var(--accent); }
+
 .summary { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; }
 .summary p { font-size: 1.05rem; }
 
-/* the pipeline strip */
-.strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
-.stage { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.stage .tc { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); }
-.stage b { font-family: var(--display); font-size: 1rem; }
-.stage span { font-size: 0.84rem; color: var(--muted); line-height: 1.4; }
-.strip-note { font-size: 0.9rem; color: var(--muted); }
+/* format picker */
+.formats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
+.fmt { text-align: left; font: inherit; color: var(--ink); background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; cursor: pointer; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.fmt b { font-family: var(--display); font-size: 1rem; }
+.fmt span { font-size: 0.82rem; color: var(--muted); line-height: 1.35; }
+.fmt .tag { font-family: var(--mono); font-size: 0.68rem; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; }
+.fmt[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.panel { background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.panel[hidden] { display: none; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.facts div { border-top: 2px solid var(--rule); padding-top: 6px; font-size: 0.9rem; }
+.facts dt { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 2px 0 0; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.cols > div { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.prompt { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.prompt pre { white-space: pre-wrap; width: 100%; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 
-/* reels (the steps) */
-.reel { display: grid; grid-template-columns: 64px 1fr; gap: 20px; border-top: 1px solid var(--rule); padding-top: 26px; }
-.reel-no { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); display: flex; flex-direction: column; gap: 2px; padding-top: 6px; }
-.reel-no strong { font-family: var(--display); font-size: 2rem; color: var(--accent); line-height: 1; }
-.reel-body { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+/* stages */
+.stage { display: grid; grid-template-columns: 64px 1fr; gap: 20px; border-top: 1px solid var(--rule); padding-top: 24px; }
+.stage-no { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); display: flex; flex-direction: column; gap: 2px; padding-top: 4px; }
+.stage-no strong { font-family: var(--display); font-size: 2rem; color: var(--accent); line-height: 1; }
+.stage-body { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 .files { display: flex; flex-wrap: wrap; gap: 8px; }
-.file { font-family: var(--mono); font-size: 0.76rem; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; color: var(--muted); background: var(--sheet); }
+.file { font-family: var(--mono); font-size: 0.76rem; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; color: var(--muted); background: var(--sheet); overflow-wrap: anywhere; }
 .file.out { border-color: var(--accent); color: var(--accent); }
-ul.plain { margin: 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; }
-.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.96rem; }
+.gate { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.74rem; color: var(--ok); background: var(--ok-soft); border-radius: 999px; padding: 2px 10px; width: fit-content; }
 
 /* tables */
 .table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--sheet); }
@@ -89,367 +100,752 @@ table { border-collapse: collapse; width: 100%; font-size: 0.9rem; min-width: 56
 th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
 th { font-family: var(--display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 tr:last-child td { border-bottom: none; }
-td.num { font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 0.82rem; white-space: nowrap; }
+.pill { font-family: var(--mono); font-size: 0.72rem; border: 1px solid var(--rule); border-radius: 999px; padding: 1px 9px; color: var(--muted); white-space: nowrap; }
+.pill.live { border-color: var(--ok); color: var(--ok); }
+.pill.wait { border-color: var(--accent); color: var(--accent); }
+.nowrap { white-space: nowrap; }
 
-/* frame-by-frame mini demo */
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.two > div { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+
+/* demo */
 .demo { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
 .demo canvas { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 6px; background: #0d0f15; display: block; }
-.demo-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .demo label { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
-.demo input[type=range] { flex: 1 1 220px; accent-color: var(--accent); }
+.demo input[type=range] { flex: 1 1 200px; accent-color: var(--accent); min-width: 0; }
 .demo output { font-family: var(--mono); font-size: 0.82rem; font-variant-numeric: tabular-nums; min-width: 15ch; }
-button { font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--accent); background: transparent; color: var(--accent); padding: 5px 12px; border-radius: 6px; cursor: pointer; }
-button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
-.two > div { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 20px; }
+/* controls */
+button, .btn { font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--accent); background: transparent; color: var(--accent); padding: 5px 12px; border-radius: 6px; cursor: pointer; }
+button.solid { background: var(--accent); color: var(--sheet); }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+input[type=text], input[type=date], select, textarea { font: inherit; font-size: 0.92rem; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 6px 10px; min-width: 0; }
 
+/* tracker */
+.tracker-form { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr) minmax(0, 1fr) auto; gap: 8px; align-items: end; }
+.tracker-form label { display: flex; flex-direction: column; gap: 4px; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+.tracker-form label { min-width: 0; }
+.tracker-form input, .tracker-form select { width: 100%; }
+.prods { display: flex; flex-direction: column; gap: 12px; }
+.prod { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.prod-head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: baseline; justify-content: space-between; }
+.prod-head h3 { overflow-wrap: anywhere; }
+.bar { height: 6px; background: var(--code-bg); border-radius: 999px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--ok); }
+.checks { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 4px 14px; font-size: 0.9rem; }
+.checks label { display: flex; gap: 8px; align-items: flex-start; cursor: pointer; }
+.checks input { margin-top: 5px; accent-color: var(--ok); }
+.checks .gatebox { color: var(--ok); }
+.prod textarea { width: 100%; min-height: 56px; resize: vertical; }
+.empty { border: 1px dashed var(--rule); border-radius: 10px; padding: 18px; color: var(--muted); font-size: 0.95rem; }
+
+footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 20px; display: flex; flex-direction: column; gap: 6px; }
+
+@media (max-width: 620px) { .tracker-form { grid-template-columns: 1fr 1fr; } .tracker-form .title { grid-column: 1 / -1; } }
 @media (max-width: 520px) {
-  .reel { grid-template-columns: 1fr; gap: 8px; }
-  .reel-no { flex-direction: row; align-items: baseline; gap: 10px; }
+  .stage { grid-template-columns: 1fr; gap: 8px; }
+  .stage-no { flex-direction: row; align-items: baseline; gap: 10px; }
 }
-@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
 </style>
 </head>
 <body>
 <main>
 
 <header class="stack">
-  <div class="eyebrow">First Principles Studio · production notes</div>
-  <h1>Films made in code</h1>
-  <p class="lede">How every First Principles video is produced: no camera, no editing timeline, no stock footage. Each film is a set of text files and programs that a computer turns into an MP4. This page walks through it step by step, using the real files from <em>How ChatGPT Actually Works</em> and its Hindi version.</p>
+  <div class="eyebrow">First Principles Studio · production handbook</div>
+  <h1>The content pipeline</h1>
+  <p class="lede">How we turn a question into a film, a Short, a Hindi version or an interactive experience, all made in code, with no camera and no editing timeline. Pick what you're making, follow the steps, and track each production at the bottom of this page.</p>
+  <nav class="jump" aria-label="On this page">
+    <a href="#pick">1 · Pick a format</a>
+    <a href="#process">2 · How every film is made</a>
+    <a href="#ingredients">3 · Ingredients</a>
+    <a href="#rules">4 · Quality rules</a>
+    <a href="#tracker">5 · Production tracker</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#ideas">Ideas reviewed</a>
+    <a href="#where">Where things live</a>
+  </nav>
 </header>
 
 <section class="summary" aria-label="In one paragraph">
-  <div class="eyebrow">In one paragraph</div>
-  <p>We write a script as a text file, with every sentence tagged with a label. An open-source text-to-speech model reads each sentence aloud, and the program measures how long each one takes. That gives a <strong>timeline</strong>: the exact second every sentence starts. Then everything else follows that clock. The animation is code that draws each frame (30 per second) based on which sentence is playing. The music is synthesised from maths, with its big moments placed on the key sentences. Subtitles come straight from the script. Finally, a speech-recognition model listens to our own audio to check the pronunciation, and FFmpeg stitches picture and sound into the final video.</p>
+  <div class="eyebrow">The idea in one paragraph</div>
+  <p>A film starts as a <strong>text script</strong> with a short label on every sentence. A voice model reads each sentence, and the program notes the exact second each one starts. That list of times is the film's <strong>clock</strong>. Everything else follows the clock: the animation is code that draws each frame from "which sentence is playing", the music puts its big moments on chosen sentences, and the subtitles come straight from the script. Change a sentence and everything moves with it. Claude (the AI assistant) does the research, writing and code. <strong>You stay the editor:</strong> you approve the story and the look before anything is built, and you watch the film before it goes out.</p>
 </section>
 
-<section class="stack" aria-label="The pipeline">
-  <h2>The pipeline at a glance</h2>
-  <div class="strip">
-    <div class="stage"><span class="tc">01</span><b>Story</b><span>research, outline, beats</span></div>
-    <div class="stage"><span class="tc">02</span><b>Script</b><span>narration.txt with cue labels</span></div>
-    <div class="stage"><span class="tc">03</span><b>Voice</b><span>Kokoro TTS, one clip per line</span></div>
-    <div class="stage"><span class="tc">04</span><b>Timeline</b><span>timeline.json, the master clock</span></div>
-    <div class="stage"><span class="tc">05</span><b>Animation</b><span>code draws every frame</span></div>
-    <div class="stage"><span class="tc">06</span><b>Subtitles</b><span>from the script + timeline</span></div>
-    <div class="stage"><span class="tc">07</span><b>Music &amp; sound</b><span>synthesised, placed on cues</span></div>
-    <div class="stage"><span class="tc">08</span><b>Checks</b><span>Whisper, frames, loudness</span></div>
-    <div class="stage"><span class="tc">09</span><b>Assemble</b><span>FFmpeg: film, Shorts, thumbnails</span></div>
+<!-- ============================================================ 1. FORMATS -->
+<section class="stack" aria-labelledby="pick">
+  <div class="eyebrow">Step 1</div>
+  <h2 id="pick">What are you making?</h2>
+  <p>Every format uses the same seven-stage process (<a href="#process">step 2</a>). What changes is the story shape, the extra ingredients and the checks. Pick one to see its recipe.</p>
+
+  <div class="formats" role="tablist" aria-label="Formats">
+    <button class="fmt" role="tab" id="t-explainer" aria-controls="p-explainer" aria-selected="true"><span class="tag">Film · First Principles</span><b>Explainer film</b><span>"How does this actually work?"</span></button>
+    <button class="fmt" role="tab" id="t-evidence" aria-controls="p-evidence" aria-selected="false"><span class="tag">Film · In Context</span><b>Evidence film</b><span>"Why is this happening?"</span></button>
+    <button class="fmt" role="tab" id="t-business" aria-controls="p-business" aria-selected="false"><span class="tag">Film · Business, Unpacked</span><b>Business film</b><span>"What's the machine under this business?"</span></button>
+    <button class="fmt" role="tab" id="t-imagine" aria-controls="p-imagine" aria-selected="false"><span class="tag">Film · Imagine</span><b>Past or future film</b><span>"What would it look and feel like?"</span></button>
+    <button class="fmt" role="tab" id="t-shorts" aria-controls="p-shorts" aria-selected="false"><span class="tag">From every film</span><b>Shorts</b><span>one idea, vertical, under a minute</span></button>
+    <button class="fmt" role="tab" id="t-language" aria-controls="p-language" aria-selected="false"><span class="tag">From any film</span><b>Hindi version</b><span>the same film in another language</span></button>
+    <button class="fmt" role="tab" id="t-lab" aria-controls="p-lab" aria-selected="false"><span class="tag">Interactive · Lab</span><b>Lab experience</b><span>a 3D world you enter and break</span></button>
+    <button class="fmt" role="tab" id="t-figure" aria-controls="p-figure" aria-selected="false"><span class="tag">Interactive · planned</span><b>Interactive figure</b><span>one machine you click through</span></button>
   </div>
-  <p class="strip-note">Steps 5, 6 and 7 all read the same timeline from step 4. That is why the picture, words and music stay in sync without anyone dragging clips around. When a history beat needs real film of the past, licence-checked archive footage plugs into the same clock (<a href="#archive">see below</a>).</p>
+
+  <!-- explainer -->
+  <div class="panel" role="tabpanel" id="p-explainer" aria-labelledby="t-explainer" data-format="explainer">
+    <h3>Explainer film: "How does this actually work?"</h3>
+    <p>Start from a question a normal person asks, break it down to basics, and let the viewer discover the idea. Technical words come only after the idea has landed.</p>
+    <dl class="facts">
+      <div><dt>Length</dt><dd>9–15 min</dd></div>
+      <div><dt>Examples</dt><dd>How ChatGPT Actually Works · Images From Noise · Money vs a WhatsApp Message</dd></div>
+      <div><dt>Approvals</dt><dd>story, then look</dd></div>
+    </dl>
+    <div class="cols">
+      <div>
+        <h3>What makes it work</h3>
+        <ul class="plain">
+          <li>Everyday examples (a cup of hot… chai, Sachin Tendulkar, a viva exam).</li>
+          <li>A device that runs through the film, and one moment where the idea is <em>shown</em>, not said.</li>
+          <li>Where it can, the explanation is a recognisable machine, with a window into the part doing the work.</li>
+          <li>Every number on screen comes from one small model, so the numbers never disagree.</li>
+          <li>Optional: a tiny model trained for the film, so it can show real outputs (as in Images From Noise).</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Done when</h3>
+        <ul class="plain">
+          <li>The critic can restate the message from the frames alone.</li>
+          <li>Every fact in the script has its source in the description.</li>
+          <li>Film, chapter files, Shorts, thumbnails and the upload kit are ready.</li>
+          <li>The master is on the masters branch.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt">
+      <div class="eyebrow">Kick it off in Claude Code</div>
+<pre><code>/make-film An explainer for the First Principles playlist: "[the question]". Audience: curious people with no background. About [12] minutes. Use the channel narrator and the Organ &amp; Time score. Stop for my approval after the story and again after the look.</code></pre>
+      <button class="copy" type="button">Copy prompt</button>
+    </div>
+    <div class="row"><button class="track solid" type="button">Track a new explainer</button></div>
+  </div>
+
+  <!-- evidence -->
+  <div class="panel" role="tabpanel" id="p-evidence" aria-labelledby="t-evidence" data-format="evidence" hidden>
+    <h3>Evidence film (In Context): "Why is this happening?"</h3>
+    <p>Not news. Several headlines that look separate, the force that connects them, the system explained from basics, then back to the headlines, now making sense. Calm, fair, sceptical; the viewer decides.</p>
+    <dl class="facts">
+      <div><dt>Length</dt><dd>12–18 min</dd></div>
+      <div><dt>Example</dt><dd>The AI Race Is Becoming an Electricity Race</dd></div>
+      <div><dt>Approvals</dt><dd>dossier + evidence + script, before any build</dd></div>
+    </dl>
+    <div class="cols">
+      <div>
+        <h3>Extra ingredients and rules</h3>
+        <ul class="plain">
+          <li><strong>Real evidence only:</strong> real report pages with the quoted line highlighted; headlines as clean citation cards (headline, outlet, date). No fake newspapers or AI imagery posing as evidence.</li>
+          <li><strong>Every claim has a class:</strong> measured fact, official projection, company announcement, estimate, analysis, or contested. The narration says which ("IEA projects…").</li>
+          <li>Announcements say their stage: announced, under construction, operating.</li>
+          <li><strong>The counterargument</strong> gets its own section, with the music stopped.</li>
+          <li>"Information as of [date]" on screen and in the description, plus a corrections log.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Done when</h3>
+        <ul class="plain">
+          <li>You approved the research dossier, the evidence wall, the fact table and the script.</li>
+          <li>Every on-screen claim shows its source and date.</li>
+          <li>The counterargument is fair enough that a critic of the thesis would accept it.</li>
+          <li>Film, Shorts, thumbnails, upload kit with sources and the corrections note are ready.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt">
+      <div class="eyebrow">Kick it off in Claude Code</div>
+<pre><code>/make-film An In Context film: "[the headlines or question]". Information as of [date]. First build the research dossier, an evidence wall of real page captures, a fact table with a claim class for every claim, and the script. Stop for my review before any scene code.</code></pre>
+      <button class="copy" type="button">Copy prompt</button>
+    </div>
+    <div class="row"><button class="track solid" type="button">Track a new evidence film</button></div>
+  </div>
+
+  <!-- business -->
+  <div class="panel" role="tabpanel" id="p-business" aria-labelledby="t-business" data-format="business" hidden>
+    <h3>Business film (Business, Unpacked): "What's the machine underneath?"</h3>
+    <p>How a remarkable business actually works: the customer's problem, the product, the technology, why customers pay, how money flows, the suppliers, the flywheel, the moat, the risks, and what it would take to build it again. Not a company profile, not stock tips.</p>
+    <dl class="facts">
+      <div><dt>Length</dt><dd>15–20 min</dd></div>
+      <div><dt>Example</dt><dd>Why Can Only One Company Build This Machine? (ASML)</dd></div>
+      <div><dt>Approvals</dt><dd>dossier + script, then look</dd></div>
+    </dl>
+    <div class="cols">
+      <div>
+        <h3>Extra ingredients and rules</h3>
+        <ul class="plain">
+          <li><strong>The Business Engine</strong> diagram, built on screen in every episode.</li>
+          <li><strong>"What could break the engine?"</strong> gets its own section, with the music stripped back. Never "unstoppable".</li>
+          <li>On screen and in the description: "This film explains a business. It is not investment advice."</li>
+          <li>Numbers only when they reveal structure, each with "as of [quarter]".</li>
+          <li>Code-built machines are labelled "conceptual illustration". No fake logos.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Done when</h3>
+        <ul class="plain">
+          <li>The Business Engine is complete and the red-team section is honest.</li>
+          <li>The not-investment-advice note is on screen and in the description.</li>
+          <li>Film, Shorts, thumbnails and upload kit are ready.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt">
+      <div class="eyebrow">Kick it off in Claude Code</div>
+<pre><code>/make-film A Business, Unpacked film on [company]: what is the machine underneath it? Build the Business Engine and a "what could break it" section. Data as of [quarter]. Stop for my review of the dossier and script before any scene code.</code></pre>
+      <button class="copy" type="button">Copy prompt</button>
+    </div>
+    <div class="row"><button class="track solid" type="button">Track a new business film</button></div>
+  </div>
+
+  <!-- imagine -->
+  <div class="panel" role="tabpanel" id="p-imagine" aria-labelledby="t-imagine" data-format="imagine" hidden>
+    <h3>Imagine (Past or Future): "What would it actually look and feel like?"</h3>
+    <p>A world we can't visit, built from evidence plus careful imagination, always labelled apart. <strong>Past</strong> reconstructs (Kurukshetra, through one ordinary soldier). <strong>Future</strong> is evidence-based time travel: one ordinary day in one plausible future (India 2040).</p>
+    <dl class="facts">
+      <div><dt>Length</dt><dd>13–20 min</dd></div>
+      <div><dt>Examples</dt><dd>Kurukshetra · India 2040</dd></div>
+      <div><dt>Approvals</dt><dd>dossier + design, then look</dd></div>
+    </dl>
+    <div class="cols">
+      <div>
+        <h3>Extra ingredients and rules</h3>
+        <ul class="plain">
+          <li>Painted worlds drawn in code: streets, homes, people, light that changes through the day.</li>
+          <li><strong>Labels everywhere:</strong> every imagined frame says IMAGINED; every real insert shows its source and date.</li>
+          <li><strong>Future:</strong> the loop (freeze, rewind to today's evidence, fast-forward back), "one India that could exist", never "will", and three possible futures at the end.</li>
+          <li><strong>Past:</strong> what the texts say, what is interpretation, what is invented, kept distinct. Real archive film for any "then" beats that were filmed.</li>
+          <li>No clichés: flying cars, neon cities, holograms, fake Devanagari.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Done when</h3>
+        <ul class="plain">
+          <li>Every frame is clearly imagined or clearly evidence.</li>
+          <li>Each future element answers: what must become true, who builds and pays, what can go wrong.</li>
+          <li>Film, Shorts, thumbnails and upload kit are ready.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt">
+      <div class="eyebrow">Kick it off in Claude Code</div>
+<pre><code>/make-film An Imagine · [Past | Future] film: "[the world or the day]". Keep evidence and imagination labelled apart on every frame. Stop for my approval after the dossier and design, and again after the look.</code></pre>
+      <button class="copy" type="button">Copy prompt</button>
+    </div>
+    <div class="row"><button class="track solid" type="button">Track a new Imagine film</button></div>
+  </div>
+
+  <!-- shorts -->
+  <div class="panel" role="tabpanel" id="p-shorts" aria-labelledby="t-shorts" data-format="shorts" hidden>
+    <h3>Shorts: one idea, vertical, under a minute</h3>
+    <p>Cut from a finished film. Chosen sentences are re-rendered in a 1080×1920 frame with a big title on top and large subtitles below, and each Short gets its own music that builds to its key line.</p>
+    <dl class="facts">
+      <div><dt>Length</dt><dd>15–60 s each</dd></div>
+      <div><dt>How many</dt><dd>3–7 per film</dd></div>
+      <div><dt>Examples</dt><dd>every film's <code>shorts/</code> folder</dd></div>
+    </dl>
+    <div class="cols">
+      <div>
+        <h3>Rules</h3>
+        <ul class="plain">
+          <li>One idea per Short. A hook in the first 1–2 seconds.</li>
+          <li>Rearranged for vertical, never just cropped. Text stays in the middle of the frame, away from the app's buttons.</li>
+          <li>It must make sense with the sound off.</li>
+          <li>End by pointing to the full film.</li>
+        </ul>
+<pre><code>python3 videos/<span class="k">&lt;film&gt;</span>/shorts.py</code></pre>
+      </div>
+      <div>
+        <h3>Done when</h3>
+        <ul class="plain">
+          <li>Each Short was checked on its own stills, not only the film's.</li>
+          <li>Each has a title, a description and a link to the full film.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt">
+      <div class="eyebrow">Kick it off in Claude Code</div>
+<pre><code>/make-film Make [3] Shorts from videos/[film]: one idea each, a hook in the first 2 seconds, rearranged for 9:16, readable with the sound off, ending on the full film.</code></pre>
+      <button class="copy" type="button">Copy prompt</button>
+    </div>
+    <div class="row"><button class="track solid" type="button">Track a new set of Shorts</button></div>
+  </div>
+
+  <!-- language -->
+  <div class="panel" role="tabpanel" id="p-language" aria-labelledby="t-language" data-format="language" hidden>
+    <h3>Hindi version: the same film in another language</h3>
+    <p>A second script and voice, with every word on screen written in both languages, so one switch renders the whole film in Hindi. Hindi sentences run about 30% longer, so each one stores a stretch factor and the animation inside it slows to match.</p>
+    <dl class="facts">
+      <div><dt>Voice</dt><dd>Kokoro <code>hm_psi</code> at speed 0.9</dd></div>
+      <div><dt>Example</dt><dd>ChatGPT Asal Mein Kaise Kaam Karta Hai (17:38)</dd></div>
+      <div><dt>Extra check</dt><dd>Whisper pronunciation test</dd></div>
+    </dl>
+    <div class="cols">
+      <div>
+        <h3>Steps</h3>
+        <ol class="plain">
+          <li>Write <code>narration_hi.txt</code> with the same labels as the English script.</li>
+          <li>Write every on-screen word as <code>tr('English', 'हिंदी')</code>.</li>
+          <li>Record and time it against the English timeline, then render with the Hindi switch on.</li>
+          <li>Run the Whisper listening test, and respell any word it mishears.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Done when</h3>
+        <ul class="plain">
+          <li>No English left on screen (checked on contact sheets).</li>
+          <li>Pronunciation error rate is low on every line, and the misheard words were fixed.</li>
+          <li>Hindi thumbnails, upload kit (<code>youtube_hi.md</code>) and Hindi Shorts are ready.</li>
+        </ul>
+      </div>
+    </div>
+    <pre><code>BUILD_DIR=build_hi NARRATION=narration_hi.txt TTS_LANG=hi VOICE=hm_psi \
+  SPEED=0.9 REF_TIMELINE=build/timeline.json python3 engine/audio/tts.py videos/<span class="k">&lt;film&gt;</span>
+BUILD_DIR=build_hi FP_LANG=hi scripts/render_all.sh videos/<span class="k">&lt;film&gt;</span></code></pre>
+    <div class="prompt">
+      <div class="eyebrow">Kick it off in Claude Code</div>
+<pre><code>/make-film Make the Hindi version of videos/[film]: narration_hi.txt with the same labels, every on-screen word in Hindi, the hm_psi voice at 0.9, a Whisper pronunciation check on every line, then Hindi Shorts, thumbnails and youtube_hi.md.</code></pre>
+      <button class="copy" type="button">Copy prompt</button>
+    </div>
+    <div class="row"><button class="track solid" type="button">Track a new language version</button></div>
+  </div>
+
+  <!-- lab -->
+  <div class="panel" role="tabpanel" id="p-lab" aria-labelledby="t-lab" data-format="lab" hidden>
+    <h3>Lab experience: a world you enter, take apart and break</h3>
+    <p>The interactive home of the channel at <a href="https://firstprinciplesstudio.in">firstprinciplesstudio.in</a>. The visitor is an actor, not a passenger: <strong>predict, act, see the consequence, ask why</strong>. Built in a separate repository (<code>FirstPrinciplesInteractive</code>) with Next.js and 3D.</p>
+    <dl class="facts">
+      <div><dt>Live</dt><dd>Inside AI · HUMAN · India 2040 · Inside ASML · Kurukshetra</dd></div>
+      <div><dt>Modes</dt><dd>Story · Explore · Map · Break it · Why? · Evidence</dd></div>
+      <div><dt>Approvals</dt><dd>plan, then expert review</dd></div>
+    </dl>
+    <div class="cols">
+      <div>
+        <h3>Rules</h3>
+        <ul class="plain">
+          <li>A meaningful action every 20–45 seconds: one that changes what the visitor understands.</li>
+          <li>Direct manipulation beats buttons: drag the mirror into the beam, turn the valve.</li>
+          <li>One model of the system drives every view, so story, explore and map always agree.</li>
+          <li>Every claim carries a trust label; a Map mode works without 3D.</li>
+          <li>Narration uses the same channel voice.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Done when</h3>
+        <ul class="plain">
+          <li>The interaction audit passes and the tests are green.</li>
+          <li>It works on a phone and without WebGL (Map mode).</li>
+          <li>The sources and trust labels are complete, and the expert-review status is shown.</li>
+          <li>It's deployed and linked from the matching film.</li>
+        </ul>
+      </div>
+    </div>
+    <pre><code>npm run dev                 <span class="c"># http://localhost:3000</span>
+npm run typecheck &amp;&amp; npm test
+npm run audit:interaction   <span class="c"># fails on passive stretches &gt; 45 s</span>
+npm run build:static        <span class="c"># → out/ for Hostinger</span></code></pre>
+    <div class="prompt">
+      <div class="eyebrow">Kick it off in Claude Code (in FirstPrinciplesInteractive)</div>
+<pre><code>Plan a new Lab experience on [topic] that meets docs/LAB-PRINCIPLES.md: the visitor predicts, acts and sees the consequence; one model drives every view; every claim has a trust label. Write the plan first and stop for my approval before building.</code></pre>
+      <button class="copy" type="button">Copy prompt</button>
+    </div>
+    <div class="row"><button class="track solid" type="button">Track a new Lab experience</button></div>
+  </div>
+
+  <!-- figure -->
+  <div class="panel" role="tabpanel" id="p-figure" aria-labelledby="t-figure" data-format="figure" hidden>
+    <h3>Interactive figure (planned): one machine you click through</h3>
+    <p>Lighter than a Lab experience: one mechanism as a recognisable machine. Step buttons (only the next one is live), a window cut into the part doing the work, and live numbers from one model of the real thing. The same figure can be recorded as a Short. Made with the free <a href="https://github.com/wheresryan22/anatomy">anatomy</a> skill (MIT licence).</p>
+    <dl class="facts">
+      <div><dt>Status</dt><dd>planned, no pilot yet</dd></div>
+      <div><dt>First pilot</dt><dd>ASML's tin-droplet light source</dd></div>
+      <div><dt>Build time</dt><dd>about an hour</dd></div>
+    </dl>
+    <div class="cols">
+      <div>
+        <h3>Rules</h3>
+        <ul class="plain">
+          <li>The object is the explanation: a real machine, not boxes and arrows.</li>
+          <li>Sped-up or slowed time carries a badge (×4, ×1/20); the clock still shows real seconds.</li>
+          <li>One sentence under the figure: the big idea.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Done when</h3>
+        <ul class="plain">
+          <li>A first-time visitor gets the big idea by pressing through it.</li>
+          <li>Its numbers match the film's sources.</li>
+          <li>It's linked from the film's description.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt">
+      <div class="eyebrow">Kick it off in Claude Code (with the anatomy skill installed)</div>
+<pre><code>/anatomy Build an interactive figure that answers "[the question]" as a real machine: step buttons, a window into the working part, every number from one small model of the real thing (sources from videos/[film]), and one line under it with the big idea.</code></pre>
+      <button class="copy" type="button">Copy prompt</button>
+    </div>
+    <div class="row"><button class="track solid" type="button">Track a new figure</button></div>
+  </div>
 </section>
 
-<!-- 1 -->
-<section class="reel" aria-labelledby="s1">
-  <div class="reel-no"><strong>1</strong>story</div>
-  <div class="reel-body">
-    <h2 id="s1">Research and story</h2>
-    <p>Everything starts with a question a normal viewer would ask ("how does ChatGPT actually work?"). The AI assistant (Claude) researches it from primary sources (the 2017 <em>Attention Is All You Need</em> paper, the GPT-3 paper, and so on), then builds the story in layers:</p>
+<!-- ============================================================ 2. PROCESS -->
+<section class="stack" aria-labelledby="process">
+  <div class="eyebrow">Step 2</div>
+  <h2 id="process">How every film is made: seven stages</h2>
+  <p>One Claude agent plays seven roles, one after another. Each role has its own job, writes its own file, and passes a check before the next one starts. This procedure is saved as a Claude Code skill: type <code>/make-film</code> in the studio repository. Everything a stage decides is written to <code>videos/&lt;film&gt;/review/</code>, so work can pick up again in a new session.</p>
+</section>
+
+<section class="stage" aria-labelledby="st1">
+  <div class="stage-no"><strong>1</strong>director</div>
+  <div class="stage-body">
+    <h3 id="st1">Story: decide what the film says</h3>
     <ul class="plain">
-      <li><strong>Chapters:</strong> the big ideas in the order a beginner needs them (the guessing game → words become numbers → context → attention → layers → training → assistant → mistakes → recap).</li>
-      <li><strong>Beats:</strong> inside each chapter, one idea per beat, each with a concrete example from the viewer's life: "a cup of hot… chai", Sachin Tendulkar, a rishta website, a viva exam.</li>
-      <li><strong>Hook and payoff:</strong> a question in the first 30 seconds, and a last line that answers it ("Attention, really, is all you need").</li>
-      <li><strong>Fact-check:</strong> every number in the script (175 billion parameters, 300 billion tokens) is checked against its source and listed in the description.</li>
+      <li>The core message in one sentence. If it needs two, it's two films.</li>
+      <li>Chapters and beats: for each beat, what the viewer now knows. A hook in the first two seconds.</li>
+      <li>Research from primary sources; every number gets its source and date. Missing evidence is found or asked for, never invented.</li>
+      <li>A first script, sized to the length: our films run 108–134 spoken words per minute.</li>
     </ul>
-    <div class="callout">The creator stays the editor: you pick the topic, approve the outline, and reject anything that doesn't feel right. In this channel, for example, the music went through eight rounds before the "Organ &amp; Time" style was approved.</div>
+    <span class="gate">✓ You approve the story</span>
+    <div class="files"><span class="file out">review/APPROACH_REVIEW.md</span><span class="file out">review/RESEARCH_DOSSIER.md</span><span class="file out">narration.txt</span></div>
   </div>
 </section>
 
-<!-- 2 -->
-<section class="reel" aria-labelledby="s2">
-  <div class="reel-no"><strong>2</strong>script</div>
-  <div class="reel-body">
-    <h2 id="s2">The script is a text file with labels</h2>
-    <p>The script is plain text, but every sentence has a short label in brackets. The labels are what the animation and music hook onto later. A scene starts with <code>@</code>, and a <code>~</code> number is the pause after a line.</p>
-    <div class="files"><span class="file">narration.txt</span><span class="file">narration_hi.txt</span></div>
+<section class="stage" aria-labelledby="st2">
+  <div class="stage-no"><strong>2</strong>art director</div>
+  <div class="stage-body">
+    <h3 id="st2">Look: decide how it looks, moves and sounds</h3>
+    <ul class="plain">
+      <li>Colours with meanings, fonts with roles, the frame grid and safe areas.</li>
+      <li>The motion language: one easing style, a basic timing unit, how scenes hand over to each other.</li>
+      <li>The storyboard: per scene, its composition, its one main technique and how it hands over to the next.</li>
+      <li>Where every real image comes from (page captures, licensed photos, archive film), and what this film must avoid.</li>
+    </ul>
+    <span class="gate">✓ You approve the look</span>
+    <div class="files"><span class="file out">review/PRODUCTION_DESIGN.md</span></div>
+  </div>
+</section>
+
+<section class="stage" aria-labelledby="st3">
+  <div class="stage-no"><strong>3</strong>animator</div>
+  <div class="stage-body">
+    <h3 id="st3">Build: voice, clock, animation, music</h3>
+    <ul class="plain">
+      <li><strong>Script with labels.</strong> Each sentence has a short label like <code>[c]</code>; a scene starts with <code>@</code>; <code>~1.6</code> is the pause after a line; <code>{…}</code> is how to say a hard word.</li>
+      <li><strong>Voice.</strong> Kokoro (free, open, runs on a normal computer) reads each line into its own file, so changing one sentence re-records only that sentence. The channel narrator is a 65/35 blend of a Hindi and an American voice.</li>
+      <li><strong>Clock.</strong> The program measures each clip and writes when every line starts. That file drives everything else.</li>
+      <li><strong>Animation.</strong> Each scene is a function that answers "what does the screen look like at time t?", drawn 30 times a second. Scenes ask "when does line c start?", never "at 61.8 s", so they stay in sync when the script changes.</li>
+      <li><strong>Music and sound.</strong> The "Organ &amp; Time" score is written in code from sound waves, with its big moments placed on chosen lines. Under speech, only the music's voice frequencies dip.</li>
+      <li><strong>Subtitles</strong> come straight from the script and the clock, so no speech recognition is needed.</li>
+    </ul>
 <pre><code><span class="k">@ game</span> lead=0.4 tail=0.6
-- <span class="k">[a]</span> Let's start with a game. I'll give you half a sentence, and you complete it. <span class="c">~0.4</span>
-- <span class="k">[b]</span> "A cup of hot..." <span class="c">~1.6</span>          <span class="c"># 1.6 s silence: the viewer guesses</span>
-- <span class="k">[c]</span> You probably said tea. Or maybe coffee. <span class="c">~0.4</span>
-- <span class="k">[d]</span> Now try this one. "Sachin Tendulkar is a famous..." <span class="c">~1.4</span>
-- <span class="k">[e]</span> Cricketer! Easy. <span class="c">~0.5</span></code></pre>
-    <p>When a word is hard to pronounce, the line can carry a spoken version in braces: <code>{…}</code>. The subtitles show the written text, and the voice reads the braces.</p>
-  </div>
-</section>
+- <span class="k">[b]</span> "A cup of hot..." <span class="c">~1.6</span>        <span class="c"># 1.6 s of silence: the viewer guesses</span>
+- <span class="k">[c]</span> You probably said tea. <span class="c">~0.4</span>
 
-<!-- 3 -->
-<section class="reel" aria-labelledby="s3">
-  <div class="reel-no"><strong>3</strong>voice</div>
-  <div class="reel-body">
-    <h2 id="s3">The narration: an open-source voice model</h2>
-    <p>The voice is <strong>Kokoro</strong>, an open-weights text-to-speech model (82 million parameters, Apache 2.0 licence) that runs on an ordinary CPU through ONNX Runtime. No cloud service, no per-minute cost.</p>
-    <ul class="plain">
-      <li><strong>One clip per line.</strong> Each sentence is synthesised separately and saved as its own WAV file. Changing one sentence only re-records that sentence.</li>
-      <li><strong>A custom voice by blending.</strong> Kokoro voices are vectors, so they can be mixed. The channel's narrator is 65% of a Hindi male voice and 35% of an American male voice, which gives an Indian-English accent.</li>
-      <li><strong>Pronunciation fixes.</strong> Words the model gets wrong are respelled before synthesis ("ChatGPT" → "Chat G.P.T."; for Hindi, "चैट जी पी टी"). A phonemizer (eSpeak NG) turns the text into sounds first, including Hindi.</li>
-      <li><strong>Disclosure.</strong> It is a synthetic voice, and the description says so.</li>
-    </ul>
-    <div class="files"><span class="file">engine/audio/tts.py</span><span class="file out">build/voice/*.wav</span><span class="file out">build/voice.wav</span></div>
-  </div>
-</section>
-
-<!-- 4 -->
-<section class="reel" aria-labelledby="s4">
-  <div class="reel-no"><strong>4</strong>clock</div>
-  <div class="reel-body">
-    <h2 id="s4">The timeline: one clock for everything</h2>
-    <p>While recording, the program measures each clip and lays the lines end to end with their pauses. The result is a small file that says exactly when every scene and every line starts. This file is the heart of the system.</p>
-    <div class="files"><span class="file out">build/timeline.json</span></div>
-<pre><code>{ "id": "game", "start": <span class="k">53.567</span>, "dur": 30.6,
-  "lines": [
-    { "label": "a", "start": 0.4,  "end": 4.9 },
-    { "label": "b", "start": 5.3,  "end": 6.6 },   <span class="c">// "A cup of hot..."</span>
-    { "label": "c", "start": 8.2,  "end": 10.9 },  <span class="c">// "You probably said tea."</span>
-    ...</code></pre>
-    <p>Change the script, re-record, and the timeline updates itself. The animation, subtitles and music all move with it automatically. That is also how the Hindi film works. Hindi sentences run about 30% longer, so each Hindi line stores a stretch factor, and the animation inside that line slows down to match.</p>
-  </div>
-</section>
-
-<!-- 5 -->
-<section class="reel" aria-labelledby="s5">
-  <div class="reel-no"><strong>5</strong>frames</div>
-  <div class="reel-body">
-    <h2 id="s5">Animation, frame by frame</h2>
-    <p>There is no animation software. Each scene is a JavaScript function that answers one question: <em>"what should the screen look like at time t?"</em> It draws shapes and text onto a 1920×1080 canvas (Node.js with Skia, through the <code>@napi-rs/canvas</code> library). The renderer calls it 30 times for every second of film.</p>
-<pre><code><span class="c">// the "A cup of hot …" moment, simplified from scenes/a.mjs</span>
-function game(ctx, S) {
-  <span class="c">// S.at('b', 0, 0.8) goes 0 → 1 over 0.8 s, starting when line [b] is spoken</span>
-  const show = S.at(<span class="k">'b'</span>, 0, 0.8);
-  text(ctx, 'A cup of hot', CX, CY, { size: 92, alpha: show });
-
-  <span class="c">// the answer pops in exactly when the narrator says "tea" (line [c])</span>
-  const pop = S.at(<span class="k">'c'</span>, 0, 0.6, E.outBack);
-  text(ctx, 'tea', CX + 380, CY, { size: 92 * pop, color: YELLOW });
-}</code></pre>
-    <p>Because the scene asks for "when line <code>c</code> starts" rather than "at 61.8 seconds", it never goes out of sync, even after the script changes.</p>
-
+<span class="c">// the answer pops in exactly when the narrator says line [c]</span>
+const pop = S.at(<span class="k">'c'</span>, 0, 0.6, E.outBack);</code></pre>
     <div class="demo" aria-label="Interactive demo: scrub through the frames">
-      <canvas id="demo" width="960" height="540" aria-label="A miniature of the scene being drawn for the chosen frame"></canvas>
-      <div class="demo-row">
+      <canvas id="demo" width="960" height="540" aria-label="A miniature scene drawn for the chosen frame"></canvas>
+      <div class="row">
         <label for="scrub">frame</label>
         <input id="scrub" type="range" min="0" max="239" value="96">
         <output id="tc" for="scrub">frame 96</output>
         <button id="play" type="button">Play</button>
       </div>
-      <p class="strip-note">Try it: this miniature is drawn the same way. Drag the slider and the function is called again for that frame number. Line [b] starts at frame 30, and line [c] ("tea") at frame 120.</p>
+      <p class="note">Try it: this miniature is drawn the same way. Drag the slider and the scene is drawn again for that frame. Line [b] starts at frame 30 and line [c] ("tea") at frame 120.</p>
     </div>
+<pre><code>scripts/build_audio.sh videos/<span class="k">&lt;film&gt;</span>     <span class="c"># voice → clock → subtitles → music → mix</span></code></pre>
+    <div class="files"><span class="file">narration.txt</span><span class="file">scenes/*.mjs</span><span class="file">kit.mjs</span><span class="file">music.py</span><span class="file out">build/timeline.json</span></div>
+  </div>
+</section>
 
+<section class="stage" aria-labelledby="st4">
+  <div class="stage-no"><strong>4</strong>render engineer</div>
+  <div class="stage-body">
+    <h3 id="st4">Preview: prove it before rendering it all</h3>
     <ul class="plain">
-      <li><strong>A visual kit per film:</strong> the palette, fonts, the mascot "Tokku", icons, token chips and probability bars, all written once and reused in every scene.</li>
-      <li><strong>Raw frames to video:</strong> each frame's pixels are piped straight into FFmpeg, which encodes H.264. Four workers each render a quarter of the film at the same time.</li>
-      <li><strong>Scale:</strong> the 17½-minute Hindi film is 31,738 frames and took about 35 minutes to render on a 4-core machine. The scenes for this film are about 1,900 lines of code.</li>
-      <li><strong>Languages:</strong> every word on screen is written as <code>tr('English', 'हिंदी')</code>, so one switch renders the Hindi version of every scene.</li>
+      <li>Check that the clock exists, and that every font, asset and archive clip loads with no scene errors.</li>
+      <li>Render still frames and a contact sheet per scene, then a short preview of the hardest part.</li>
+      <li>The full render (about 35 minutes for a 17-minute film on 4 CPU cores) happens only after the critic passes the preview.</li>
     </ul>
-    <div class="files"><span class="file">engine/video/render.mjs</span><span class="file">videos/…/scenes/*.mjs</span><span class="file">kit.mjs</span><span class="file out">build/video_only.mp4</span></div>
+<pre><code>node engine/video/render.mjs --video videos/<span class="k">&lt;film&gt;</span> --contact <span class="k">&lt;scene&gt;</span> --n 9 --out sheet.png
+node engine/video/render.mjs --video videos/<span class="k">&lt;film&gt;</span> --scene <span class="k">&lt;scene&gt;</span> --at 4.5 --out still.png</code></pre>
   </div>
 </section>
 
-<!-- 6 -->
-<section class="reel" aria-labelledby="s6">
-  <div class="reel-no"><strong>6</strong>words</div>
-  <div class="reel-body">
-    <h2 id="s6">Subtitles come from the script, not from listening</h2>
-    <p>We already know every word and when each line is spoken, so subtitles need no speech recognition. Long lines are split at sentence breaks into cues of at most two lines, and two-line cues are balanced so no word sits alone on the second line. The renderer draws them into the frame (burned-in), and the same cues are saved as an <code>.srt</code> caption file for YouTube.</p>
-    <div class="files"><span class="file">engine/audio/subtitles.py</span><span class="file out">subs.json</span><span class="file out">subtitles.srt</span></div>
-  </div>
-</section>
-
-<!-- 7 -->
-<section class="reel" aria-labelledby="s7">
-  <div class="reel-no"><strong>7</strong>sound</div>
-  <div class="reel-body">
-    <h2 id="s7">Music and sound effects, synthesised from maths</h2>
-    <p>The background score is not made by an AI music generator and uses no samples or stock tracks, so there is nothing to license and no copyright claims. It is written as Python code (NumPy and SciPy) that builds every sound from waves:</p>
+<section class="stage" aria-labelledby="st5">
+  <div class="stage-no"><strong>5</strong>critic</div>
+  <div class="stage-body">
+    <h3 id="st5">Review: judge the pixels, with fresh eyes</h3>
     <ul class="plain">
-      <li><strong>Instruments as maths.</strong> A pipe organ is a sum of sine-wave harmonics (the "ranks" of an organ). A piano note is a quick attack with a decaying tone. Choir, strings and timpani are built the same way, and reverb is added by convolution, which simulates a large hall.</li>
-      <li><strong>The score follows the timeline.</strong> Each scene is given a harmony and a level. New layers come in on chosen lines, and a climax (a timpani roll, full organ, choir) is placed so its downbeat lands exactly on the key sentence, for example "That's it. That's the whole trick."</li>
-      <li><strong>Sound effects</strong> (pops when something appears, whooshes on chapter cards, a bell on the subscribe button) are placed on the same cue labels as the animation.</li>
-      <li><strong>Mixing for clear speech.</strong> Whenever the narrator speaks, only the music's speech frequencies (500–4,500 Hz) dip, so the voice stays clear without the music disappearing. The final mix is set to −14 LUFS, YouTube's loudness standard.</li>
+      <li>A separate agent that didn't build the film looks only at the approved plan and the rendered frames, never at the builder's description.</li>
+      <li>It scores the hook, clarity, composition, phone-size readability, motion, timing, continuity, honesty labels and sound sync, from 1 to 10.</li>
+      <li>It reports the three biggest problems, each with its exact frame, what's wrong, why it matters, the smallest fix, and what must not change.</li>
+      <li>Last test: it tells you the film's message from the frames alone. If it can't, the story fails.</li>
     </ul>
-    <div class="files"><span class="file">engine/audio/organ.py</span><span class="file">music_film.py</span><span class="file">music.py</span><span class="file out">organ_mix.wav</span></div>
+    <div class="files"><span class="file out">review/FINDINGS.md</span></div>
   </div>
 </section>
 
-<!-- 8 -->
-<section class="reel" aria-labelledby="s8">
-  <div class="reel-no"><strong>8</strong>checks</div>
-  <div class="reel-body">
-    <h2 id="s8">Quality checks with a speech-recognition model</h2>
-    <p>Here is where transcription comes in: not to make subtitles, but as a <strong>listening test</strong>. <strong>Whisper</strong> (OpenAI's open-source speech recognizer, MIT licence, run locally through <code>faster-whisper</code>) transcribes our own narration. If Whisper can't understand a word, a viewer probably can't either.</p>
+<section class="stage" aria-labelledby="st6">
+  <div class="stage-no"><strong>6</strong>repair</div>
+  <div class="stage-body">
+    <h3 id="st6">Fix: small, local, bounded</h3>
     <ul class="plain">
-      <li><strong>Pronunciation score.</strong> For every line, the transcript is compared with the script letter by letter (the character error rate). For the Hindi film, the 110 lines averaged 3–6%, and most of that was spelling differences.</li>
-      <li><strong>Catching real problems.</strong> It found that "अटेंशन हेड्स" sounded like "addition hills" and "चैटजीपीटी" like "JGPT". Both were reworded or respelled, and the check was run again.</li>
-      <li><strong>Choosing a voice.</strong> Four Hindi voices were tested the same way, and the clearest one won.</li>
-      <li><strong>Picture and sound.</strong> Contact sheets show one frame from every line, to catch overlapping or untranslated text. Loudness is measured, and a few lines are transcribed from the final MP4 to prove the sound is in sync.</li>
-    </ul>
-    <div class="callout">A machine check is a proxy. It catches unclear words, not a wrong tone of voice, so the creator still watches the film before publishing.</div>
-  </div>
-</section>
-
-<!-- 9 -->
-<section class="reel" aria-labelledby="s9">
-  <div class="reel-no"><strong>9</strong>deliver</div>
-  <div class="reel-body">
-    <h2 id="s9">Assemble, cut Shorts, make thumbnails</h2>
-    <ul class="plain">
-      <li><strong>The film:</strong> FFmpeg joins the rendered picture and the final mix into an MP4, plus an <code>.srt</code> caption file.</li>
-      <li><strong>Shorts:</strong> chosen line ranges are re-rendered and placed in a vertical 1080×1920 frame with a big title and subtitles. Each Short gets its own score that builds to a climax on its key line.</li>
-      <li><strong>Thumbnails:</strong> drawn with the same visual kit, in two or three variants for YouTube's Test &amp; compare.</li>
-      <li><strong>Upload kit:</strong> title options, description with chapter times taken from the timeline, tags, pinned comment, quiz and settings.</li>
-      <li><strong>Storage:</strong> everything lives in a Git repository. Full-quality masters are split into 95 MB pieces on a separate branch, with join scripts to rebuild them.</li>
+      <li>Fix only what the critic found, keep everything that was approved, and re-render only the affected frames.</li>
+      <li>At most two tries per problem. If it still fails, stop and ask you.</li>
+      <li>Never weaken a check or a label to make the review pass.</li>
+      <li>Pass means every score is 8 or more, no open problem, and the message is restated correctly.</li>
     </ul>
   </div>
 </section>
 
-<!-- archive -->
-<section class="reel" aria-labelledby="archive">
-  <div class="reel-no"><strong>+</strong>archive</div>
-  <div class="reel-body">
-    <h2 id="archive">Real footage from the past, licence-checked</h2>
-    <p>Some beats are about things that really happened and were filmed: an operator at IBM's SAGE air-defence computer in 1956, a 1950s power station, a bank's ledger room. For those, real film beats any drawing. A script searches <strong>archive.org</strong> for it and pulls it into the scene on the same clock as everything else.</p>
+<section class="stage" aria-labelledby="st7">
+  <div class="stage-no"><strong>7</strong>delivery</div>
+  <div class="stage-body">
+    <h3 id="st7">Deliver: film, Shorts, thumbnails, upload kit</h3>
     <ul class="plain">
-      <li><strong>Where it looks.</strong> The Prelinger Archives (US corporate, educational and industrial films, 1930s–80s), FedFlix (US government films), NASA, and 78rpm records for the sound of a period.</li>
-      <li><strong>A licence check before anything is used.</strong> Not everything on archive.org is free to use. Only about 1,900 of the 10,500 Prelinger films carry a public-domain dedication, and the 78rpm collection is for research only. In the US, recordings become public domain 100 years after they were published, so only those from 1925 or earlier qualify. Every item gets a verdict:</li>
+      <li>The full film, plus web-sized chapter files that join back together losslessly.</li>
+      <li>Shorts, rearranged for vertical and reviewed on their own stills.</li>
+      <li>Thumbnails drawn with the film's kit, 2–3 versions for YouTube's Test &amp; compare.</li>
+      <li>The upload kit: titles, a description with every source and archive clip, chapters from the clock, tags, a pinned comment.</li>
+      <li>The full-quality master goes on the masters branch, split into 95 MB pieces with join scripts.</li>
+      <li>Then you watch it and decide when it's published. A machine check can't judge tone.</li>
     </ul>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Verdict</th><th>Means</th><th>Used?</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Green</strong></td><td>the item itself is dedicated to the public domain</td><td>yes</td></tr>
-          <tr><td><strong>Amber</strong></td><td>public domain by its collection's statement or by its date (a 1919 march)</td><td>only after a written check, which is recorded</td></tr>
-          <tr><td><strong>Red</strong></td><td>anything else, including most Prelinger titles</td><td>only with a licence we hold</td></tr>
-        </tbody>
-      </table>
-    </div>
-<pre><code><span class="c"># find it, check it, fetch only the 8 seconds the scene needs</span>
-python3 scripts/archive_org.py search "computer"
-python3 scripts/archive_org.py fetch OnGuard1956 --key sage --in 300 --dur 8 --video videos/01-…
-
-<span class="c">// in a scene: the film starts when line [b] is spoken</span>
-footage(ctx, S, <span class="k">'sage'</span>, { start: <span class="k">'b'</span> });</code></pre>
-    <ul class="plain">
-      <li><strong>Only the seconds needed</strong> are downloaded, and the original soundtrack is removed (an old public-domain film can still contain copyrighted music).</li>
-      <li><strong>Every shot is credited on screen</strong>, e.g. "Archive footage: On Guard! The Story of SAGE (1956) · Prelinger Archives · public domain". Film from 1956 must never read as today, and American footage is never passed off as India.</li>
-      <li><strong>Period music is a moment, not the score:</strong> a gramophone in a 1920s scene, under the channel's own music.</li>
-    </ul>
-    <div class="files"><span class="file">scripts/archive_org.py</span><span class="file">engine/video/footage.mjs</span><span class="file">engine/audio/archive.py</span><span class="file out">sources/archive/archive.json</span></div>
+<pre><code>scripts/render_all.sh   videos/<span class="k">&lt;film&gt;</span>                <span class="c"># picture, 4 workers in parallel</span>
+scripts/finalize.sh     videos/<span class="k">&lt;film&gt;</span> <span class="k">&lt;Name&gt;</span>         <span class="c"># picture + sound → out/&lt;Name&gt;.mp4</span>
+scripts/split_parts.sh  videos/<span class="k">&lt;film&gt;</span> <span class="k">&lt;Name&gt;</span>         <span class="c"># chapter files in film/</span>
+node videos/<span class="k">&lt;film&gt;</span>/thumbnail.mjs                      <span class="c"># thumbnails</span>
+scripts/publish_master.sh videos/<span class="k">&lt;film&gt;</span> <span class="k">&lt;Name&gt;</span>       <span class="c"># master → masters branch</span></code></pre>
+    <span class="gate">✓ You approve publication</span>
   </div>
 </section>
 
-<section class="stack" aria-labelledby="makes">
-  <h2 id="makes">One pipeline, many kinds of content</h2>
-  <p>The same clock-and-code idea makes every format the channel publishes. Each row is a real film or deliverable.</p>
+<!-- ============================================================ 3. INGREDIENTS -->
+<section class="stack" aria-labelledby="ingredients">
+  <div class="eyebrow">Step 3</div>
+  <h2 id="ingredients">Ingredients and where they come from</h2>
+  <p>Everything runs on one ordinary computer (4 CPU cores, no graphics card), and all of it is free and open source, apart from the AI assistant.</p>
   <div class="table-wrap">
     <table>
-      <thead><tr><th>Content</th><th>What changes</th><th>Example</th></tr></thead>
+      <thead><tr><th>Ingredient</th><th>Tool</th><th>The rule</th></tr></thead>
       <tbody>
-        <tr><td>Explainer film</td><td>the core pipeline above</td><td>How ChatGPT Actually Works</td></tr>
-        <tr><td>Evidence film (In Context)</td><td>real page captures with the quoted line highlighted, citation cards, every claim classed (fact, projection, estimate…), a counterargument with the music stopped</td><td>The AI Race Is Becoming an Electricity Race</td></tr>
-        <tr><td>Business film (Business, Unpacked)</td><td>a recurring "business engine" diagram and a "what could break it" section</td><td>Why Can Only One Company Build This Machine? (ASML)</td></tr>
-        <tr><td>Reconstruction and future (Imagine)</td><td>painted worlds drawn in code, each frame labelled imagined or evidence</td><td>Kurukshetra · India 2040</td></tr>
-        <tr><td>History beats with real film</td><td>licence-checked archive footage and period sound</td><td>new: first film pending</td></tr>
-        <tr><td>A model trained for the film</td><td>a tiny diffusion model trained so the film can show real outputs</td><td>How Does AI Create Images From Noise?</td></tr>
-        <tr><td>Vertical Shorts</td><td>line ranges re-rendered at 1080×1920, each with its own climax</td><td>every film</td></tr>
-        <tr><td>Another language</td><td>a second script and voice; every on-screen word written in both</td><td>How ChatGPT Actually Works (Hindi)</td></tr>
-        <tr><td>Immersive interactive experiences</td><td>the First Principles Lab: 3D worlds you enter, take apart and break, every claim trust-labelled</td><td><a href="https://firstprinciplesstudio.in">Inside AI · HUMAN · India 2040 · Inside ASML · Kurukshetra</a></td></tr>
-        <tr><td>Interactive figures</td><td>one mechanism as a machine you click through step by step, with live numbers; also recorded as a Short</td><td>planned: first pilot pending</td></tr>
-        <tr><td>Thumbnails and upload kit</td><td>drawn with the film's kit; description, sources and chapters from the timeline</td><td>every film</td></tr>
+        <tr><td>Research, script, scene code</td><td>Claude (AI assistant)</td><td>you approve the story and the look</td></tr>
+        <tr><td>Narration</td><td>Kokoro-82M (Apache 2.0)</td><td>the channel narrator for every film; ask before changing it</td></tr>
+        <tr><td>Music and sound effects</td><td>Python, NumPy, SciPy: written as code</td><td>the "Organ &amp; Time" style; nothing to license</td></tr>
+        <tr><td>Drawing frames</td><td>Node.js + Skia canvas</td><td>every frame is a function of time</td></tr>
+        <tr><td>Real evidence</td><td>page captures with the quote highlighted; openly licensed photos</td><td>source and date on screen; no imitated mastheads</td></tr>
+        <tr><td>Archive film and period sound</td><td>archive.org (Prelinger, FedFlix, NASA, 78rpm) via <code>scripts/archive_org.py</code></td><td>public domain only, checked item by item; credit on every shot</td></tr>
+        <tr><td>Pronunciation check</td><td>Whisper, run locally</td><td>if Whisper can't understand a word, a viewer probably can't either</td></tr>
+        <tr><td>Loudness</td><td>pyloudnorm</td><td>−14 LUFS, YouTube's standard</td></tr>
+        <tr><td>Encoding, captions</td><td>FFmpeg</td><td>burned-in subtitles plus an .srt file</td></tr>
+        <tr><td>Interactive (Lab)</td><td>Next.js, React Three Fiber</td><td>a meaningful action every 20–45 s</td></tr>
+        <tr><td>Fonts</td><td>Google Fonts (SIL OFL), Baloo 2 for Devanagari</td><td>free to embed</td></tr>
       </tbody>
     </table>
   </div>
+  <div class="callout"><strong>Archive film, in short.</strong> Not everything on archive.org is free to use: only about 1,900 of the 10,500 Prelinger films carry a public-domain dedication, and the 78rpm collection is for research only. In the US, recordings become public domain 100 years after they were published, so only those from 1925 or earlier qualify. So every item gets a verdict before use: <strong>green</strong> (free to use), <strong>amber</strong> (only after a written check) or <strong>red</strong> (only with a licence). Only the seconds needed are downloaded, the original soundtrack is removed, and every shot is credited with its year.</div>
 </section>
 
-<section class="stack" aria-labelledby="tools">
-  <h2 id="tools">The toolbox</h2>
-  <p>Everything runs on one ordinary computer (4 CPU cores, no graphics card). All of it is free and open source, apart from the AI assistant that writes the script and code.</p>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Job</th><th>Tool</th><th>Licence</th></tr></thead>
-      <tbody>
-        <tr><td>Research, script, scene code</td><td>Claude (AI assistant), steered by the creator</td><td>subscription</td></tr>
-        <tr><td>Narration</td><td>Kokoro-82M via kokoro-onnx + ONNX Runtime</td><td>Apache 2.0</td></tr>
-        <tr><td>Text → sounds (incl. Hindi)</td><td>eSpeak NG phonemizer</td><td>GPL-3.0</td></tr>
-        <tr><td>Pronunciation check</td><td>Whisper large-v3-turbo via faster-whisper</td><td>MIT</td></tr>
-        <tr><td>Drawing frames</td><td>Node.js + @napi-rs/canvas (Skia)</td><td>MIT</td></tr>
-        <tr><td>Music and sound</td><td>Python, NumPy, SciPy</td><td>BSD</td></tr>
-        <tr><td>Loudness</td><td>pyloudnorm (EBU R128 / −14 LUFS)</td><td>MIT</td></tr>
-        <tr><td>Encoding, Shorts, captions</td><td>FFmpeg + libx264 + libass</td><td>LGPL / GPL</td></tr>
-        <tr><td>Thumbnails, images</td><td>the same canvas kit, Pillow</td><td>MIT / HPND</td></tr>
-        <tr><td>Archival film and period sound</td><td>archive.org (Prelinger, FedFlix, NASA, 78rpm) via its public API</td><td>public domain only, checked per item</td></tr>
-        <tr><td>Fonts</td><td>Baloo 2 (with Devanagari), Inter and others from Google Fonts</td><td>SIL OFL</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section class="stack" aria-labelledby="numbers">
-  <h2 id="numbers">One film in numbers</h2>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>How ChatGPT Actually Works (Hindi)</th><th>Value</th></tr></thead>
-      <tbody>
-        <tr><td>Length</td><td class="num">17:38</td></tr>
-        <tr><td>Scenes / narrated lines</td><td class="num">31 / 110</td></tr>
-        <tr><td>Frames rendered (30 fps, 1920×1080)</td><td class="num">31,738</td></tr>
-        <tr><td>Render time on 4 CPU cores</td><td class="num">≈ 35 min</td></tr>
-        <tr><td>Voice synthesis, all lines</td><td class="num">a few minutes</td></tr>
-        <tr><td>Score + mix</td><td class="num">≈ 5 min</td></tr>
-        <tr><td>Pronunciation check, all lines</td><td class="num">≈ 30 min</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section class="stack" aria-labelledby="playbook">
-  <h2 id="playbook">The craft playbook</h2>
-  <p>Code makes a film possible; craft makes it worth watching. These rules come from our own films and from nine open-source motion-design guides written for AI coding assistants (credited below). Each outside idea is checked before it is adopted: does it work, is it legal, does it fit the channel?</p>
+<!-- ============================================================ 4. RULES -->
+<section class="stack" aria-labelledby="rules">
+  <div class="eyebrow">Step 4</div>
+  <h2 id="rules">Quality rules for every piece</h2>
+  <p>Code makes a film possible; craft makes it worth watching. These come from our own films and from the open-source guides we reviewed (<a href="#ideas">see the ideas log</a>).</p>
   <div class="two">
-    <div><h3>Story</h3><p>One core message per film, one new thing to know per scene. A hook in the first two seconds. A recurring device, and one moment where the idea is <em>shown</em>, not captioned. Where it can, the explanation is a recognisable machine, with a window cut into the part doing the work.</p></div>
-    <div><h3>Time for the viewer</h3><p>One thing to take in at a time. Text stays on screen at least 1.2 seconds per 8 words. Fast actions, held meanings.</p></div>
-    <div><h3>Motion</h3><p>Nothing moves in a straight line at constant speed. One thing that matters moves at a time. Characters anticipate, overlap and never move in unison.</p></div>
-    <div><h3>Sound</h3><p>Every visual event has a sound and every sound has a reason, landing a couple of frames before the picture. Not every cut gets a whoosh.</p></div>
-    <div><h3>Honesty</h3><p>Every fact shows its source, invented numbers say "illustrative", imagined frames say "imagined", archive film shows its year. Every number in a scene comes from one model of the real thing, and sped-up or slowed time carries a badge (×4, ×1/20).</p></div>
-    <div><h3>Review</h3><p>Judge the frames, not the code: contact sheets, frame strips, full-size crops. Then the creator watches the whole film before it is published.</p></div>
+    <div><h3>Story</h3><p>One message per film, one new thing to know per scene. A hook in the first two seconds. Where possible, the explanation is a recognisable machine with a window into the working part.</p></div>
+    <div><h3>Time for the viewer</h3><p>One thing to take in at a time. Text stays up at least 1.2 seconds per 8 words. Fast actions, held meanings.</p></div>
+    <div><h3>Motion</h3><p>Nothing moves in a straight line at constant speed. Only one thing that matters moves at a time. Characters anticipate, overlap and never move in unison.</p></div>
+    <div><h3>Picture</h3><p>One focal point, real empty space, text inside the safe area. Vertical versions are rearranged, never cropped.</p></div>
+    <div><h3>Sound</h3><p>Every visual event has a sound and every sound has a reason. Not every cut gets a whoosh. Loudness at −14 LUFS.</p></div>
+    <div><h3>Honesty</h3><p>Every fact shows its source; invented numbers say "illustrative"; imagined frames say "imagined"; archive film shows its year. Every number in a scene comes from one model, and sped-up time carries a badge (×4).</p></div>
   </div>
-  <div class="callout">The whole procedure is saved as a Claude Code skill, <code>make-film</code>: Director → Art Director → Animator → Render Engineer → an independent Critic → local repair → delivery. The creator approves the story and the look before any animation code is written. The Critic works from the rendered frames, not the builder's description, and reports each defect with its frame number and the smallest fix. A fix gets at most two attempts before the agent stops and asks. Any mistake that recurs becomes a new rule, so the next film inherits the fix.</div>
+</section>
+
+<!-- ============================================================ 5. TRACKER -->
+<section class="stack" aria-labelledby="tracker">
+  <div class="eyebrow">Step 5</div>
+  <h2 id="tracker">Production tracker</h2>
+  <p>Add each piece you're making and tick off its stages. The green ticks are your approval gates.</p>
+  <form class="tracker-form" id="addForm" autocomplete="off">
+    <label class="title">Title<input type="text" id="fTitle" required placeholder="e.g. How does a lithium battery work?"></label>
+    <label>Format<select id="fFormat"></select></label>
+    <label>Target date<input type="date" id="fDue"></label>
+    <button class="solid" type="submit">Add</button>
+  </form>
+  <div class="prods" id="prods" aria-live="polite"></div>
+  <div class="row">
+    <button type="button" id="exportBtn">Export (.json)</button>
+    <label class="btn" for="importFile">Import</label>
+    <input type="file" id="importFile" accept="application/json,.json" hidden>
+  </div>
+  <p class="note">The tracker is saved in this browser only, so nobody else sees it. To move it to another device, or keep a backup, use Export and Import.</p>
+</section>
+
+<!-- ============================================================ ROADMAP -->
+<section class="stack" aria-labelledby="roadmap">
+  <h2 id="roadmap">Roadmap: what's live and what's next</h2>
   <div class="table-wrap">
     <table>
       <thead><tr><th>Status</th><th>Upgrade</th><th>Why</th></tr></thead>
       <tbody>
-        <tr><td><span class="file out">live</span></td><td>Archive footage and period sound, licence-checked</td><td>real film for history beats</td></tr>
-        <tr><td><span class="file">next</span></td><td>Designed scene changes (match, push, iris) instead of a cross-fade everywhere</td><td>a fade between every scene reads as a slideshow</td></tr>
-        <tr><td><span class="file">next</span></td><td>Automatic frame checks: empty frames, frozen stretches, one-frame jumps, overlapping text, contrast</td><td>catches on every render what a tired eye misses</td></tr>
-        <tr><td><span class="file">next</span></td><td>Motion blur from in-between frames</td><td>fast movement looks filmed, not computed</td></tr>
-        <tr><td><span class="file">next</span></td><td>Word-level timing from Whisper</td><td>things appear on the exact word, and Shorts get word-by-word captions</td></tr>
-        <tr><td><span class="file">next</span></td><td>A camera with depth layers, and character acting</td><td>depth, continuity and people who seem to think</td></tr>
-        <tr><td><span class="file">next</span></td><td>An interactive figure for each film's key mechanism (the open-source anatomy skill)</td><td>a second way into every film, and a Short from the same figure</td></tr>
-        <tr><td><span class="file">next</span></td><td>AI-generated photoreal hero shots, labelled, with on-screen text kept in code</td><td>realism where no footage exists</td></tr>
+        <tr><td><span class="pill live">live</span></td><td>The seven-stage process as a skill (<code>/make-film</code>), with an independent critic</td><td>the builder can't judge its own film</td></tr>
+        <tr><td><span class="pill live">live</span></td><td>Archive film and period sound, licence-checked</td><td>real film for history beats</td></tr>
+        <tr><td><span class="pill">next</span></td><td>Designed scene changes (match, push, iris) instead of a cross-fade everywhere</td><td>a fade between every scene reads as a slideshow</td></tr>
+        <tr><td><span class="pill">next</span></td><td>Automatic frame checks: empty frames, frozen stretches, one-frame jumps, overlapping text, contrast</td><td>catches what a tired eye misses, on every render</td></tr>
+        <tr><td><span class="pill">next</span></td><td>Motion blur from in-between frames</td><td>fast movement looks filmed, not computed</td></tr>
+        <tr><td><span class="pill">next</span></td><td>Word-level timing from Whisper</td><td>things appear on the exact word; word-by-word captions for Shorts</td></tr>
+        <tr><td><span class="pill">next</span></td><td>A motion style sheet per playlist</td><td>consistency reads as confidence</td></tr>
+        <tr><td><span class="pill">next</span></td><td>A camera with depth layers, and character acting</td><td>depth, continuity, people who seem to think</td></tr>
+        <tr><td><span class="pill">next</span></td><td>AI-generated photoreal hero shots, labelled, with text kept in code</td><td>realism where no footage exists</td></tr>
+        <tr><td><span class="pill">next</span></td><td>An interactive figure for each film's key mechanism</td><td>a second way into every film, and a Short from the same figure</td></tr>
+        <tr><td><span class="pill wait">your call</span></td><td>A more expressive narrator (samples are ready)</td><td>the voice is the biggest quality gap; changing it needs your approval</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="strip-note">Sources reviewed: <a href="https://github.com/Lob0Garou/opus-visual-motion-engine">opus-visual-motion-engine</a>, <a href="https://github.com/howseen-ai/claude-motion-design">claude-motion-design</a>, <a href="https://github.com/tuzhechen2005/opus-video-skills">opus-video-skills</a>, <a href="https://github.com/iart-ai/motion-design-skills">iart-ai motion-design-skills</a>, <a href="https://github.com/siyuanfeng636-cpu/agentic-motion-graphics">agentic-motion-graphics</a>, <a href="https://github.com/haidrrrry/claude-remotion-skill">claude-remotion-skill</a>, <a href="https://github.com/LottieFiles/motion-design-skill">LottieFiles motion-design-skill</a>, <a href="https://github.com/frankxai/awesome-motion-design-agent-skills">awesome-motion-design-agent-skills</a>, <a href="https://github.com/wilwaldon/Claude-Code-Video-Toolkit">Claude-Code-Video-Toolkit</a>, the archive.org developer API, Mori's article <a href="https://x.com/0xjmori/status/2111793914206171234">"Motion Engineering: One Bot, Five Departments, an Entire Studio"</a>, and Elvar's article <a href="https://x.com/elvar_official/status/2111831136171151589">"How I Turn Any Question Into a Machine You Can Run"</a> on the <a href="https://github.com/wheresryan22/anatomy">anatomy</a> skill.</p>
 </section>
 
-<section class="stack" aria-labelledby="start">
-  <h2 id="start">If you want to try this yourself</h2>
-  <p>Start small. The whole idea fits in five steps, and each one can be a short script:</p>
-  <div class="two">
-    <div><h3>1 · Script with labels</h3><p>Write 10 sentences in a text file, one per line, each with a label.</p></div>
-    <div><h3>2 · Voice + timeline</h3><p>Run a TTS model on each line. Measure each clip and write down when each line starts.</p></div>
-    <div><h3>3 · One scene function</h3><p>Write a function that draws a frame for time <em>t</em>, using "seconds since line X started".</p></div>
-    <div><h3>4 · Frames to video</h3><p>Call it 30 times per second and pipe the frames into FFmpeg.</p></div>
-    <div><h3>5 · Music on cues</h3><p>Start with a simple pad, and add one swell on your most important line.</p></div>
+<!-- ============================================================ IDEAS LOG -->
+<section class="stack" aria-labelledby="ideas">
+  <h2 id="ideas">Ideas reviewed</h2>
+  <p>Every outside suggestion is checked before anything is added: does it work, is it legal, does it fit the channel, is it worth the effort?</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Date</th><th>Idea</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td class="nowrap">23 Oct 2026</td><td>Nine open-source motion-design guides for AI assistants (<a href="https://github.com/Lob0Garou/opus-visual-motion-engine">opus-visual-motion-engine</a>, <a href="https://github.com/howseen-ai/claude-motion-design">claude-motion-design</a>, <a href="https://github.com/tuzhechen2005/opus-video-skills">opus-video-skills</a>, <a href="https://github.com/iart-ai/motion-design-skills">iart-ai</a>, <a href="https://github.com/siyuanfeng636-cpu/agentic-motion-graphics">agentic-motion-graphics</a>, <a href="https://github.com/haidrrrry/claude-remotion-skill">claude-remotion-skill</a>, <a href="https://github.com/LottieFiles/motion-design-skill">LottieFiles</a>, <a href="https://github.com/frankxai/awesome-motion-design-agent-skills">awesome-motion-design</a>, <a href="https://github.com/wilwaldon/Claude-Code-Video-Toolkit">Video Toolkit</a>)</td><td>Adopted the craft rules and most of the roadmap. Kept our own engine: it already has their core idea, and switching would cost weeks for no visible gain.</td></tr>
+        <tr><td class="nowrap">23 Oct 2026</td><td>Search archive.org's Prelinger and 78rpm collections for b-roll and period music</td><td>Adopted with a licence check: most Prelinger films aren't public domain, and the 78s are for research only. Added FedFlix and NASA as cleaner sources.</td></tr>
+        <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/0xjmori/status/2111793914206171234">"Motion Engineering: One Bot, Five Departments"</a> (Mori)</td><td>Adopted the process (stages, approval gates, an independent critic, a two-try repair limit) as the <code>/make-film</code> skill. Skipped its tool choice (Remotion).</td></tr>
+        <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/elvar_official/status/2111831136171151589">"How I Turn Any Question Into a Machine You Can Run"</a> (Elvar), on the <a href="https://github.com/wheresryan22/anatomy">anatomy</a> skill</td><td>Adopted four rules (the object is the explanation, a cutaway window, one model for every number, a speed badge) and planned interactive figures. Skipped the children's-book look.</td></tr>
+      </tbody>
+    </table>
   </div>
-  <p>The rest (Shorts, translation, thumbnails, quality checks) is the same idea reused: <strong>one clock, and everything else follows it.</strong></p>
 </section>
 
-<footer>First Principles Studio · Every film on the channel is made this way: animation, narration, music and subtitles, all in code.</footer>
+<!-- ============================================================ WHERE -->
+<section class="stack" aria-labelledby="where">
+  <h2 id="where">Where things live</h2>
+  <div class="two">
+    <div><h3>Films and Shorts</h3><p><code>FirstPrinciplesStudio</code> (private): the engine, every film in <code>videos/</code>, the <code>/make-film</code> skill. Start with <code>docs/PLAYBOOK.md</code>; editorial standards in <code>docs/CHANNEL.md</code>; archive rules in <code>docs/ARCHIVAL.md</code>.</p></div>
+    <div><h3>Interactive experiences</h3><p><code>FirstPrinciplesInteractive</code> (private): the Lab, live at <a href="https://firstprinciplesstudio.in">firstprinciplesstudio.in</a>. Its standard is <code>docs/LAB-PRINCIPLES.md</code>.</p></div>
+    <div><h3>This page</h3><p><code>nitinbandgar.github.io</code>: the handbook and tracker. When the pipeline changes, this page is updated with it.</p></div>
+    <div><h3>Working rules for Claude</h3><p><code>CLAUDE.md</code> in each repository: the narrator, the music style, where masters go, and the archive rules. Every session reads them.</p></div>
+  </div>
+</section>
+
+<footer>
+  <span>First Principles Studio · <em>Complex ideas. Made visible.</em></span>
+  <span>Every film on the channel is made this way: animation, narration, music and subtitles, all in code.</span>
+</footer>
 </main>
 
 <script>
+// ---------------------------------------------------------------- format tabs
+(function () {
+  const tabs = [...document.querySelectorAll('.fmt')];
+  const show = (tab, focus) => {
+    tabs.forEach(t => { const on = t === tab; t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; document.getElementById(t.getAttribute('aria-controls')).hidden = !on; });
+    if (focus) tab.focus();
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => show(t));
+    t.addEventListener('keydown', e => {
+      const k = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+      if (k) { e.preventDefault(); show(tabs[(i + k + tabs.length) % tabs.length], true); }
+    });
+  });
+  show(tabs[0]);
+  // copy buttons
+  document.querySelectorAll('.copy').forEach(b => b.addEventListener('click', async () => {
+    const txt = b.parentElement.querySelector('pre').innerText;
+    try { await navigator.clipboard.writeText(txt); }
+    catch { const ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch {} ta.remove(); }
+    const was = b.textContent; b.textContent = 'Copied'; setTimeout(() => (b.textContent = was), 1400);
+  }));
+})();
+
+// ---------------------------------------------------------------- production tracker
+(function () {
+  const FILM = ['Story approved', 'Look approved', 'Voice and clock built', 'Scenes built', 'Preview passed the critic', 'Full render', 'Shorts', 'Thumbnails', 'Upload kit with sources', 'Master on the masters branch', 'Published'];
+  const FORMATS = {
+    explainer: { name: 'Explainer film', steps: FILM },
+    evidence: { name: 'Evidence film (In Context)', steps: ['Dossier, evidence wall, fact table and script approved', 'Look approved', 'Voice and clock built', 'Scenes built', 'Counterargument section checked', 'Preview passed the critic', 'Full render', 'Shorts', 'Thumbnails', 'Upload kit with sources and "as of" date', 'Master on the masters branch', 'Published'] },
+    business: { name: 'Business film', steps: ['Dossier and script approved', 'Look approved', 'Voice and clock built', 'Business Engine and red-team scenes built', 'Not-investment-advice note on screen', 'Preview passed the critic', 'Full render', 'Shorts', 'Thumbnails', 'Upload kit with sources', 'Master on the masters branch', 'Published'] },
+    imagine: { name: 'Imagine film (past or future)', steps: ['Dossier and design approved', 'Look approved', 'Voice and clock built', 'Worlds and scenes built', 'Imagined / evidence labels checked', 'Preview passed the critic', 'Full render', 'Shorts', 'Thumbnails', 'Upload kit with sources', 'Master on the masters branch', 'Published'] },
+    shorts: { name: 'Shorts', steps: ['Ideas and line ranges chosen', 'Rendered at 9:16', 'Each checked on its own stills', 'Readable with the sound off', 'Titles and descriptions', 'Published'] },
+    language: { name: 'Hindi version', steps: ['Hindi script approved', 'Every on-screen word translated', 'Voice and clock built', 'Whisper pronunciation check passed', 'Contact sheets: no English left', 'Full render', 'Hindi Shorts', 'Hindi thumbnails and upload kit', 'Published'] },
+    lab: { name: 'Lab experience', steps: ['Plan approved', 'One model of the system written', 'Story mode built', 'Explore, Map and Break-it built', 'Sources and trust labels complete', 'Interaction audit passes', 'Works on phone and without WebGL', 'Expert review status shown', 'Deployed and linked from the film'] },
+    figure: { name: 'Interactive figure', steps: ['Question and big idea approved', 'Model of the real thing written', 'Machine built with step buttons', 'Numbers checked against sources', 'Recorded as a Short', 'Linked from the film'] },
+  };
+  const GATES = /approved|passed the critic|^Published$/;
+  const KEY = 'fps-pipeline-tracker-v1';
+  const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; } };
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(items)); } catch {} };
+  let items = load();
+
+  const sel = document.getElementById('fFormat');
+  for (const [k, f] of Object.entries(FORMATS)) sel.add(new Option(f.name, k));
+  const list = document.getElementById('prods');
+  const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); for (const [a, v] of Object.entries(attrs)) { if (a === 'text') e.textContent = v; else if (a.startsWith('on')) e.addEventListener(a.slice(2), v); else e.setAttribute(a, v); } kids.forEach(k => e.append(k)); return e; };
+
+  function render() {
+    list.replaceChildren();
+    if (!items.length) { list.append(el('div', { class: 'empty', text: 'Nothing tracked yet. Add your next film above, or press "Track a new…" under any format.' })); return; }
+    for (const it of items) {
+      const f = FORMATS[it.format] || FORMATS.explainer;
+      const done = f.steps.filter((_, i) => it.done[i]).length;
+      const head = el('div', { class: 'prod-head' },
+        el('h3', { text: it.title }),
+        el('span', { class: 'pill', text: `${f.name}${it.due ? ' · due ' + it.due : ''} · ${done}/${f.steps.length}` }));
+      const bar = el('div', { class: 'bar', role: 'progressbar', 'aria-valuemin': 0, 'aria-valuemax': f.steps.length, 'aria-valuenow': done, 'aria-label': 'Progress' }, el('i', { style: `width:${100 * done / f.steps.length}%` }));
+      const checks = el('div', { class: 'checks' });
+      f.steps.forEach((s, i) => {
+        const cb = el('input', { type: 'checkbox', onchange: () => { it.done[i] = cb.checked; save(); render(); } });
+        cb.checked = !!it.done[i];
+        checks.append(el('label', { class: GATES.test(s) ? 'gatebox' : '' }, cb, el('span', { text: (GATES.test(s) ? '✓ ' : '') + s })));
+      });
+      const notes = el('textarea', { placeholder: 'Notes: links, decisions, what is blocking…', 'aria-label': `Notes for ${it.title}`, oninput: () => { it.notes = notes.value; save(); } });
+      notes.value = it.notes || '';
+      const del = el('button', { type: 'button', text: 'Remove', onclick: () => { if (confirm(`Remove "${it.title}" from the tracker?`)) { items = items.filter(x => x !== it); save(); render(); } } });
+      list.append(el('article', { class: 'prod' }, head, bar, checks, notes, el('div', { class: 'row' }, del)));
+    }
+  }
+
+  document.getElementById('addForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const title = document.getElementById('fTitle').value.trim();
+    if (!title) return;
+    items.unshift({ id: Date.now(), title, format: sel.value, due: document.getElementById('fDue').value, done: {}, notes: '' });
+    save(); render(); e.target.reset();
+  });
+  document.querySelectorAll('.track').forEach(b => b.addEventListener('click', () => {
+    sel.value = b.closest('.panel').dataset.format;
+    document.getElementById('tracker').scrollIntoView();
+    document.getElementById('fTitle').focus({ preventScroll: true });
+  }));
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify(items, null, 1)], { type: 'application/json' });
+    const a = el('a', { href: URL.createObjectURL(blob), download: `pipeline-tracker-${new Date().toISOString().slice(0, 10)}.json` });
+    document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  });
+  document.getElementById('importFile').addEventListener('change', async e => {
+    const file = e.target.files[0]; if (!file) return;
+    try {
+      const data = JSON.parse(await file.text());
+      if (!Array.isArray(data)) throw new Error('not a list');
+      items = data.filter(x => x && typeof x.title === 'string').map(x => ({ id: x.id || Date.now(), title: x.title, format: FORMATS[x.format] ? x.format : 'explainer', due: x.due || '', done: x.done || {}, notes: x.notes || '' }));
+      save(); render();
+    } catch (err) { alert('That file is not a tracker export.'); }
+    e.target.value = '';
+  });
+  render();
+})();
+
+// ---------------------------------------------------------------- frame-by-frame demo
 (function () {
   const cv = document.getElementById('demo'), ctx = cv.getContext('2d');
   const scrub = document.getElementById('scrub'), out = document.getElementById('tc'), btn = document.getElementById('play');
