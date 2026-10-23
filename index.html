@@ -160,8 +160,9 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <a href="#pick">1 · Pick a format</a>
     <a href="#process">2 · How every film is made</a>
     <a href="#ingredients">3 · Ingredients</a>
-    <a href="#rules">4 · Quality rules</a>
-    <a href="#tracker">5 · Production tracker</a>
+    <a href="#assets">4 · Real &amp; AI assets</a>
+    <a href="#rules">5 · Quality rules</a>
+    <a href="#tracker">6 · Production tracker</a>
     <a href="#roadmap">Roadmap</a>
     <a href="#ideas">Ideas reviewed</a>
     <a href="#where">Where things live</a>
@@ -182,6 +183,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
   <div class="formats" role="tablist" aria-label="Formats">
     <button class="fmt" role="tab" id="t-explainer" aria-controls="p-explainer" aria-selected="true"><span class="tag">Film · First Principles</span><b>Explainer film</b><span>"How does this actually work?"</span></button>
     <button class="fmt" role="tab" id="t-evidence" aria-controls="p-evidence" aria-selected="false"><span class="tag">Film · In Context</span><b>Evidence film</b><span>"Why is this happening?"</span></button>
+    <button class="fmt" role="tab" id="t-news" aria-controls="p-news" aria-selected="false"><span class="tag">Film · In Context</span><b>News explainer</b><span>60–90 s: "Why does this headline reach me?"</span></button>
     <button class="fmt" role="tab" id="t-business" aria-controls="p-business" aria-selected="false"><span class="tag">Film · Business, Unpacked</span><b>Business film</b><span>"What's the machine under this business?"</span></button>
     <button class="fmt" role="tab" id="t-imagine" aria-controls="p-imagine" aria-selected="false"><span class="tag">Film · Imagine</span><b>Past or future film</b><span>"What would it look and feel like?"</span></button>
     <button class="fmt" role="tab" id="t-shorts" aria-controls="p-shorts" aria-selected="false"><span class="tag">From every film</span><b>Shorts</b><span>one idea, vertical, under a minute</span></button>
@@ -264,6 +266,50 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
       <button class="copy" type="button">Copy prompt</button>
     </div>
     <div class="row"><button class="track solid" type="button">Track a new evidence film</button></div>
+  </div>
+
+  <!-- news explainer -->
+  <div class="panel" role="tabpanel" id="p-news" aria-labelledby="t-news" data-format="news" hidden>
+    <h3>News explainer (In Context, 60–90 s): "Why does this headline reach me?"</h3>
+    <p>One headline, traced to the viewer's own life in 60 to 90 seconds, paced like a thriller. Evidence first, then the chain of consequences, then the one number that matters.</p>
+    <dl class="facts">
+      <div><dt>Length</dt><dd>60–90 s</dd></div>
+      <div><dt>Example</dt><dd>The Strait and the Field (pilot)</dd></div>
+      <div><dt>Approvals</dt><dd>script + fact table, then the look + asset plan</dd></div>
+    </dl>
+    <div class="cols">
+      <div>
+        <h3>The toolkit</h3>
+        <ul class="plain">
+          <li><strong>Highlighter citation cards:</strong> the real headline, outlet, date and a verbatim excerpt; the key words swept in yellow (red for danger) as the narrator says them.</li>
+          <li><strong>Real clippings:</strong> the outlet's own page, captured by Claude or uploaded by you, laid on screen as a paper cut-out.</li>
+          <li><strong>A world map with routes:</strong> India's official boundary, with routes and ships flowing; labelled "illustrative".</li>
+          <li><strong>A lens transition:</strong> a circle opens out of one picture into the next idea (the strait opens into a field).</li>
+          <li><strong>A paper-collage flow:</strong> halftone cut-outs (plant, farmer, government), with goods and money travelling between them.</li>
+          <li><strong>A chart</strong> that lands on the number, with an estimate drawn dashed.</li>
+          <li><strong>Edit:</strong> hard cuts on the hits; the last frame held as the poster.</li>
+          <li><strong>Sound:</strong> the channel narrator and a thriller score scored to the words (a relentless pulse, a rising bass, silence before the turn).</li>
+          <li><strong>2–4 AI shots at most</strong>, for the hook, scale or the human moment, always labelled (<a href="#assets">step 4</a>).</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Done when</h3>
+        <ul class="plain">
+          <li>Every figure is in the fact table with its source and claim class.</li>
+          <li>No AI shot stands in for evidence, and every one is labelled.</li>
+          <li>Whisper understands every word over the score.</li>
+          <li>−14 LUFS, true peak at or below −1 dBTP.</li>
+          <li>"Information as of [date]" is on screen and in the description.</li>
+          <li>A Short and a thumbnail are cut from it.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt">
+      <div class="eyebrow">Kick it off in Claude Code</div>
+<pre><code>/make-film An In Context news explainer, 60–90 s: "[the headline]" and why it reaches [who]. Information as of [date]. Build the fact table with sources and claim classes, the script, and the asset plan (what's real, what's AI, with prompts). Use highlighter cards, a map with routes, a lens transition, a collage flow and a chart, the channel narrator and a thriller score. Stop for my approval after the script, and again after the look and the asset plan.</code></pre>
+      <button class="copy" type="button">Copy prompt</button>
+    </div>
+    <div class="row"><button class="track solid" type="button">Track a new news explainer</button></div>
   </div>
 
   <!-- business -->
@@ -637,7 +683,9 @@ scripts/publish_master.sh videos/<span class="k">&lt;film&gt;</span> <span class
       <tbody>
         <tr><td>Research, script, scene code</td><td>Claude (AI assistant)</td><td>you approve the story and the look</td></tr>
         <tr><td>Narration</td><td>Kokoro-82M (Apache 2.0)</td><td>the channel narrator for every film; ask before changing it</td></tr>
-        <tr><td>Music and sound effects</td><td>Python, NumPy, SciPy: written as code</td><td>the "Organ &amp; Time" style; nothing to license</td></tr>
+        <tr><td>Music and sound effects</td><td>Python, NumPy, SciPy: written as code</td><td>the "Organ &amp; Time" instruments; nothing to license. Thrillers get a driving cue scored to the words.</td></tr>
+        <tr><td>Word timings</td><td>Whisper word stamps (<code>engine/audio/words.py</code>)</td><td>hits and highlights land on the exact word</td></tr>
+        <tr><td>Your uploads: real footage, photos, clippings, AI images and clips</td><td><code>videos/&lt;film&gt;/assets/inbox/</code> → <code>scripts/assets.py ingest</code></td><td>credit and rights recorded, AI labelled on screen (<a href="#assets">step 4</a>)</td></tr>
         <tr><td>Drawing frames</td><td>Node.js + Skia canvas</td><td>every frame is a function of time</td></tr>
         <tr><td>Real evidence</td><td>page captures with the quote highlighted; openly licensed photos</td><td>source and date on screen; no imitated mastheads</td></tr>
         <tr><td>Archive film and period sound</td><td>archive.org (Prelinger, FedFlix, NASA, 78rpm) via <code>scripts/archive_org.py</code></td><td>public domain only, checked item by item; credit on every shot</td></tr>
@@ -652,25 +700,135 @@ scripts/publish_master.sh videos/<span class="k">&lt;film&gt;</span> <span class
   <div class="callout"><strong>Archive film, in short.</strong> Not everything on archive.org is free to use: only about 1,900 of the 10,500 Prelinger films carry a public-domain dedication, and the 78rpm collection is for research only. In the US, recordings become public domain 100 years after they were published, so only those from 1925 or earlier qualify. So every item gets a verdict before use: <strong>green</strong> (free to use), <strong>amber</strong> (only after a written check) or <strong>red</strong> (only with a licence). Only the seconds needed are downloaded, the original soundtrack is removed, and every shot is credited with its year.</div>
 </section>
 
-<!-- ============================================================ 4. RULES -->
-<section class="stack" aria-labelledby="rules">
+<!-- ============================================================ 4. ASSETS -->
+<section class="stack" aria-labelledby="assets">
   <div class="eyebrow">Step 4</div>
+  <h2 id="assets">Real footage, clippings and AI shots</h2>
+  <p>Most of a film is drawn in code. Some beats are stronger with something from outside: a real newspaper clipping, real footage, a photograph, or an AI-generated image or clip. For every film, Claude writes an <strong>asset plan</strong> with the look. It says, beat by beat, what to use, why, where to find it, and for AI shots the exact prompt. You approve it, then generate or collect the assets and upload them. Full rules: <code>docs/ASSETS.md</code>.</p>
+
+  <h3>Which kind, for which beat</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>The beat shows…</th><th>Use</th><th>Fallback</th><th>Never</th></tr></thead>
+      <tbody>
+        <tr><td>A claim, a quote, a number</td><td><strong>Real:</strong> the document, clipping, official statement, data</td><td>a citation card rebuilt in code</td><td>AI. Nothing generated stands in for evidence.</td></tr>
+        <tr><td>How something works</td><td><strong>Code animation</strong></td><td>an AI still as a backdrop</td><td>a mechanism invented by an image model</td></tr>
+        <tr><td>The past, where film exists</td><td><strong>Real:</strong> archive.org (public domain), or licensed footage you upload</td><td>AI, labelled "Reconstruction", for mood only</td><td>AI posing as archive film</td></tr>
+        <tr><td>A real place or object today</td><td><strong>Real:</strong> your footage, government media, licensed stock</td><td>AI, labelled, shown as a generic example</td><td>AI captioned as a specific ship, place or date</td></tr>
+        <tr><td>A real, named person</td><td><strong>Real photo</strong> with its credit</td><td>a name card</td><td>an AI likeness, ever</td></tr>
+        <tr><td>Ordinary people, emotion, human scale</td><td><strong>Real:</strong> your footage or stock</td><td>an AI composite, labelled, face not the point</td><td>an AI face inside evidence</td></tr>
+        <tr><td>The future, a what-if, an impossible view</td><td><strong>AI</strong>, labelled "Imagined"</td><td>code</td><td>presenting it as a forecast</td></tr>
+        <tr><td>Any words on screen</td><td><strong>Code</strong>, always</td><td></td><td>text inside an AI image (it garbles, and can't be translated)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="two">
+    <div><h3>Where AI helps most</h3><p><strong>The hook</strong> (one cinematic frame in the first 2 seconds), <strong>scale</strong> (a supertanker in a narrow strait), <strong>the human turn</strong> (one farmer, one field), <strong>transitions</strong> (a field dissolving into dots on the map) and <strong>imagined worlds</strong>. Keep AI to about 20% of the runtime, 3–5 seconds a shot: 2–4 shots in a 90-second explainer, 6–12 in a long film.</p></div>
+    <div><h3>Where it doesn't</h3><p>Anything a viewer might take as proof, anything code can show exactly, and any shot that only fills time. Real material has no cap, only a reason.</p></div>
+  </div>
+
+  <h3>Real material: what to upload, and the rights</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Material</th><th>Good sources</th><th>Rights</th></tr></thead>
+      <tbody>
+        <tr><td>Newspaper / web clipping</td><td>a full-resolution screenshot or e-paper scan: date line, headline and the lines we quote. Claude captures public pages itself; you upload paywalled or blocked ones.</td><td>fair dealing for news reporting and commentary (Copyright Act s.52): a short excerpt, credited, never the whole article</td></tr>
+        <tr><td>Your own footage and photos</td><td>a phone at 4K or 1080p, 30 fps, held steady, 10 s a shot</td><td>own footage: the most authentic material there is</td></tr>
+        <tr><td>Government media</td><td>PIB, Sansad TV, ministry channels, ISRO, NASA</td><td>the item's own terms (many allow reuse with credit); check each time</td></tr>
+        <tr><td>Stock</td><td>Pexels, Pixabay, Unsplash (free licences), or paid stock</td><td>the licence name and the item's link</td></tr>
+        <tr><td>TV or YouTube news clips</td><td>avoid: Content ID will claim the video</td><td>only with a licence; otherwise use a clipping of the same story</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>AI material: a prompt that looks real</h3>
+  <p>Generate the <strong>still first</strong>, choose it, then turn that still into a clip (image-to-video), so the clip keeps the composition. Make 3–4 variants and keep the best. Each line of the prompt has a job:</p>
+  <ul class="plain">
+    <li><strong>Shot and lens:</strong> these words make it look photographed rather than rendered.</li>
+    <li><strong>Palette:</strong> ties the shot to the film's colours, so the cut doesn't jump.</li>
+    <li><strong>Frame:</strong> leaves room for the text we add in code.</li>
+    <li><strong>Avoid:</strong> removes the usual AI tells.</li>
+  </ul>
+  <div class="prompt">
+    <div class="eyebrow">Example prompt card: the hook of the Hormuz pilot</div>
+<pre><code>STILL
+Shot     wide establishing shot · 35 mm lens · low drone, 30 m above the water
+Subject  a fully laden crude-oil tanker, dark hull riding low, moving through a narrow sea lane
+Place    a narrow strait at dusk: arid rocky headlands in haze behind
+Light    ten minutes after sunset, cool blue water, a thin amber band on the horizon, deck lights on
+Palette  deep navy and slate with one amber accent
+Frame    ship on the left third, bow to the right; empty sky upper right for text; horizon on the lower third
+Realism  photorealistic documentary photograph, natural colour, subtle 35 mm grain, no HDR, no lens flare
+Format   16:9, 3840×2160
+Avoid    text, letters, numbers, logos, flags, names on the hull, watermarks, people, warships, CGI look
+CLIP (image-to-video from the chosen still)
+Camera   slow push-in, about 3%, perfectly steady
+Motion   only the tanker gliding left to right, a soft wake, small waves, drifting haze
+Length   5 s at 24–30 fps
+Avoid    morphing, new objects appearing, horizon tilting, camera shake, any text
+LABEL    AI-generated illustration</code></pre>
+    <button class="copy" type="button">Copy prompt</button>
+  </div>
+  <div class="two">
+    <div><h3>Spec</h3><p><strong>Stills:</strong> at least 1920×1080, ideally 3840×2160 so the slow push stays sharp. <strong>Clips:</strong> at least 1920×1080, 24–30 fps, 5 s, with no audio, watermark or subtitles. Shorts need their own 9:16 version.</p></div>
+    <div><h3>Check before uploading</h3><p>Hands and faces. No letters or numbers anywhere. Physics: the wake, reflections and shadows. Scale. The right era, uniform, flag or vehicle. No flicker or morphing in a clip. Regenerate rather than fix, and keep the tool, prompt and seed.</p></div>
+  </div>
+
+  <h3>How to upload</h3>
+  <ol class="plain">
+    <li>Each film's asset plan (<code>videos/&lt;film&gt;/ASSETS.md</code>) gives every asset a <strong>key</strong>, e.g. <code>tanker_dusk</code>.</li>
+    <li>Name the file by its key: <code>tanker_dusk.mp4</code>, <code>bs_headline.png</code>.</li>
+    <li>On GitHub, open <code>FirstPrinciplesStudio → videos/&lt;film&gt;/assets/inbox/</code> → <em>Add file → Upload files</em> → <em>Commit</em>. Browser uploads take files up to 25 MB, so trim clips to the seconds you need first.</li>
+    <li>If anything differs from the plan, add <code>tanker_dusk.txt</code> with lines such as <code>tool: …</code>, <code>prompt: …</code>, <code>seed: …</code> (AI), or <code>credit: PIB, 1 Feb 2026</code> and <code>rights: …</code> (real).</li>
+    <li>Tell Claude. It runs <code>scripts/assets.py ingest</code>, which:
+      <ul class="plain">
+        <li>converts clips to 1080p30 and removes the sound;</li>
+        <li>records size, length and a checksum;</li>
+        <li>flags anything missing or too small.</li>
+      </ul>
+      Claude then looks at every asset, and asks for a new version with a corrected prompt if it shows AI tells.</li>
+  </ol>
+  <div class="callout"><strong>On screen, honesty is automatic.</strong> Real uploads show their credit, AI shots show "AI-generated illustration", and archive film shows its year. Clips play in sync with the narration. Photos get a slow push. Clippings land as paper cut-outs with the highlighter sweeping the lines the narrator reads. A missing asset, or an upload without its credit and rights, stops the render; a clipping can't be AI. Until an asset arrives, the scene runs in code, so nothing waits on it.</div>
+
+  <h3>Worked example: The Strait and the Field</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Asset</th><th>Where</th><th>Kind</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><code>tanker_dusk</code></td><td>the first 3 s</td><td>AI clip</td><td>the hook; no affordable real footage of the strait</td></tr>
+        <tr><td><code>air_headline</code></td><td>"came under attack"</td><td>real clipping (<strong>captured by Claude</strong>)</td><td>evidence must be real: the News On AIR page itself</td></tr>
+        <tr><td><code>lng_carrier</code></td><td>"Follow the gas"</td><td>AI clip</td><td>scale; real terminal footage belongs to the operators</td></tr>
+        <tr><td><code>farmer_bag</code></td><td>who pays</td><td>real clip (AI only as a fallback)</td><td>the human turn carries the film; your phone footage is best</td></tr>
+        <tr><td><code>budget_day</code></td><td>"This year's budget"</td><td>real photo (PIB)</td><td>a real, named person: real photos only</td></tr>
+        <tr><td><code>bs_headline</code></td><td>"₹70,000 crore"</td><td>real clipping (your screenshot)</td><td>the biggest number in the outlet's own words; the site blocks automated capture</td></tr>
+        <tr><td><code>fields_aerial</code></td><td>"Every farm in India"</td><td>real stock (AI as a fallback)</td><td>breadth, dissolving into the farm dots on the map</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Two AI shots (about 8% of the runtime), five real ones, and everything else in code. The prompt cards for all four AI shots are in the film's <code>ASSETS.md</code>.</p>
+</section>
+
+<!-- ============================================================ 5. RULES -->
+<section class="stack" aria-labelledby="rules">
+  <div class="eyebrow">Step 5</div>
   <h2 id="rules">Quality rules for every piece</h2>
   <p>Code makes a film possible; craft makes it worth watching. These come from our own films and from the open-source guides we reviewed (<a href="#ideas">see the ideas log</a>).</p>
   <div class="two">
     <div><h3>Story</h3><p>One message per film, one new thing to know per scene. A hook in the first two seconds. Where possible, the explanation is a recognisable machine with a window into the working part.</p></div>
     <div><h3>Time for the viewer</h3><p>One thing to take in at a time. Text stays up at least 1.2 seconds per 8 words, counted from when it becomes readable; read it aloud to check. Lay out every text for its longest version, including the Hindi one. Fast actions, held meanings.</p></div>
     <div><h3>Motion</h3><p>Nothing moves in a straight line at constant speed. Each kind of object has its own motion: small controls snap, panels settle, the camera glides almost unseen. Only one thing that matters moves at a time. Characters anticipate, overlap and never move in unison.</p></div>
+    <div><h3>Edit</h3><p>Scene changes are designed: a hard cut on a hit, a match, a push or a lens, not a cross-fade everywhere. The last frame is held as the poster frame. Text and on-screen moments land on the exact word the narrator says.</p></div>
     <div><h3>Picture</h3><p>One focal point, real empty space, text inside the safe area. Vertical versions are rearranged, never cropped.</p></div>
-    <div><h3>Sound</h3><p>Every visual event has a sound and every sound has a reason. Not every cut gets a whoosh. Listen with your eyes closed: the soundtrack should have a shape of its own. Loudness at −14 LUFS; check it on headphones and a phone speaker.</p></div>
+    <div><h3>Sound</h3><p>Every visual event has a sound and every sound has a reason. Not every cut gets a whoosh. Listen with your eyes closed: the soundtrack should have a shape of its own. Sound effects land 2–3 frames before the picture. Loudness at −14 LUFS with true peak at or below −1 dBTP; check it on headphones and a phone speaker.</p></div>
     <div><h3>Score like a thriller</h3><p>A thriller needs a machine running under it, not a soft bed: a relentless pulse of short string notes, a pumping bass, nervous high strings, drums that build into rolls, and risers into every hit. On top, the tricks of Dunkirk, Inception, Interstellar and The Dark Knight: one small motif, a ticking clock that lands exactly on the hit, one low note that only grows, a heavy "braam" on the three or four biggest moments, dead silence before the turn, an unresolved ending. Sit it close under the voice (too far under and it sounds like a documentary), keep it out of the voice's frequencies, and land every hit on its word.</p></div>
+    <div><h3>Outside assets</h3><p>Evidence is real or rebuilt in code, never AI. Real people appear only in real photos. AI shots are labelled on screen and kept to about 20% of the runtime. Every upload carries its credit and rights, or it won't render (<a href="#assets">step 4</a>).</p></div>
     <div><h3>Honesty</h3><p>Every fact shows its source; invented numbers say "illustrative"; imagined frames say "imagined"; archive film shows its year. Every number in a scene comes from one model, and sped-up time carries a badge (×4).</p></div>
   </div>
 </section>
 
 <!-- ============================================================ 5. TRACKER -->
 <section class="stack" aria-labelledby="tracker">
-  <div class="eyebrow">Step 5</div>
+  <div class="eyebrow">Step 6</div>
   <h2 id="tracker">Production tracker</h2>
   <p>Add each piece you're making and tick off its stages. The green ticks are your approval gates.</p>
   <form class="tracker-form" id="addForm" autocomplete="off">
@@ -704,7 +862,8 @@ scripts/publish_master.sh videos/<span class="k">&lt;film&gt;</span> <span class
         <tr><td><span class="pill">next</span></td><td>Word-level timing for animation and captions</td><td>things appear on the exact word; word-by-word captions for Shorts</td></tr>
         <tr><td><span class="pill">next</span></td><td>A motion style sheet per playlist</td><td>consistency reads as confidence</td></tr>
         <tr><td><span class="pill">next</span></td><td>A camera with depth layers, and character acting</td><td>depth, continuity, people who seem to think</td></tr>
-        <tr><td><span class="pill">next</span></td><td>AI-generated photoreal hero shots, labelled, with text kept in code</td><td>realism where no footage exists</td></tr>
+        <tr><td><span class="pill live">live</span></td><td>Real footage, clippings and AI shots from you: an asset plan with prompts for every film, upload intake, automatic credits and AI labels</td><td>realism where code isn't enough, honestly labelled</td></tr>
+        <tr><td><span class="pill live">live</span></td><td>A thriller score scored to the words: a driving pulse, drums, silence, hits on the word</td><td>tension that matches the story without drowning the voice</td></tr>
         <tr><td><span class="pill">next</span></td><td>An interactive figure for each film's key mechanism</td><td>a second way into every film, and a Short from the same figure</td></tr>
         <tr><td><span class="pill wait">your call</span></td><td>A more expressive narrator (samples are ready)</td><td>the voice is the biggest quality gap; changing it needs your approval</td></tr>
       </tbody>
@@ -725,6 +884,7 @@ scripts/publish_master.sh videos/<span class="k">&lt;film&gt;</span> <span class
         <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/0xjmori/status/2111793914206171234">"Motion Engineering: One Bot, Five Departments"</a> (Mori)</td><td>Adopted the process (stages, approval gates, an independent critic, a two-try repair limit) as the <code>/make-film</code> skill. Skipped its tool choice (Remotion).</td></tr>
         <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/beamnxw/status/2108616740846420354">"Motion Engineering with Opus 5.5: Build Launch Videos You Can Sell"</a> (beamnxw)</td><td>A third retelling of the same process. Added small rules: reading time counts from when text is legible, lay out for the longest copy (vital for Hindi), measured vs estimated values from references, a fix order, and a phone-speaker check. Selling $150 launch clips is a business choice, not a pipeline change.</td></tr>
         <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/0xwhrrari/status/2105643919119696297">"Motion Engineering: Build a Video Studio Around Opus 5.5"</a> (rari), the original of the Mori article</td><td>Mostly already in <code>/make-film</code>. Added three small rules: a motion rule per kind of object, the eyes-closed listening test, and a last frame that works as a poster.</td></tr>
+        <tr><td class="nowrap">23 Oct 2026</td><td>Your request: let me upload real clips and newspaper clippings, and AI images or clips; recommend where each helps, real or AI, with detailed prompts</td><td>Adopted. Every film now gets an asset plan with the look: per beat, code, archive, a real upload or AI, with a prompt card for every AI shot. Uploads go to the film's <code>assets/inbox/</code>. Guard rails: evidence is never AI, real people are real photos only, AI is labelled and kept to about 20% of the runtime. Claude captures public news pages itself (the News On AIR clipping for the pilot); paywalled ones need your screenshot.</td></tr>
         <tr><td class="nowrap">23 Oct 2026</td><td>Your notes on the In Context pilot: a more Indian accent; a score like Dunkirk, Inception, Interstellar and The Dark Knight that fits each moment without distracting</td><td>Score adopted: the pilot's music is now one thriller cue with every hit on a measured word. Accent tried and declined: after hearing it you kept the original narrator, which sounds more human and passionate.</td></tr>
         <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/elvar_official/status/2111831136171151589">"How I Turn Any Question Into a Machine You Can Run"</a> (Elvar), on the <a href="https://github.com/wheresryan22/anatomy">anatomy</a> skill</td><td>Adopted four rules (the object is the explanation, a cutaway window, one model for every number, a speed badge) and planned interactive figures. Skipped the children's-book look.</td></tr>
       </tbody>
@@ -736,10 +896,10 @@ scripts/publish_master.sh videos/<span class="k">&lt;film&gt;</span> <span class
 <section class="stack" aria-labelledby="where">
   <h2 id="where">Where things live</h2>
   <div class="two">
-    <div><h3>Films and Shorts</h3><p><code>FirstPrinciplesStudio</code> (private): the engine, every film in <code>videos/</code>, the <code>/make-film</code> skill. Start with <code>docs/PLAYBOOK.md</code>; editorial standards in <code>docs/CHANNEL.md</code>; archive rules in <code>docs/ARCHIVAL.md</code>.</p></div>
+    <div><h3>Films and Shorts</h3><p><code>FirstPrinciplesStudio</code> (private): the engine, every film in <code>videos/</code>, the <code>/make-film</code> skill. Start with <code>docs/PLAYBOOK.md</code>; editorial standards in <code>docs/CHANNEL.md</code>; archive rules in <code>docs/ARCHIVAL.md</code>; real and AI assets in <code>docs/ASSETS.md</code>, and each film's uploads in <code>videos/&lt;film&gt;/assets/inbox/</code>.</p></div>
     <div><h3>Interactive experiences</h3><p><code>FirstPrinciplesInteractive</code> (private): the Lab, live at <a href="https://firstprinciplesstudio.in">firstprinciplesstudio.in</a>. Its standard is <code>docs/LAB-PRINCIPLES.md</code>.</p></div>
     <div><h3>This page</h3><p><code>nitinbandgar.github.io</code>: the handbook and tracker. When the pipeline changes, this page is updated with it.</p></div>
-    <div><h3>Working rules for Claude</h3><p><code>CLAUDE.md</code> in each repository: the narrator, the music style, where masters go, and the archive rules. Every session reads them.</p></div>
+    <div><h3>Working rules for Claude</h3><p><code>CLAUDE.md</code> in each repository: the narrator, the music style, where masters go, the archive rules and the asset rules. Every session reads them.</p></div>
   </div>
 </section>
 
@@ -780,6 +940,7 @@ scripts/publish_master.sh videos/<span class="k">&lt;film&gt;</span> <span class
   const FORMATS = {
     explainer: { name: 'Explainer film', steps: FILM },
     evidence: { name: 'Evidence film (In Context)', steps: ['Dossier, evidence wall, fact table and script approved', 'Look approved', 'Voice and clock built', 'Scenes built', 'Counterargument section checked', 'Preview passed the critic', 'Full render', 'Shorts', 'Thumbnails', 'Upload kit with sources and "as of" date', 'Master on the masters branch', 'Published'] },
+    news: { name: 'News explainer (60–90 s)', steps: ['Script and fact table approved', 'Look and asset plan approved', 'Assets uploaded and ingested', 'Voice and clock built', 'Scenes built', 'Score scored to the words', 'Preview passed the critic', 'Full render', 'Short', 'Thumbnail', 'Upload kit with sources and "as of" date', 'Published'] },
     business: { name: 'Business film', steps: ['Dossier and script approved', 'Look approved', 'Voice and clock built', 'Business Engine and red-team scenes built', 'Not-investment-advice note on screen', 'Preview passed the critic', 'Full render', 'Shorts', 'Thumbnails', 'Upload kit with sources', 'Master on the masters branch', 'Published'] },
     imagine: { name: 'Imagine film (past or future)', steps: ['Dossier and design approved', 'Look approved', 'Voice and clock built', 'Worlds and scenes built', 'Imagined / evidence labels checked', 'Preview passed the critic', 'Full render', 'Shorts', 'Thumbnails', 'Upload kit with sources', 'Master on the masters branch', 'Published'] },
     shorts: { name: 'Shorts', steps: ['Ideas and line ranges chosen', 'Rendered at 9:16', 'Each checked on its own stills', 'Readable with the sound off', 'Titles and descriptions', 'Published'] },
