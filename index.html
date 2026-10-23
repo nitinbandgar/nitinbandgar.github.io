@@ -521,7 +521,7 @@ npm run build:static        <span class="c"># → out/ for Hostinger</span></cod
     <h3 id="st2">Look: decide how it looks, moves and sounds</h3>
     <ul class="plain">
       <li>Colours with meanings, fonts with roles, the frame grid and safe areas.</li>
-      <li>The motion language: one easing style, a basic timing unit, how scenes hand over to each other.</li>
+      <li>The motion language: one easing style, a basic timing unit, how scenes hand over to each other, and a rule for each kind of object (small controls snap, panels settle, the camera glides, headlines arrive fast and hold).</li>
       <li>The storyboard: per scene, its composition, its one main technique and how it hands over to the next.</li>
       <li>Where every real image comes from (page captures, licensed photos, archive film), and what this film must avoid.</li>
     </ul>
@@ -583,7 +583,7 @@ node engine/video/render.mjs --video videos/<span class="k">&lt;film&gt;</span> 
     <h3 id="st5">Review: judge the pixels, with fresh eyes</h3>
     <ul class="plain">
       <li>A separate agent that didn't build the film looks only at the approved plan and the rendered frames, never at the builder's description.</li>
-      <li>It scores the hook, clarity, composition, phone-size readability, motion, timing, continuity, honesty labels and sound sync, from 1 to 10.</li>
+      <li>It scores the hook (and whether the last frame works as a poster), clarity, composition, phone-size readability, motion, timing, continuity, honesty labels and sound sync, from 1 to 10.</li>
       <li>It reports the three biggest problems, each with its exact frame, what's wrong, why it matters, the smallest fix, and what must not change.</li>
       <li>Last test: it tells you the film's message from the frames alone. If it can't, the story fails.</li>
     </ul>
@@ -659,9 +659,9 @@ scripts/publish_master.sh videos/<span class="k">&lt;film&gt;</span> <span class
   <div class="two">
     <div><h3>Story</h3><p>One message per film, one new thing to know per scene. A hook in the first two seconds. Where possible, the explanation is a recognisable machine with a window into the working part.</p></div>
     <div><h3>Time for the viewer</h3><p>One thing to take in at a time. Text stays up at least 1.2 seconds per 8 words. Fast actions, held meanings.</p></div>
-    <div><h3>Motion</h3><p>Nothing moves in a straight line at constant speed. Only one thing that matters moves at a time. Characters anticipate, overlap and never move in unison.</p></div>
+    <div><h3>Motion</h3><p>Nothing moves in a straight line at constant speed. Each kind of object has its own motion: small controls snap, panels settle, the camera glides almost unseen. Only one thing that matters moves at a time. Characters anticipate, overlap and never move in unison.</p></div>
     <div><h3>Picture</h3><p>One focal point, real empty space, text inside the safe area. Vertical versions are rearranged, never cropped.</p></div>
-    <div><h3>Sound</h3><p>Every visual event has a sound and every sound has a reason. Not every cut gets a whoosh. Loudness at −14 LUFS.</p></div>
+    <div><h3>Sound</h3><p>Every visual event has a sound and every sound has a reason. Not every cut gets a whoosh. Listen with your eyes closed: the soundtrack should have a shape of its own. Loudness at −14 LUFS.</p></div>
     <div><h3>Honesty</h3><p>Every fact shows its source; invented numbers say "illustrative"; imagined frames say "imagined"; archive film shows its year. Every number in a scene comes from one model, and sped-up time carries a badge (×4).</p></div>
   </div>
 </section>
@@ -720,6 +720,7 @@ scripts/publish_master.sh videos/<span class="k">&lt;film&gt;</span> <span class
         <tr><td class="nowrap">23 Oct 2026</td><td>Nine open-source motion-design guides for AI assistants (<a href="https://github.com/Lob0Garou/opus-visual-motion-engine">opus-visual-motion-engine</a>, <a href="https://github.com/howseen-ai/claude-motion-design">claude-motion-design</a>, <a href="https://github.com/tuzhechen2005/opus-video-skills">opus-video-skills</a>, <a href="https://github.com/iart-ai/motion-design-skills">iart-ai</a>, <a href="https://github.com/siyuanfeng636-cpu/agentic-motion-graphics">agentic-motion-graphics</a>, <a href="https://github.com/haidrrrry/claude-remotion-skill">claude-remotion-skill</a>, <a href="https://github.com/LottieFiles/motion-design-skill">LottieFiles</a>, <a href="https://github.com/frankxai/awesome-motion-design-agent-skills">awesome-motion-design</a>, <a href="https://github.com/wilwaldon/Claude-Code-Video-Toolkit">Video Toolkit</a>)</td><td>Adopted the craft rules and most of the roadmap. Kept our own engine: it already has their core idea, and switching would cost weeks for no visible gain.</td></tr>
         <tr><td class="nowrap">23 Oct 2026</td><td>Search archive.org's Prelinger and 78rpm collections for b-roll and period music</td><td>Adopted with a licence check: most Prelinger films aren't public domain, and the 78s are for research only. Added FedFlix and NASA as cleaner sources.</td></tr>
         <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/0xjmori/status/2111793914206171234">"Motion Engineering: One Bot, Five Departments"</a> (Mori)</td><td>Adopted the process (stages, approval gates, an independent critic, a two-try repair limit) as the <code>/make-film</code> skill. Skipped its tool choice (Remotion).</td></tr>
+        <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/0xwhrrari/status/2105643919119696297">"Motion Engineering: Build a Video Studio Around Opus 5.5"</a> (rari), the original of the Mori article</td><td>Mostly already in <code>/make-film</code>. Added three small rules: a motion rule per kind of object, the eyes-closed listening test, and a last frame that works as a poster.</td></tr>
         <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/elvar_official/status/2111831136171151589">"How I Turn Any Question Into a Machine You Can Run"</a> (Elvar), on the <a href="https://github.com/wheresryan22/anatomy">anatomy</a> skill</td><td>Adopted four rules (the object is the explanation, a cutaway window, one model for every number, a speed badge) and planned interactive figures. Skipped the children's-book look.</td></tr>
       </tbody>
     </table>
