@@ -139,7 +139,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <div class="stage"><span class="tc">08</span><b>Checks</b><span>Whisper, frames, loudness</span></div>
     <div class="stage"><span class="tc">09</span><b>Assemble</b><span>FFmpeg: film, Shorts, thumbnails</span></div>
   </div>
-  <p class="strip-note">Steps 5, 6 and 7 all read the same timeline from step 4. That is why the picture, words and music stay in sync without anyone dragging clips around.</p>
+  <p class="strip-note">Steps 5, 6 and 7 all read the same timeline from step 4. That is why the picture, words and music stay in sync without anyone dragging clips around. When a history beat needs real film of the past, licence-checked archive footage plugs into the same clock (<a href="#archive">see below</a>).</p>
 </section>
 
 <!-- 1 -->
@@ -304,6 +304,62 @@ function game(ctx, S) {
   </div>
 </section>
 
+<!-- archive -->
+<section class="reel" aria-labelledby="archive">
+  <div class="reel-no"><strong>+</strong>archive</div>
+  <div class="reel-body">
+    <h2 id="archive">Real footage from the past, licence-checked</h2>
+    <p>Some beats are about things that really happened and were filmed: an operator at IBM's SAGE air-defence computer in 1956, a 1950s power station, a bank's ledger room. For those, real film beats any drawing. A script searches <strong>archive.org</strong> for it and pulls it into the scene on the same clock as everything else.</p>
+    <ul class="plain">
+      <li><strong>Where it looks.</strong> The Prelinger Archives (US corporate, educational and industrial films, 1930s–80s), FedFlix (US government films), NASA, and 78rpm records for the sound of a period.</li>
+      <li><strong>A licence check before anything is used.</strong> Not everything on archive.org is free to use. Only about 1,900 of the 10,500 Prelinger films carry a public-domain dedication, and the 78rpm collection is for research only. In the US, recordings become public domain 100 years after they were published, so only those from 1925 or earlier qualify. Every item gets a verdict:</li>
+    </ul>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Verdict</th><th>Means</th><th>Used?</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Green</strong></td><td>the item itself is dedicated to the public domain</td><td>yes</td></tr>
+          <tr><td><strong>Amber</strong></td><td>public domain by its collection's statement or by its date (a 1919 march)</td><td>only after a written check, which is recorded</td></tr>
+          <tr><td><strong>Red</strong></td><td>anything else, including most Prelinger titles</td><td>only with a licence we hold</td></tr>
+        </tbody>
+      </table>
+    </div>
+<pre><code><span class="c"># find it, check it, fetch only the 8 seconds the scene needs</span>
+python3 scripts/archive_org.py search "computer"
+python3 scripts/archive_org.py fetch OnGuard1956 --key sage --in 300 --dur 8 --video videos/01-…
+
+<span class="c">// in a scene: the film starts when line [b] is spoken</span>
+footage(ctx, S, <span class="k">'sage'</span>, { start: <span class="k">'b'</span> });</code></pre>
+    <ul class="plain">
+      <li><strong>Only the seconds needed</strong> are downloaded, and the original soundtrack is removed (an old public-domain film can still contain copyrighted music).</li>
+      <li><strong>Every shot is credited on screen</strong>, e.g. "Archive footage: On Guard! The Story of SAGE (1956) · Prelinger Archives · public domain". Film from 1956 must never read as today, and American footage is never passed off as India.</li>
+      <li><strong>Period music is a moment, not the score:</strong> a gramophone in a 1920s scene, under the channel's own music.</li>
+    </ul>
+    <div class="files"><span class="file">scripts/archive_org.py</span><span class="file">engine/video/footage.mjs</span><span class="file">engine/audio/archive.py</span><span class="file out">sources/archive/archive.json</span></div>
+  </div>
+</section>
+
+<section class="stack" aria-labelledby="makes">
+  <h2 id="makes">One pipeline, many kinds of content</h2>
+  <p>The same clock-and-code idea makes every format the channel publishes. Each row is a real film or deliverable.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Content</th><th>What changes</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>Explainer film</td><td>the core pipeline above</td><td>How ChatGPT Actually Works</td></tr>
+        <tr><td>Evidence film (In Context)</td><td>real page captures with the quoted line highlighted, citation cards, every claim classed (fact, projection, estimate…), a counterargument with the music stopped</td><td>The AI Race Is Becoming an Electricity Race</td></tr>
+        <tr><td>Business film (Business, Unpacked)</td><td>a recurring "business engine" diagram and a "what could break it" section</td><td>Why Can Only One Company Build This Machine? (ASML)</td></tr>
+        <tr><td>Reconstruction and future (Imagine)</td><td>painted worlds drawn in code, each frame labelled imagined or evidence</td><td>Kurukshetra · India 2040</td></tr>
+        <tr><td>History beats with real film</td><td>licence-checked archive footage and period sound</td><td>new: first film pending</td></tr>
+        <tr><td>A model trained for the film</td><td>a tiny diffusion model trained so the film can show real outputs</td><td>How Does AI Create Images From Noise?</td></tr>
+        <tr><td>Vertical Shorts</td><td>line ranges re-rendered at 1080×1920, each with its own climax</td><td>every film</td></tr>
+        <tr><td>Another language</td><td>a second script and voice; every on-screen word written in both</td><td>How ChatGPT Actually Works (Hindi)</td></tr>
+        <tr><td>Thumbnails and upload kit</td><td>drawn with the film's kit; description, sources and chapters from the timeline</td><td>every film</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
 <section class="stack" aria-labelledby="tools">
   <h2 id="tools">The toolbox</h2>
   <p>Everything runs on one ordinary computer (4 CPU cores, no graphics card). All of it is free and open source, apart from the AI assistant that writes the script and code.</p>
@@ -320,6 +376,7 @@ function game(ctx, S) {
         <tr><td>Loudness</td><td>pyloudnorm (EBU R128 / −14 LUFS)</td><td>MIT</td></tr>
         <tr><td>Encoding, Shorts, captions</td><td>FFmpeg + libx264 + libass</td><td>LGPL / GPL</td></tr>
         <tr><td>Thumbnails, images</td><td>the same canvas kit, Pillow</td><td>MIT / HPND</td></tr>
+        <tr><td>Archival film and period sound</td><td>archive.org (Prelinger, FedFlix, NASA, 78rpm) via its public API</td><td>public domain only, checked per item</td></tr>
         <tr><td>Fonts</td><td>Baloo 2 (with Devanagari), Inter and others from Google Fonts</td><td>SIL OFL</td></tr>
       </tbody>
     </table>
@@ -342,6 +399,34 @@ function game(ctx, S) {
       </tbody>
     </table>
   </div>
+</section>
+
+<section class="stack" aria-labelledby="playbook">
+  <h2 id="playbook">The craft playbook</h2>
+  <p>Code makes a film possible; craft makes it worth watching. These rules come from our own films and from nine open-source motion-design guides written for AI coding assistants (credited below). Each outside idea is checked before it is adopted: does it work, is it legal, does it fit the channel?</p>
+  <div class="two">
+    <div><h3>Story</h3><p>One core message per film, one new thing to know per scene. A hook in the first two seconds. A recurring device, and one moment where the idea is <em>shown</em>, not captioned.</p></div>
+    <div><h3>Time for the viewer</h3><p>One thing to take in at a time. Text stays on screen at least 1.2 seconds per 8 words. Fast actions, held meanings.</p></div>
+    <div><h3>Motion</h3><p>Nothing moves in a straight line at constant speed. One thing that matters moves at a time. Characters anticipate, overlap and never move in unison.</p></div>
+    <div><h3>Sound</h3><p>Every visual event has a sound and every sound has a reason, landing a couple of frames before the picture. Not every cut gets a whoosh.</p></div>
+    <div><h3>Honesty</h3><p>Every fact shows its source, invented numbers say "illustrative", imagined frames say "imagined", archive film shows its year.</p></div>
+    <div><h3>Review</h3><p>Judge the frames, not the code: contact sheets, frame strips, full-size crops. Then the creator watches the whole film before it is published.</p></div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Status</th><th>Upgrade</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><span class="file out">live</span></td><td>Archive footage and period sound, licence-checked</td><td>real film for history beats</td></tr>
+        <tr><td><span class="file">next</span></td><td>Designed scene changes (match, push, iris) instead of a cross-fade everywhere</td><td>a fade between every scene reads as a slideshow</td></tr>
+        <tr><td><span class="file">next</span></td><td>Automatic frame checks: empty frames, frozen stretches, one-frame jumps, overlapping text, contrast</td><td>catches on every render what a tired eye misses</td></tr>
+        <tr><td><span class="file">next</span></td><td>Motion blur from in-between frames</td><td>fast movement looks filmed, not computed</td></tr>
+        <tr><td><span class="file">next</span></td><td>Word-level timing from Whisper</td><td>things appear on the exact word, and Shorts get word-by-word captions</td></tr>
+        <tr><td><span class="file">next</span></td><td>A camera with depth layers, and character acting</td><td>depth, continuity and people who seem to think</td></tr>
+        <tr><td><span class="file">next</span></td><td>AI-generated photoreal hero shots, labelled, with on-screen text kept in code</td><td>realism where no footage exists</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="strip-note">Sources reviewed: <a href="https://github.com/Lob0Garou/opus-visual-motion-engine">opus-visual-motion-engine</a>, <a href="https://github.com/howseen-ai/claude-motion-design">claude-motion-design</a>, <a href="https://github.com/tuzhechen2005/opus-video-skills">opus-video-skills</a>, <a href="https://github.com/iart-ai/motion-design-skills">iart-ai motion-design-skills</a>, <a href="https://github.com/siyuanfeng636-cpu/agentic-motion-graphics">agentic-motion-graphics</a>, <a href="https://github.com/haidrrrry/claude-remotion-skill">claude-remotion-skill</a>, <a href="https://github.com/LottieFiles/motion-design-skill">LottieFiles motion-design-skill</a>, <a href="https://github.com/frankxai/awesome-motion-design-agent-skills">awesome-motion-design-agent-skills</a>, <a href="https://github.com/wilwaldon/Claude-Code-Video-Toolkit">Claude-Code-Video-Toolkit</a>, and the archive.org developer API.</p>
 </section>
 
 <section class="stack" aria-labelledby="start">
