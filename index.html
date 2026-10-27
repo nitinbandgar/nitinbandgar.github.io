@@ -155,6 +155,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
 <header class="stack">
   <div class="eyebrow">First Principles Studio · production handbook</div>
   <h1>The content pipeline</h1>
+  <p><span class="pill live">Pipeline v1.0</span> <span class="note">Fixed on 27 October 2026. Changes go through the <a href="#ideas">ideas log</a> and the <a href="#changelog">changelog</a>.</span></p>
   <p class="lede">How we turn a question into a film, a Short, a Hindi version or an interactive experience, all made in code, with no camera and no editing timeline. Pick what you're making, follow the steps, and track each production at the bottom of this page.</p>
   <nav class="jump" aria-label="On this page">
     <a href="#pick">1 · Pick a format</a>
@@ -162,9 +163,12 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <a href="#ingredients">3 · Ingredients</a>
     <a href="#assets">4 · Real &amp; AI assets</a>
     <a href="#rules">5 · Quality rules</a>
+    <a href="#bar">The quality bar</a>
+    <a href="#decisions">Your decisions</a>
     <a href="#tracker">6 · Production tracker</a>
     <a href="#roadmap">Roadmap</a>
     <a href="#ideas">Ideas reviewed</a>
+    <a href="#changelog">Changelog</a>
     <a href="#where">Where things live</a>
   </nav>
 </header>
@@ -543,8 +547,24 @@ npm run build:static        <span class="c"># → out/ for Hostinger</span></cod
 <!-- ============================================================ 2. PROCESS -->
 <section class="stack" aria-labelledby="process">
   <div class="eyebrow">Step 2</div>
-  <h2 id="process">How every film is made: seven stages</h2>
-  <p>One Claude agent plays seven roles, one after another. Each role has its own job, writes its own file, and passes a check before the next one starts. This procedure is saved as a Claude Code skill: type <code>/make-film</code> in the studio repository. Everything a stage decides is written to <code>videos/&lt;film&gt;/review/</code>, so work can pick up again in a new session.</p>
+  <h2 id="process">How every film is made: seven stages, two gates for you</h2>
+  <p>One Claude agent plays seven roles in turn, with an asset step between Look and Build and a learning step after publishing. Each role writes its own file and passes a check before the next starts. Run it with <code>/make-film</code> in the studio repository; every decision is saved in <code>videos/&lt;film&gt;/review/</code>, so work picks up again in any session.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Stage</th><th>Claude does</th><th>You do</th><th>Passes when</th></tr></thead>
+      <tbody>
+        <tr><td>1 · Story</td><td>research from primary sources, a fact table, the script, the beat sheet</td><td><strong>approve the story</strong></td><td>every claim has a source and a class; one message; a hook in 2 s</td></tr>
+        <tr><td>2 · Look &amp; asset plan</td><td>palette, motion, storyboard, the score's theme, the asset plan with prompt cards</td><td><strong>approve the look and the asset plan</strong></td><td>every beat has its asset type and reason; AI ≤ 20% of runtime</td></tr>
+        <tr><td>· Assets</td><td>captures web pages, fetches archive film, cuts your footage, checks every file</td><td>upload real material; generate the AI shots from the prompt cards</td><td>every asset ready, credited and checked for AI tells</td></tr>
+        <tr><td>3 · Build</td><td>voice, clock, scenes, the score, the mix</td><td>nothing</td><td>scenes render with no errors</td></tr>
+        <tr><td>4 · Preview</td><td>stills, contact sheets, the hardest stretch, then the full render and QA</td><td>nothing</td><td><code>scripts/qa.py</code> reads ALL PASS</td></tr>
+        <tr><td>5 · Critic</td><td>a separate agent scores the frames and the sound</td><td>nothing</td><td>every score ≥ 8; it restates the message from the frames</td></tr>
+        <tr><td>6 · Fix</td><td>the smallest fix per finding, at most two tries</td><td>only if it's stuck</td><td>the critic passes it</td></tr>
+        <tr><td>7 · Deliver</td><td>the film, Shorts, thumbnails, the upload kit, the master</td><td><strong>watch it on headphones and a phone, and decide on publishing</strong></td><td>the release checklist is complete</td></tr>
+        <tr><td>· Learn</td><td>turns what the analytics show into playbook rules</td><td>share YouTube Studio retention and click-through after 7 and 28 days</td><td>one lesson per film is written down</td></tr>
+      </tbody>
+    </table>
+  </div>
 </section>
 
 <section class="stage" aria-labelledby="st1">
@@ -552,28 +572,51 @@ npm run build:static        <span class="c"># → out/ for Hostinger</span></cod
   <div class="stage-body">
     <h3 id="st1">Story: decide what the film says</h3>
     <ul class="plain">
-      <li>The core message in one sentence. If it needs two, it's two films.</li>
-      <li>Chapters and beats: for each beat, what the viewer now knows. A hook in the first two seconds.</li>
-      <li>Research from primary sources; every number gets its source and date. Missing evidence is found or asked for, never invented.</li>
-      <li>A first script, sized to the length: our films run 108–134 spoken words per minute.</li>
+      <li><strong>One message,</strong> in one sentence. If it needs two, it's two films. Then chapters and beats: what the viewer knows after each one.</li>
+      <li><strong>The hook:</strong> movement in the first 15 frames, a question in the first 2 seconds. Real stakes from the real world (a headline, a number, a person) beat a definition.</li>
+      <li><strong>Research from primary sources</strong> (official alerts, filings, papers, the company's own page), then a fact table: every number with its source, date and claim class (measured · official projection · company statement · estimate · analysis · contested). Missing evidence is found or asked for, never invented, and widely repeated figures are traced to their origin (the Morris worm's "6,000 machines" turned out to be an extrapolation).</li>
+      <li><strong>The script,</strong> sized to the length (108–134 spoken words a minute for explainers, up to 165 for Shorts). Jargon only after the intuition. If picture and voice don't fit, tighten the words; never pad the voice.</li>
+      <li><strong>The beat sheet:</strong> every line names the one thing that changes on screen and the word that triggers it.</li>
     </ul>
     <span class="gate">✓ You approve the story</span>
-    <div class="files"><span class="file out">review/APPROACH_REVIEW.md</span><span class="file out">review/RESEARCH_DOSSIER.md</span><span class="file out">narration.txt</span></div>
+    <div class="files"><span class="file out">review/APPROACH_REVIEW.md</span><span class="file out">review/RESEARCH_DOSSIER.md</span><span class="file out">README.md (fact table)</span><span class="file out">narration.txt</span></div>
   </div>
 </section>
 
 <section class="stage" aria-labelledby="st2">
   <div class="stage-no"><strong>2</strong>art director</div>
   <div class="stage-body">
-    <h3 id="st2">Look: decide how it looks, moves and sounds</h3>
+    <h3 id="st2">Look and asset plan: how it looks, moves, sounds, and what it's made of</h3>
     <ul class="plain">
-      <li>Colours with meanings, fonts with roles, the frame grid and safe areas.</li>
-      <li>The motion language: one easing style, a basic timing unit, how scenes hand over to each other, and a rule for each kind of object (small controls snap, panels settle, the camera glides, headlines arrive fast and hold).</li>
-      <li>The storyboard: per scene, its composition, its one main technique and how it hands over to the next.</li>
-      <li>Where every real image comes from (page captures, licensed photos, archive film), and what this film must avoid.</li>
+      <li><strong>Look:</strong> colours with meanings, fonts with roles, the grid and safe areas, an avoid list (no hooded hackers, no code rain, no stock clichés).</li>
+      <li><strong>Motion:</strong> one easing family; small things snap, panels settle, the camera glides; things that appear pop on a spring; text rises into place; scenes hand over by design (a hard cut on a hit, a match, a lens), not a fade everywhere.</li>
+      <li><strong>The storyboard:</strong> per scene, its composition, its one main technique and how it hands over to the next.</li>
+      <li><strong>The score's story:</strong> one theme that changes with the film (introduced, transformed, resolved or left hanging), the cue sheet, and the tempo the narration will lock to.</li>
+      <li><strong>The asset plan</strong> (<a href="#assets">step 4</a>): beat by beat, code, archive, a real upload or AI, with the reason, where to find it, and for AI a full prompt card.</li>
     </ul>
-    <span class="gate">✓ You approve the look</span>
-    <div class="files"><span class="file out">review/PRODUCTION_DESIGN.md</span></div>
+    <span class="gate">✓ You approve the look and the asset plan</span>
+    <div class="files"><span class="file out">review/PRODUCTION_DESIGN.md</span><span class="file out">ASSETS.md</span><span class="file out">assets/assets.json</span></div>
+  </div>
+</section>
+
+<section class="stage" aria-labelledby="sta">
+  <div class="stage-no"><strong>·</strong>assets</div>
+  <div class="stage-body">
+    <h3 id="sta">Assets: collect, generate, check</h3>
+    <ul class="plain">
+      <li><strong>Claude finds:</strong>
+        <ul class="plain">
+          <li>captures of public web pages (official alerts, reports, articles) as clippings;</li>
+          <li>public-domain archive film from archive.org;</li>
+          <li>openly licensed images.</li>
+        </ul></li>
+      <li><strong>You supply:</strong> small files uploaded to the film's <code>assets/inbox/</code>; large footage as a Google Drive or Dropbox link. Claude reviews it shot by shot and proposes the seconds to use.</li>
+      <li><strong>AI shots:</strong> generated from Claude's prompt cards (still first, then the clip), by you or by Claude with your approval.</li>
+      <li><strong>Every file is checked</strong> (size, length, AI tells, the right era), credited and recorded. Anything without a credit and rights note, or marked test-only, can't be released.</li>
+    </ul>
+<pre><code>python3 scripts/assets.py fetch  videos/<span class="k">&lt;film&gt;</span> <span class="k">&lt;drive link&gt;</span>   <span class="c"># your large footage</span>
+python3 scripts/assets.py review videos/<span class="k">&lt;film&gt;</span> --speech        <span class="c"># shots, timecodes, quality, transcript</span>
+python3 scripts/assets.py ingest videos/<span class="k">&lt;film&gt;</span>                 <span class="c"># checks and records every upload</span></code></pre>
   </div>
 </section>
 
@@ -582,19 +625,29 @@ npm run build:static        <span class="c"># → out/ for Hostinger</span></cod
   <div class="stage-body">
     <h3 id="st3">Build: voice, clock, animation, music</h3>
     <ul class="plain">
-      <li><strong>Script with labels.</strong> Each sentence has a short label like <code>[c]</code>; a scene starts with <code>@</code>; <code>~1.6</code> is the pause after a line; <code>{…}</code> is how to say a hard word.</li>
-      <li><strong>Voice.</strong> Kokoro (free, open, runs on a normal computer) reads each line into its own file, so changing one sentence re-records only that sentence. The channel narrator is a 65/35 blend of a Hindi and an American voice. Keep it: an Indian-accent version was tried and the original sounded more human and passionate.</li>
-      <li><strong>Clock.</strong> The program measures each clip and writes when every line starts. That file drives everything else.</li>
-      <li><strong>Animation.</strong> Each scene is a function that answers "what does the screen look like at time t?", drawn 30 times a second. Scenes ask "when does line c start?", never "at 61.8 s", so they stay in sync when the script changes.</li>
-      <li><strong>Music and sound.</strong> The "Organ &amp; Time" score is written in code from sound waves, with its big moments placed on chosen lines. Under speech, only the music's voice frequencies dip.</li>
-      <li><strong>Subtitles</strong> come straight from the script and the clock, so no speech recognition is needed.</li>
+      <li><strong>Script with labels.</strong>
+        <ul class="plain">
+          <li>Each sentence has a short label like <code>[c]</code>, and a scene starts with <code>@</code>.</li>
+          <li><code>~1.6</code> is the pause after a line, and <code>{…}</code> is how to say a hard word.</li>
+          <li><code>{clip:KEY}</code> plays a real person's own voice (a soundbite) at the narrator's loudness, with its own subtitle.</li>
+        </ul></li>
+      <li><strong>Voice.</strong> The channel narrator (Kokoro, a 65/35 blend of a Hindi and an American voice) reads each line into its own file, so changing a sentence re-records only that sentence. Pronunciations are checked with Whisper, and fixed with respellings where it mishears.</li>
+      <li><strong>Clock.</strong> Every line starts on the score's beat, so voice and music move together. Whisper also gives the time of every word, so animation and music hits land on the word.</li>
+      <li><strong>Animation.</strong>
+        <ul class="plain">
+          <li>Each scene answers "what does the screen look like at time t?", 30 times a second.</li>
+          <li>Scenes ask "when does line c start?" or "when is 'cracked' said?", never "at 61.8 s".</li>
+          <li>Optional motion blur at render.</li>
+        </ul></li>
+      <li><strong>Music.</strong> A score written in code with its own story: a theme, a driving pulse for tension, real silence before turns, hits on words. It sits 10–14 LU under the voice and is pulled down further in the speech frequencies whenever anyone talks.</li>
+      <li><strong>Subtitles</strong> come straight from the script and the clock.</li>
     </ul>
 <pre><code><span class="k">@ game</span> lead=0.4 tail=0.6
 - <span class="k">[b]</span> "A cup of hot..." <span class="c">~1.6</span>        <span class="c"># 1.6 s of silence: the viewer guesses</span>
 - <span class="k">[c]</span> You probably said tea. <span class="c">~0.4</span>
 
-<span class="c">// the answer pops in exactly when the narrator says line [c]</span>
-const pop = S.at(<span class="k">'c'</span>, 0, 0.6, E.outBack);</code></pre>
+<span class="c">// the answer pops in on the word "tea"</span>
+const pop = E.spring(S.t - S.wcue(<span class="k">'c'</span>, <span class="k">'tea'</span>));</code></pre>
     <div class="demo" aria-label="Interactive demo: scrub through the frames">
       <canvas id="demo" width="960" height="540" aria-label="A miniature scene drawn for the chosen frame"></canvas>
       <div class="row">
@@ -605,22 +658,23 @@ const pop = S.at(<span class="k">'c'</span>, 0, 0.6, E.outBack);</code></pre>
       </div>
       <p class="note">Try it: this miniature is drawn the same way. Drag the slider and the scene is drawn again for that frame. Line [b] starts at frame 30 and line [c] ("tea") at frame 120.</p>
     </div>
-<pre><code>scripts/build_audio.sh videos/<span class="k">&lt;film&gt;</span>     <span class="c"># voice → clock → subtitles → music → mix</span></code></pre>
-    <div class="files"><span class="file">narration.txt</span><span class="file">scenes/*.mjs</span><span class="file">kit.mjs</span><span class="file">music.py</span><span class="file out">build/timeline.json</span></div>
+<pre><code>scripts/build_audio.sh videos/<span class="k">&lt;film&gt;</span>     <span class="c"># voice → clock → word times → subtitles → music → mix</span></code></pre>
+    <div class="files"><span class="file">narration.txt</span><span class="file">scenes/*.mjs</span><span class="file">kit.mjs</span><span class="file">music.py</span><span class="file out">build/timeline.json</span><span class="file out">build/words.json</span></div>
   </div>
 </section>
 
 <section class="stage" aria-labelledby="st4">
   <div class="stage-no"><strong>4</strong>render engineer</div>
   <div class="stage-body">
-    <h3 id="st4">Preview: prove it before rendering it all</h3>
+    <h3 id="st4">Preview: prove it before rendering it all, then measure it</h3>
     <ul class="plain">
-      <li>Check that the clock exists, and that every font, asset and archive clip loads with no scene errors.</li>
-      <li>Render still frames and a contact sheet per scene, then a short preview of the hardest part.</li>
-      <li>The full render (about 35 minutes for a 17-minute film on 4 CPU cores) happens only after the critic passes the preview.</li>
+      <li>Check the clock, fonts, assets and archive clips load with no scene errors. A missing or unlicensed asset stops the render.</li>
+      <li>Render stills and a contact sheet per scene, then a short preview of the hardest part.</li>
+      <li>Full render (about 50 minutes for a 14-minute film on 4 cores), then the QA report.</li>
     </ul>
 <pre><code>node engine/video/render.mjs --video videos/<span class="k">&lt;film&gt;</span> --contact <span class="k">&lt;scene&gt;</span> --n 9 --out sheet.png
-node engine/video/render.mjs --video videos/<span class="k">&lt;film&gt;</span> --scene <span class="k">&lt;scene&gt;</span> --at 4.5 --out still.png</code></pre>
+scripts/render_all.sh videos/<span class="k">&lt;film&gt;</span> 4 30 &amp;&amp; scripts/finalize.sh videos/<span class="k">&lt;film&gt;</span> <span class="k">&lt;Name&gt;</span>
+python3 scripts/qa.py videos/<span class="k">&lt;film&gt;</span>            <span class="c"># the quality bar, measured → review/QA.md</span></code></pre>
   </div>
 </section>
 
@@ -629,10 +683,17 @@ node engine/video/render.mjs --video videos/<span class="k">&lt;film&gt;</span> 
   <div class="stage-body">
     <h3 id="st5">Review: judge the pixels, with fresh eyes</h3>
     <ul class="plain">
-      <li>A separate agent that didn't build the film looks only at the approved plan and the rendered frames, never at the builder's description.</li>
-      <li>It scores the hook (and whether the last frame works as a poster), clarity, composition, phone-size readability, motion, timing, continuity, honesty labels and sound sync, from 1 to 10.</li>
-      <li>It reports the three biggest problems, each with its exact frame, what's wrong, why it matters, the smallest fix, and what must not change.</li>
-      <li>Last test: it tells you the film's message from the frames alone. If it can't, the story fails.</li>
+      <li><strong>Independent:</strong> a separate agent that didn't build the film sees only the approved plan and the rendered frames, never the builder's description.</li>
+      <li><strong>Scores, 1 to 10:</strong>
+        <ul class="plain">
+          <li>the hook (and the last frame as a poster);</li>
+          <li>clarity, composition and readability at phone size;</li>
+          <li>motion, timing and continuity;</li>
+          <li>honesty labels and sound sync.</li>
+        </ul></li>
+      <li><strong>Assets:</strong> nothing AI stands in for evidence, every AI shot is labelled, every real one credited, and no AI tells are visible at full size.</li>
+      <li><strong>Findings:</strong> the three biggest problems, each with its exact frame, what's wrong, why it matters, the smallest fix, and what must not change.</li>
+      <li><strong>Last test:</strong> it restates the film's message from the frames alone. If it can't, the story fails.</li>
     </ul>
     <div class="files"><span class="file out">review/FINDINGS.md</span></div>
   </div>
@@ -643,11 +704,9 @@ node engine/video/render.mjs --video videos/<span class="k">&lt;film&gt;</span> 
   <div class="stage-body">
     <h3 id="st6">Fix: small, local, bounded</h3>
     <ul class="plain">
-      <li>Fix only what the critic found, keep everything that was approved, and re-render only the affected frames.</li>
+      <li>Fix only what the critic found, keep everything that was approved, re-render only the affected frames.</li>
       <li>Fix in this order: missing information and unreadable text first, then timing, then visual detail.</li>
-      <li>At most two tries per problem. If it still fails, stop and ask you.</li>
-      <li>Never weaken a check or a label to make the review pass.</li>
-      <li>Pass means every score is 8 or more, no open problem, and the message is restated correctly.</li>
+      <li>At most two tries per problem. If it still fails, stop and ask you. Never weaken a check or a label to pass.</li>
     </ul>
   </div>
 </section>
@@ -657,19 +716,41 @@ node engine/video/render.mjs --video videos/<span class="k">&lt;film&gt;</span> 
   <div class="stage-body">
     <h3 id="st7">Deliver: film, Shorts, thumbnails, upload kit</h3>
     <ul class="plain">
-      <li>The full film, plus web-sized chapter files that join back together losslessly.</li>
-      <li>Shorts, rearranged for vertical and reviewed on their own stills.</li>
-      <li>Thumbnails drawn with the film's kit, 2–3 versions for YouTube's Test &amp; compare.</li>
-      <li>The upload kit: titles, a description with every source and archive clip, chapters from the clock, tags, a pinned comment.</li>
-      <li>The full-quality master goes on the masters branch, split into 95 MB pieces with join scripts.</li>
-      <li>Then you watch it and decide when it's published. A machine check can't judge tone.</li>
+      <li><strong>The film,</strong> plus web-sized chapter files that join back losslessly.</li>
+      <li><strong>Shorts:</strong> rearranged for vertical (never cropped), each with its own hook and reviewed on its own stills.</li>
+      <li><strong>Thumbnails:</strong> 2–3 versions for YouTube's Test &amp; compare. One idea each: a face or an object, three words at most, readable at phone size.</li>
+      <li><strong>The upload kit:</strong>
+        <ul class="plain">
+          <li>titles;</li>
+          <li>a description with every source, asset credit and the "information as of" date;</li>
+          <li>chapters from the clock, tags, and a pinned comment with a corrections note;</li>
+          <li>the synthetic-media disclosure in YouTube Studio when AI shots are used.</li>
+        </ul></li>
+      <li><strong>The master</strong> goes on the masters branch.</li>
+      <li><strong>Your viewing:</strong> you watch and listen on headphones and a phone speaker, then decide. A machine can't judge tone.</li>
     </ul>
-<pre><code>scripts/render_all.sh   videos/<span class="k">&lt;film&gt;</span>                <span class="c"># picture, 4 workers in parallel</span>
-scripts/finalize.sh     videos/<span class="k">&lt;film&gt;</span> <span class="k">&lt;Name&gt;</span>         <span class="c"># picture + sound → out/&lt;Name&gt;.mp4</span>
-scripts/split_parts.sh  videos/<span class="k">&lt;film&gt;</span> <span class="k">&lt;Name&gt;</span>         <span class="c"># chapter files in film/</span>
+<pre><code>scripts/split_parts.sh  videos/<span class="k">&lt;film&gt;</span> <span class="k">&lt;Name&gt;</span>         <span class="c"># chapter files in film/</span>
 node videos/<span class="k">&lt;film&gt;</span>/thumbnail.mjs                      <span class="c"># thumbnails</span>
 scripts/publish_master.sh videos/<span class="k">&lt;film&gt;</span> <span class="k">&lt;Name&gt;</span>       <span class="c"># master → masters branch</span></code></pre>
     <span class="gate">✓ You approve publication</span>
+  </div>
+</section>
+
+<section class="stage" aria-labelledby="stl">
+  <div class="stage-no"><strong>·</strong>learn</div>
+  <div class="stage-body">
+    <h3 id="stl">After publishing: learn from the audience</h3>
+    <ul class="plain">
+      <li><strong>At 7 and 28 days, share:</strong>
+        <ul class="plain">
+          <li>the retention graph;</li>
+          <li>click-through rate and impressions;</li>
+          <li>the Test &amp; compare winner;</li>
+          <li>a screenshot of the top comments.</li>
+        </ul></li>
+      <li><strong>The diagnosis:</strong> Claude ties each drop to its moment in the timeline (the exact line and scene), and finds what held attention.</li>
+      <li><strong>One lesson per film</strong> goes into the playbook as a rule or a check, so the next film starts better.</li>
+    </ul>
   </div>
 </section>
 
@@ -742,6 +823,11 @@ scripts/publish_master.sh videos/<span class="k">&lt;film&gt;</span> <span class
     </table>
   </div>
 
+  <h3>AI material: two ways to make it</h3>
+  <div class="two">
+    <div><h3>You generate</h3><p>Claude writes a prompt card for every AI shot in the asset plan. You run it in the image and video tools you like, keeping the best of 3–4 variants, and upload the file with the tool and prompt you used. Use any tool whose terms allow commercial use on YouTube.</p></div>
+    <div><h3>Claude generates</h3><p>Claude can also generate the shots directly through Higgsfield, which is connected to this workspace. It quotes the credit cost first, generates only after you approve each batch, checks every result for AI tells, and records the tool, model, prompt and seed. Your choice: see <a href="#decisions">your decisions</a>.</p></div>
+  </div>
   <h3>AI material: a prompt that looks real</h3>
   <p>Generate the <strong>still first</strong>, choose it, then turn that still into a clip (image-to-video), so the clip keeps the composition. Make 3–4 variants and keep the best. Each line of the prompt has a job:</p>
   <ul class="plain">
@@ -841,6 +927,59 @@ LABEL    AI-generated illustration</code></pre>
   </div>
 </section>
 
+<!-- ============================================================ QUALITY BAR -->
+<section class="stack" aria-labelledby="bar">
+  <h2 id="bar">The quality bar: the numbers every film must hit</h2>
+  <p>"Best in class" has to be checkable, so every film is measured against these. The machine checks run with <code>python3 scripts/qa.py videos/&lt;film&gt;</code>, which writes <code>review/QA.md</code>. The rest are the critic's job and yours.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Area</th><th>The bar</th><th>Checked by</th></tr></thead>
+      <tbody>
+        <tr><td>Message</td><td>one sentence; restated correctly from the frames alone</td><td>critic</td></tr>
+        <tr><td>Truth</td><td>every claim in the fact table with source, date and class; "information as of" on screen; repeated figures traced to their origin</td><td>Claude, then you at the story gate</td></tr>
+        <tr><td>Hook</td><td>movement within 15 frames; the question or stakes within 2 seconds</td><td>critic</td></tr>
+        <tr><td>Pace</td><td>every narration line changes something on screen (beat sheet); text held 1.2 s per 8 words</td><td>critic</td></tr>
+        <tr><td>Picture</td><td>readable at phone width; no unplanned one-frame jumps; designed scene changes</td><td>critic · <code>qa.py</code></td></tr>
+        <tr><td>Assets</td><td>evidence real, never AI; real people in real photos only; AI ≤ 20% of runtime and labelled; every upload credited with rights; nothing test-only in a release</td><td><code>qa.py</code> · critic</td></tr>
+        <tr><td>Clarity</td><td>Whisper understands the final mix: word error rate ≤ 5% (numerals count as errors, so real comprehension is higher)</td><td><code>qa.py</code></td></tr>
+        <tr><td>Loudness</td><td>−14 LUFS (±0.5), true peak ≤ −1 dBTP on the encoded file</td><td><code>qa.py</code></td></tr>
+        <tr><td>Score</td><td>its own theme and story; lines on the beat; hits on words; bed 10–14 LU under the voice; speech band about 20 dB clear while anyone talks</td><td><code>music.py</code> report · critic</td></tr>
+        <tr><td>Craft</td><td>every critic score ≥ 8 (hook, clarity, composition, readability, motion, timing, continuity, honesty, sound)</td><td>critic</td></tr>
+        <tr><td>Human ears</td><td>listened to on headphones and on a phone speaker</td><td><strong>you</strong> (Claude can't hear)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3>Release checklist</h3>
+  <ul class="plain">
+    <li>☐ Story, look and asset plan approved by you.</li>
+    <li>☐ <code>review/QA.md</code> reads ALL PASS, with no test-only assets in the cut.</li>
+    <li>☐ Critic pass: every score ≥ 8, no open finding, message restated.</li>
+    <li>☐ You watched and listened on headphones and a phone speaker.</li>
+    <li>☐ Description: every source with its date, every asset credit, "information as of", a corrections line; AI disclosure set in YouTube Studio if AI shots are used.</li>
+    <li>☐ 2–3 thumbnails in Test &amp; compare; Shorts reviewed on their own stills.</li>
+    <li>☐ Master on the masters branch; production tracker updated.</li>
+    <li>☐ Reminders set to review analytics at 7 and 28 days.</li>
+  </ul>
+</section>
+
+<!-- ============================================================ DECISIONS -->
+<section class="stack" aria-labelledby="decisions">
+  <h2 id="decisions">Your decisions</h2>
+  <p>The pipeline runs with these defaults. Each one is yours to change, and changing it improves or widens what the films can do.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Decision</th><th>Default today</th><th>The alternative</th></tr></thead>
+      <tbody>
+        <tr><td>Who makes the AI shots</td><td>you, from Claude's prompt cards</td><td>Claude generates them through Higgsfield, quoting the cost and waiting for your approval of each batch</td></tr>
+        <tr><td>Narrator</td><td>the channel voice (Kokoro), on every film</td><td>a more expressive voice for flagship films (a test first, then your decision)</td></tr>
+        <tr><td>Music</td><td>scores written in code, with nothing to license</td><td>licensed library music or a composer for flagship films, with the licence recorded</td></tr>
+        <tr><td>Expert review</td><td>"expert review pending" until one is recorded</td><td>a named reviewer per technical film, before publishing</td></tr>
+        <tr><td>Learning loop</td><td>none until you share data</td><td>you share YouTube Studio retention, click-through and Test &amp; compare results at 7 and 28 days</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
 <!-- ============================================================ 5. TRACKER -->
 <section class="stack" aria-labelledby="tracker">
   <div class="eyebrow">Step 6</div>
@@ -871,7 +1010,8 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td><span class="pill live">live</span></td><td>The seven-stage process as a skill (<code>/make-film</code>), with an independent critic</td><td>the builder can't judge its own film</td></tr>
         <tr><td><span class="pill live">live</span></td><td>Archive film and period sound, licence-checked</td><td>real film for history beats</td></tr>
         <tr><td><span class="pill">next</span></td><td>Designed scene changes (match, push, iris) instead of a cross-fade everywhere</td><td>a fade between every scene reads as a slideshow</td></tr>
-        <tr><td><span class="pill">next</span></td><td>Automatic frame checks: empty frames, frozen stretches, one-frame jumps, overlapping text, contrast</td><td>catches what a tired eye misses, on every render</td></tr>
+        <tr><td><span class="pill live">live</span></td><td>Automatic quality report (<code>qa.py</code>): loudness, speech clarity, one-frame jumps, subtitles, asset rights, test-only material</td><td>the quality bar, measured on every film</td></tr>
+        <tr><td><span class="pill">next</span></td><td>More automatic checks: overlapping text, contrast, frozen stretches</td><td>catches what a tired eye misses</td></tr>
         <tr><td><span class="pill live">live</span></td><td>Motion blur from in-between frames (never across a hard cut)</td><td>fast movement looks filmed, not computed</td></tr>
         <tr><td><span class="pill live">live</span></td><td>Word-level timing from Whisper, for the score (<code>words.py</code>)</td><td>music hits land on the exact word</td></tr>
         <tr><td><span class="pill">next</span></td><td>Word-level timing for animation and captions</td><td>things appear on the exact word; word-by-word captions for Shorts</td></tr>
@@ -906,6 +1046,29 @@ LABEL    AI-generated illustration</code></pre>
       </tbody>
     </table>
   </div>
+</section>
+
+<!-- ============================================================ CHANGELOG -->
+<section class="stack" aria-labelledby="changelog">
+  <h2 id="changelog">Changelog</h2>
+  <ul class="plain">
+    <li><strong>v1.0 · 27 Oct 2026.</strong> The pipeline is fixed:
+      <ul class="plain">
+        <li><strong>The process:</strong> seven stages with two gates for you, an asset step and a learning step.</li>
+        <li><strong>Assets:</strong> the asset plan with prompt cards; creator uploads (small files to the inbox, large footage by Drive link, with shot-by-shot review); web captures; archive film; soundbites.</li>
+        <li><strong>Timing:</strong> narration locked to the score's beat; word-level timing for picture and music.</li>
+        <li><strong>Sound:</strong> the thriller score kit with a theme.</li>
+        <li><strong>Motion:</strong> spring pops, rising text and motion blur.</li>
+        <li><strong>Checks:</strong> the measured quality bar (<code>qa.py</code>) and the release checklist.</li>
+      </ul></li>
+    <li><strong>23–26 Oct 2026.</strong>
+      <ul class="plain">
+        <li>The seven-stage <code>/make-film</code> skill with an independent critic.</li>
+        <li>Archive footage, licence-checked.</li>
+        <li>The 60–90 s news-explainer format.</li>
+        <li>The In Context pilot, and the cyber security hook test.</li>
+      </ul></li>
+  </ul>
 </section>
 
 <!-- ============================================================ WHERE -->
