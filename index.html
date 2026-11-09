@@ -395,7 +395,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <h3>Shorts: one idea, vertical, under a minute</h3>
     <p>Cut from a finished film. Chosen sentences are re-rendered in a 1080×1920 frame with a big title on top and large subtitles below, and each Short gets its own music that builds to its key line.</p>
     <dl class="facts">
-      <div><dt>Length</dt><dd>15–60 s each</dd></div>
+      <div><dt>Length</dt><dd>20–35 s each</dd></div>
       <div><dt>How many</dt><dd>3–7 per film</dd></div>
       <div><dt>Examples</dt><dd>every film's <code>shorts/</code> folder</dd></div>
     </dl>
@@ -406,7 +406,10 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
           <li>One idea per Short. A hook in the first 1–2 seconds.</li>
           <li>Rearranged for vertical, never just cropped. Text stays in the middle of the frame, away from the app's buttons.</li>
           <li>It must make sense with the sound off.</li>
-          <li>End by pointing to the full film.</li>
+          <li>The title on screen states the payoff, so the first second tells the viewer why to stay.</li>
+          <li>The last 6 seconds point to the full film ("Full film: … watch it on the channel →"), and on upload <strong>Related video</strong> is set to the full film: a tappable link on the Short, the strongest way to turn Short viewers into film viewers.</li>
+          <li>No broadcaster footage in Shorts (Content ID); credited headline clippings and labelled AI shots are fine.</li>
+          <li>Cuts can fall inside a line, on a heard word, and the subtitle is trimmed to match.</li>
           <li>A shape that works for "what if" Shorts: the event lands on its word → pull back to show the scale → dive in to make it personal ("you") → the consequence, with a live counter → an escalation → a light moment → a callback, then the title.</li>
         </ul>
 <pre><code>python3 videos/<span class="k">&lt;film&gt;</span>/shorts.py</code></pre>
@@ -415,7 +418,8 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
         <h3>Done when</h3>
         <ul class="plain">
           <li>Each Short was checked on its own stills, not only the film's.</li>
-          <li>Each has a title, a description and a link to the full film.</li>
+          <li>Each has a title, a description, a link to the full film and a chosen cover frame.</li>
+          <li>The Shorts upload kit (<code>youtube_shorts.md</code>) gives, per Short, the title, description with sources, hashtags, cover frame, pinned comment and posting day (one every 1–2 days after the film goes public, strongest first).</li>
         </ul>
       </div>
     </div>
@@ -631,7 +635,7 @@ python3 scripts/assets.py ingest videos/<span class="k">&lt;film&gt;</span>     
           <li><code>~1.6</code> is the pause after a line, and <code>{…}</code> is how to say a hard word.</li>
           <li><code>{clip:KEY}</code> plays a real person's own voice (a soundbite) at the narrator's loudness, with its own subtitle.</li>
         </ul></li>
-      <li><strong>Voice.</strong> The channel narrator is Arjun, a Runway voice with an Indian accent (from film 10). While a film is drafted and timed, the free Kokoro voice reads each line, so changes cost nothing. When the script is locked, Arjun records each scene once (about 5 credits per 1,000 characters, roughly 85 for a 17-minute film). The recordings are cut into lines, every line is checked with Whisper against the script, and the recordings stay in the repository, so the film can be rebuilt any number of times without spending credits again. Names are tested in one short take first and respelled where needed.</li>
+      <li><strong>Voice.</strong> The channel narrator is Arjun, a Runway voice with an Indian accent (from film 10). While a film is drafted and timed, the free Kokoro voice reads each line, so changes cost nothing. When the script is locked, Arjun records each scene once (about 5 credits per 1,000 characters, roughly 85 for a 17-minute film). The recordings are cut into lines, every line is checked with Whisper against the script, and the recordings stay in the repository, so the film can be rebuilt any number of times without spending credits again. When the script changes later, only the changed scenes are recorded again, and the credit cost is shown and approved first (the cyber film: 84 credits for the first full recording, 65 and 48 for two later script revisions). Names are tested in one short take first and respelled where needed.</li>
       <li><strong>Clock.</strong> Every line starts on the score's beat, so voice and music move together. Whisper also gives the time of every word, so animation and music hits land on the word.</li>
       <li><strong>Animation.</strong>
         <ul class="plain">
@@ -724,9 +728,10 @@ python3 scripts/qa.py videos/<span class="k">&lt;film&gt;</span>            <spa
           <li>titles;</li>
           <li>a description with every source, asset credit and the "information as of" date;</li>
           <li>chapters from the clock, tags, and a pinned comment with a corrections note;</li>
-          <li>the synthetic-media disclosure in YouTube Studio when AI shots are used.</li>
+          <li>the synthetic-media disclosure in YouTube Studio when AI shots are used;</li>
+          <li>a title to test (searchable words first), Studio settings, end screen and cards, and a launch plan: the release day, the Shorts schedule, a Community poll, and the numbers to send at 7 and 28 days (<code>youtube.md</code>, plus <code>youtube_shorts.md</code> for the Shorts).</li>
         </ul></li>
-      <li><strong>The master</strong> goes on the masters branch.</li>
+      <li><strong>The master</strong> goes on the masters branch, in a sparse checkout (only this film's folder), so the other films' masters don't fill the disk.</li>
       <li><strong>Your viewing:</strong> you watch and listen on headphones and a phone speaker, then decide. A machine can't judge tone.</li>
     </ul>
 <pre><code>scripts/split_parts.sh  videos/<span class="k">&lt;film&gt;</span> <span class="k">&lt;Name&gt;</span>         <span class="c"># chapter files in film/</span>
@@ -943,7 +948,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td>Assets</td><td>evidence real, never AI; real people in real photos only; AI ≤ 20% of runtime and labelled; every upload credited with rights; nothing test-only in a release</td><td><code>qa.py</code> · critic</td></tr>
         <tr><td>Clarity</td><td>Whisper understands the final mix: word error rate ≤ 5% (numerals count as errors, so real comprehension is higher)</td><td><code>qa.py</code></td></tr>
         <tr><td>Loudness</td><td>−14 LUFS (±0.5), true peak ≤ −1 dBTP on the encoded file</td><td><code>qa.py</code></td></tr>
-        <tr><td>Score</td><td>its own theme and story; lines on the beat; hits on words; bed 10–14 LU under the voice; speech band about 20 dB clear while anyone talks</td><td><code>music.py</code> report · critic</td></tr>
+        <tr><td>Score</td><td>its own theme and story; lines on the beat; hits on words; bed 10–14 LU under the voice; speech band about 20 dB clear while anyone talks (never below 18); never hardly audible: quiet stretches are lifted</td><td><code>music.py</code> report · critic</td></tr>
         <tr><td>Craft</td><td>every critic score ≥ 8 (hook, clarity, composition, readability, motion, timing, continuity, honesty, sound)</td><td>critic</td></tr>
         <tr><td>Human ears</td><td>listened to on headphones and on a phone speaker</td><td><strong>you</strong> (Claude can't hear)</td></tr>
       </tbody>
@@ -957,7 +962,7 @@ LABEL    AI-generated illustration</code></pre>
     <li>☐ Critic pass: every score ≥ 8, no open finding, message restated.</li>
     <li>☐ You watched and listened on headphones and a phone speaker.</li>
     <li>☐ Description: every source with its date, every asset credit, "information as of", a corrections line; AI disclosure set in YouTube Studio if AI shots are used.</li>
-    <li>☐ 2–3 thumbnails in Test &amp; compare; Shorts reviewed on their own stills.</li>
+    <li>☐ 2–3 thumbnails in Test &amp; compare; Shorts reviewed on their own stills, each with Related video set to the film.</li>
     <li>☐ Uploaded as private first: YouTube's copyright Checks show no claim, or every claimed clip is replaced.</li>
     <li>☐ Master on the masters branch; production tracker updated.</li>
     <li>☐ Reminders set to review analytics at 7 and 28 days.</li>
@@ -975,6 +980,9 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td>Who makes the AI shots</td><td>you make the stills from Claude's prompt cards and put them in the film's Drive folder; Claude turns them into moving shots, in code for free, or through Runway (connected, your own credits) for real motion after quoting the credit cost and getting your approval</td><td>Claude generates the stills too, in Runway or Higgsfield, with the same cost approval</td></tr>
         <tr><td>Narrator</td><td>Arjun (Runway, Indian accent) from the cyber security film on, your choice after a four-voice test; recorded once per film and kept</td><td>Kokoro stays the free drafting voice; earlier films keep their voices</td></tr>
         <tr><td>Music</td><td>scores written in code, with nothing to license; Tanner Helland's CC BY cues for titles, chapter cards and the end card</td><td>a licensed library with separate stems (drums, strings, bass) for flagship films, with the licence recorded</td></tr>
+        <tr><td>Thriller score (30–31 Oct)</td><td>no siren-like layers; a violin ostinato on the film's two-note motif for the builds; the music a little louder, and lifted wherever it would be hardly audible (up to 8 dB in quiet stretches), while the voice band stays clear (about 19 dB)</td><td>the calm mix, or bass-and-drums grooves (still available)</td></tr>
+        <tr><td>Script depth (31 Oct)</td><td>answer a layman's questions in every chapter; name each kind of attack on its real example and explain it with an everyday picture and why it matters; keep the attacks ordinary people meet most (checked against FBI, I4C and Verizon figures)</td><td>a shorter film that names fewer things</td></tr>
+        <tr><td>Film length (31 Oct)</td><td>the cyber film keeps its full 25:40, your choice; ready trims are listed in its review notes</td><td>12–15 minutes, or a two-part split</td></tr>
         <tr><td>Expert review</td><td>you review each technical film before it goes out</td><td>an outside reviewer, named on screen</td></tr>
         <tr><td>News footage you supply</td><td>used as short quotations: each excerpt 5 s or less, with our commentary, the source on screen, and credits and thanks in the description. A private upload passes YouTube's copyright Checks before publishing.</td><td>a licence from the broadcaster, or a clipping of the same story</td></tr>
         <tr><td>Learning loop</td><td>you share YouTube Studio numbers at 7 and 28 days (first ones received 27 Oct 2026)</td><td>none</td></tr>
@@ -1023,6 +1031,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td><span class="pill live">live</span></td><td>Real footage, clippings and AI shots from you: an asset plan with prompts for every film, upload intake, automatic credits and AI labels</td><td>realism where code isn't enough, honestly labelled</td></tr>
         <tr><td><span class="pill live">live</span></td><td>A thriller score scored to the words: a driving pulse, drums, silence, hits on the word</td><td>tension that matches the story without drowning the voice</td></tr>
         <tr><td><span class="pill">next</span></td><td>An interactive figure for each film's key mechanism</td><td>a second way into every film, and a Short from the same figure</td></tr>
+        <tr><td><span class="pill live">live</span></td><td>Shorts that feed the film: payoff titles, a 6-second call to the film, a Related-video link, and a per-Short upload kit</td><td>the History of AI's Short lost viewers halfway and sent few to the film</td></tr>
         <tr><td><span class="pill live">done</span></td><td>A more expressive narrator</td><td>you chose Arjun (Runway) after hearing four voices on the same passage; recorded once per film</td></tr>
       </tbody>
     </table>
@@ -1043,6 +1052,9 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/beamnxw/status/2108616740846420354">"Motion Engineering with Opus 5.5: Build Launch Videos You Can Sell"</a> (beamnxw)</td><td>A third retelling of the same process. Added small rules: reading time counts from when text is legible, lay out for the longest copy (vital for Hindi), measured vs estimated values from references, a fix order, and a phone-speaker check. Selling $150 launch clips is a business choice, not a pipeline change.</td></tr>
         <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/0xwhrrari/status/2105643919119696297">"Motion Engineering: Build a Video Studio Around Opus 5.5"</a> (rari), the original of the Mori article</td><td>Mostly already in <code>/make-film</code>. Added three small rules: a motion rule per kind of object, the eyes-closed listening test, and a last frame that works as a poster.</td></tr>
         <tr><td class="nowrap">28 Oct 2026</td><td>Building the cyber security film end to end</td><td>Four rules added. Security topics explain what goes wrong and why, never how to do it: no attack walk-throughs or code on screen, and every attack beat ends on what stops it (chapter 2 was rewritten this way). The subtitle band stays clear: labels above y 930, source notes below the subtitles. No empty seconds: a line opens on something it is about. Whole films render with motion blur (<code>BLUR=2</code>).</td></tr>
+        <tr><td class="nowrap">31 Oct 2026</td><td>Your note: the background music is hardly audible in many places; raise it without hurting the narration</td><td>Measured it: in the quietest scenes the music sat 18–20 dB under the voice. The mix now lifts any stretch that falls that low (up to 8 dB, changing slowly, designed silences untouched) and adds 1 dB overall; the voice band is still ducked under speech, and clarity is measured on every mix.</td></tr>
+        <tr><td class="nowrap">31 Oct 2026</td><td>Your notes on the cyber film: answer a layman's questions in every chapter; finish the "two keys" idea; check DigiLocker; drop Heartbleed; explain each kind of attack simply, keeping only those the public needs</td><td>Adopted as two script passes. DigiLocker isn't linked to eMudhra in any report, so the film gives the government's reassurance on eSign and digital signatures instead of naming it. The attacks were ranked against FBI, I4C and Verizon figures: DDoS, Log4Shell and xz were dropped; a data-breach scene (Yahoo) and India's "digital arrest" scams were added.</td></tr>
+        <tr><td class="nowrap">31 Oct 2026</td><td>Your ask: Shorts that bring people to the full film, and an upload kit to make the film go viral</td><td>Adopted what can be controlled: payoff titles, a call to the film, Related-video links, three thumbnails for Test &amp; compare, a title test, a pinned question, a launch plan and a schedule. Reach can't be promised; the 7- and 28-day numbers decide what changes next.</td></tr>
         <tr><td class="nowrap">30 Oct 2026</td><td>Your note: the background music's "ambulance" sound is irritating; options with bass and drums, then violin tension, a little louder</td><td>Found the cause: three layers that climb or tremble like a siren (a Shepard rise, a high string tremolo, string slides). You heard ten versions on the same scene: quieter, calmer, three bass-and-drums grooves, and the original without the sirens, then three violin styles on that. You chose the original score without the sirens, with a violin ostinato on the film's two-note motif for the builds, 1.5 dB louder ("4b+"). It's now the default thriller setting; the other styles stay available.</td></tr>
         <tr><td class="nowrap">29 Oct 2026</td><td>Your ask: a more human narrator, then "can we synthesize Arjun with code so we don't pay again?"</td><td>Arjun adopted as the channel narrator, chosen by ear from four voices on the same passage. Copying his voice with a local model was declined: it is a licensed voice, and cloning it would take it without permission. Instead every film is drafted free with Kokoro, Arjun records each scene once at script lock (84 credits for the cyber film), and the recordings are kept, so rebuilding never costs credits again.</td></tr>
         <tr><td class="nowrap">28 Oct 2026</td><td>Your ask: narration that sounds like a passionate person, music that supports it, and plain words with analogies</td><td>Adopted. Every narrated line gets a delivery mood (calm, warm, curious, urgent, grave, reveal, punch, hope), which sets its pace, pitch and energy. The score reads the same moods: it steps back under explaining, leans in on urgency, and takes a breath before a reveal, with beds about 3 dB further back so the story leads. Every technical idea arrives as something familiar first (cameras, guards, a fire drill, a passport stamp), then its name once. Letter names are spelled with hyphens (E-D-R) so the voice doesn't stop between letters. The limit: Kokoro is still a synthetic voice; a premium expressive voice is an option for a future test, with your OK.</td></tr>
@@ -1061,6 +1073,14 @@ LABEL    AI-generated illustration</code></pre>
 <section class="stack" aria-labelledby="changelog">
   <h2 id="changelog">Changelog</h2>
   <ul class="plain">
+    <li><strong>v1.1 · 31 Oct 2026.</strong> Learned from finishing the cyber film:
+      <ul class="plain">
+        <li><strong>Narration:</strong> Arjun recorded once per scene; later script changes re-record only the changed scenes, with the cost approved first; every line is checked against the script.</li>
+        <li><strong>Script passes:</strong> a layman-questions pass (what does this word mean, why does it matter) and a "kinds of attack" pass ranked by what ordinary people meet most.</li>
+        <li><strong>Sound:</strong> no siren layers, a violin ostinato, and a mix that never lets the music disappear (<code>floor_db</code>).</li>
+        <li><strong>Checks:</strong> <code>qa.py</code> measures the newest film, not the last by name; long jobs run one at a time (a score build beside a render ran out of memory).</li>
+        <li><strong>Delivery:</strong> Shorts with a payoff title, a call to the full film and a Related-video link; a full YouTube kit with a title test, three thumbnails, settings, end screen, pinned comment and launch plan; a sparse masters checkout.</li>
+      </ul></li>
     <li><strong>v1.0 · 27 Oct 2026.</strong> The pipeline is fixed:
       <ul class="plain">
         <li><strong>The process:</strong> seven stages with two gates for you, an asset step and a learning step.</li>
