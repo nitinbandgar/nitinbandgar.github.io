@@ -190,6 +190,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <button class="fmt" role="tab" id="t-news" aria-controls="p-news" aria-selected="false"><span class="tag">Film · In Context</span><b>News explainer</b><span>60–90 s: "Why does this headline reach me?"</span></button>
     <button class="fmt" role="tab" id="t-business" aria-controls="p-business" aria-selected="false"><span class="tag">Film · Business, Unpacked</span><b>Business film</b><span>"What's the machine under this business?"</span></button>
     <button class="fmt" role="tab" id="t-imagine" aria-controls="p-imagine" aria-selected="false"><span class="tag">Film · Imagine</span><b>Past or future film</b><span>"What would it look and feel like?"</span></button>
+    <button class="fmt" role="tab" id="t-animated" aria-controls="p-animated" aria-selected="false"><span class="tag">Film · Animated</span><b>Animated short</b><span>60–90 s: a story with Bindu and Gappu</span></button>
     <button class="fmt" role="tab" id="t-shorts" aria-controls="p-shorts" aria-selected="false"><span class="tag">From every film</span><b>Shorts</b><span>one idea, vertical, under a minute</span></button>
     <button class="fmt" role="tab" id="t-language" aria-controls="p-language" aria-selected="false"><span class="tag">From any film</span><b>Hindi version</b><span>the same film in another language</span></button>
     <button class="fmt" role="tab" id="t-lab" aria-controls="p-lab" aria-selected="false"><span class="tag">Interactive · Lab</span><b>Lab experience</b><span>a 3D world you enter and break</span></button>
@@ -390,6 +391,70 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <div class="row"><button class="track solid" type="button">Track a new Imagine film</button></div>
   </div>
 
+  <!-- animated short -->
+  <div class="panel" role="tabpanel" id="p-animated" aria-labelledby="t-animated" data-format="animated" hidden>
+    <h3>Animated short: a 60–90 s story with our characters</h3>
+    <p>One question ("What if every password in India leaked tomorrow?") told as a little film: a drawn world the camera travels through, Bindu as the guide, Gappu as "you", and a payoff title at the end. It reaches people who would never click a 20-minute film, and every one points to a full film.</p>
+    <dl class="facts">
+      <div><dt>Length</dt><dd>60–90 s (about 155 words)</dd></div>
+      <div><dt>Pace</dt><dd>about 150 words a minute</dd></div>
+      <div><dt>Example</dt><dd>What If Every Password Leaked? (pilot, film 11)</dd></div>
+      <div><dt>Approvals</dt><dd>story + characters, then look (key frames), then the animated preview before Arjun records</dd></div>
+    </dl>
+    <div class="cols">
+      <div>
+        <h3>The story shape</h3>
+        <ol>
+          <li><strong>A premise that sounds wrong or huge,</strong> in the first second ("every password leaks").</li>
+          <li><strong>"You" in the story:</strong> Gappu, or a "YOU" pin. Better than "imagine".</li>
+          <li><strong>A problem the viewer feels,</strong> then the first relief, told honestly ("mostly, no").</li>
+          <li><strong>The reveal,</strong> shown not said (one key trying every door; the email door opening the rest).</li>
+          <li><strong>The principle in one line,</strong> then the three habits as consequences, not advice.</li>
+          <li><strong>A laugh</strong> (the 123456 door falls flat).</li>
+          <li><strong>An honest note with evidence</strong> ("mostly old leaks"), with the source on screen.</li>
+          <li><strong>The title as the payoff,</strong> after "And that's…".</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Craft rules</h3>
+        <ul class="plain">
+          <li><strong>Our own look:</strong> warm amber and teal, indigo nights, pastel days, the rounded Baloo 2 font, no outlines. Never a copy of another channel's look, colours, font or characters.</li>
+          <li><strong>One continuous world.</strong> Scene changes are camera moves; hard cuts only when the story jumps (at most two or three).</li>
+          <li><strong>Characters act:</strong> they blink, look at what matters, squash and stretch, and react on the stressed word. Each is one solid figure (never see-through layers).</li>
+          <li><strong>Everything happens on a heard word,</strong> so the picture re-times itself when Arjun replaces the draft voice.</li>
+          <li><strong>Short labels</strong> (2–5 words) on the key words; no burned-in subtitles in 16:9 (captions file uploaded); full subtitles in the vertical version.</li>
+          <li><strong>Sound:</strong> the Organ &amp; Time instruments played light, plus effects written in code (doors, keys, clicks); the voice stays at least 18 dB clear.</li>
+          <li><strong>Honesty:</strong> a "thought experiment" label for scenarios; every number sourced; no real people, logos or AI images.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cols">
+      <div>
+        <h3>How it's built</h3>
+        <ul class="plain">
+          <li><code>chars.mjs</code> (Bindu, Gappu: poses, expressions, blink, gaze, squash) and the film's own world kit (<code>kit.mjs</code>).</li>
+          <li>The whole film is one function of film time, so the engine's cross-fades never ghost the world.</li>
+          <li>Drafted and timed with the free Kokoro voice; Arjun records once the animation is approved (about 9 credits for 7 scenes).</li>
+          <li>Key frames first, then the motion between them; contact sheets of every scene before the full render.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Done when</h3>
+        <ul class="plain">
+          <li>The message survives with the sound off (labels) and with the picture off (narration).</li>
+          <li><code>qa.py</code> reads ALL PASS; the planned hard cuts are the only frame jumps.</li>
+          <li>The 16:9 film and a 9:16 version re-laid out (not cropped) are ready, each linking to the related full film.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt">
+      <div class="eyebrow">Kick it off in Claude Code</div>
+<pre><code>/make-film An animated short, about 75 seconds: "[What if … / Why does …]". Bindu guides, Gappu is "you". Our own look, one continuous world, every event on its word, a payoff title at the end, and a 9:16 version. Stop for my approval after the story, after the key frames, and after the animated preview (before Arjun records).</code></pre>
+      <button class="copy" type="button">Copy prompt</button>
+    </div>
+    <div class="row"><button class="track solid" type="button">Track a new animated short</button></div>
+  </div>
+
   <!-- shorts -->
   <div class="panel" role="tabpanel" id="p-shorts" aria-labelledby="t-shorts" data-format="shorts" hidden>
     <h3>Shorts: one idea, vertical, under a minute</h3>
@@ -545,6 +610,33 @@ npm run build:static        <span class="c"># → out/ for Hostinger</span></cod
       <button class="copy" type="button">Copy prompt</button>
     </div>
     <div class="row"><button class="track solid" type="button">Track a new figure</button></div>
+  </div>
+
+  <h3 id="guide">Format guide at a glance</h3>
+  <p>The defaults for every format. Each one still goes through the seven stages; this table is what changes.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Format</th><th>Length</th><th>Pace</th><th>Voice</th><th>Music</th><th>Look</th><th>Your approvals</th><th>Delivered</th></tr></thead>
+      <tbody>
+        <tr><td>Explainer film</td><td>9–15 min (12–15 for deep topics; longer only by your choice)</td><td>108–134 wpm</td><td rowspan="5">Arjun (Runway), recorded once at script lock; Kokoro for drafts</td><td>Organ &amp; Time</td><td>diagrams and machines in code, real evidence</td><td>story · look</td><td rowspan="2">film, chapter files, 5–7 Shorts, 3 thumbnails, upload kit, Shorts kit, master</td></tr>
+        <tr><td>Evidence film (In Context)</td><td>12–18 min</td><td>110–130 wpm</td><td>Organ &amp; Time, calm</td><td>evidence walls, clippings, archive, maps</td><td>dossier + fact table · look</td></tr>
+        <tr><td>News explainer</td><td>60–90 s</td><td>140–160 wpm</td><td>thriller kit, no siren layers, violin builds</td><td>highlighter clippings, maps, lens transitions</td><td>script + facts · look + assets</td><td>film, 1 Short, thumbnail, kit</td></tr>
+        <tr><td>Business film</td><td>15–20 min</td><td>115–130 wpm</td><td>Organ &amp; Time</td><td>the Business Engine, red-team scenes</td><td>dossier · look</td><td>film, Shorts, thumbnails, kit, master</td></tr>
+        <tr><td>Imagine (past or future)</td><td>13–20 min</td><td>110–125 wpm</td><td>Organ &amp; Time (Interstellar-style)</td><td>painted worlds, IMAGINED labels</td><td>dossier + design · look</td><td>film, Shorts, thumbnails, kit, master</td></tr>
+        <tr><td><strong>Animated short</strong></td><td>60–90 s</td><td>~150 wpm</td><td>Arjun; Bindu and Gappu on screen</td><td>Organ &amp; Time played light + code effects</td><td>our characters in one continuous world</td><td>story + characters · key frames · animated preview</td><td>16:9 film, 9:16 version, thumbnail, kit</td></tr>
+        <tr><td>Shorts</td><td>20–35 s</td><td>up to 165 wpm</td><td>from the film</td><td>from the film</td><td>re-laid out for 9:16, payoff title, 6 s call to the film</td><td>the list of Shorts</td><td>Shorts + per-Short kit (title, description, cover frame, pinned comment, day)</td></tr>
+        <tr><td>Hindi version</td><td>as the film</td><td>as the film</td><td>hm_psi (Kokoro) at 0.9</td><td>as the film</td><td>every on-screen word in Hindi</td><td>Hindi script</td><td>Hindi film, Shorts, thumbnails, kit</td></tr>
+        <tr><td>Lab experience</td><td>self-paced</td><td>—</td><td>Kokoro narration, opt-in</td><td>opt-in</td><td>a 3D world you can break</td><td>plan</td><td>deployed experience linked from the film</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Every format, without exception: a fact table with sources and dates; the security-topic standard where it applies (what goes wrong and why, never how); −14 LUFS; the voice clear of the music; captions; a private upload to clear YouTube's copyright Checks before publishing.</p>
+
+  <h3 id="characters">Our characters: Bindu and Gappu</h3>
+  <p><img src="img/characters.jpg" alt="Bindu, a warm amber drop of light, and Gappu, an Indian kid in a blue hoodie, each in three poses" style="width:100%;height:auto;border-radius:14px"></p>
+  <div class="two">
+    <div><p><strong>Bindu</strong> is the channel's mascot and guide in every animated short: a warm drop of light (<em>bindu</em>, the point everything starts from). No age, gender or region, so it works in Hindi too. It glows in dark scenes, and its acting carries its personality: curious, quick to worry, delighted when an idea clicks.</p></div>
+    <div><p><strong>Gappu</strong> is "you" when a story needs a person: an Indian kid in a hoodie who acts out the consequences (three Gappus can show three choices side by side). Both are drawn in code (<code>chars.mjs</code>), with poses, expressions, blinking, gaze and squash. Each is always one solid figure.</p></div>
   </div>
 </section>
 
@@ -949,6 +1041,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td>Clarity</td><td>Whisper understands the final mix: word error rate ≤ 5% (numerals count as errors, so real comprehension is higher)</td><td><code>qa.py</code></td></tr>
         <tr><td>Loudness</td><td>−14 LUFS (±0.5), true peak ≤ −1 dBTP on the encoded file</td><td><code>qa.py</code></td></tr>
         <tr><td>Score</td><td>its own theme and story; lines on the beat; hits on words; bed 10–14 LU under the voice; speech band about 20 dB clear while anyone talks (never below 18); never hardly audible: quiet stretches are lifted</td><td><code>music.py</code> report · critic</td></tr>
+        <tr><td>Animation</td><td>characters are solid figures that blink, look and react on the word; nothing holds still for more than about 2 s; hard cuts only where the story jumps; our own look</td><td>critic</td></tr>
         <tr><td>Craft</td><td>every critic score ≥ 8 (hook, clarity, composition, readability, motion, timing, continuity, honesty, sound)</td><td>critic</td></tr>
         <tr><td>Human ears</td><td>listened to on headphones and on a phone speaker</td><td><strong>you</strong> (Claude can't hear)</td></tr>
       </tbody>
@@ -983,6 +1076,8 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td>Thriller score (30–31 Oct)</td><td>no siren-like layers; a violin ostinato on the film's two-note motif for the builds; the music a little louder, and lifted wherever it would be hardly audible (up to 8 dB in quiet stretches), while the voice band stays clear (about 19 dB)</td><td>the calm mix, or bass-and-drums grooves (still available)</td></tr>
         <tr><td>Script depth (31 Oct)</td><td>answer a layman's questions in every chapter; name each kind of attack on its real example and explain it with an everyday picture and why it matters; keep the attacks ordinary people meet most (checked against FBI, I4C and Verizon figures)</td><td>a shorter film that names fewer things</td></tr>
         <tr><td>Film length (31 Oct)</td><td>the cyber film keeps its full 25:40, your choice; ready trims are listed in its review notes</td><td>12–15 minutes, or a two-part split</td></tr>
+        <tr><td>Characters (9 Nov)</td><td>Bindu, a warm drop of light, is the mascot in every animated short; Gappu, an Indian kid, is "you" when a story needs a person</td><td>a new cast for each film</td></tr>
+        <tr><td>Animated shorts (9 Nov)</td><td>about 75 s; our own look (never another channel's); labels in the 16:9 film, full subtitles in the 9:16 version; Arjun records after you approve the animated preview</td><td>under 60 s; burned-in subtitles everywhere</td></tr>
         <tr><td>Expert review</td><td>you review each technical film before it goes out</td><td>an outside reviewer, named on screen</td></tr>
         <tr><td>News footage you supply</td><td>used as short quotations: each excerpt 5 s or less, with our commentary, the source on screen, and credits and thanks in the description. A private upload passes YouTube's copyright Checks before publishing.</td><td>a licence from the broadcaster, or a clipping of the same story</td></tr>
         <tr><td>Learning loop</td><td>you share YouTube Studio numbers at 7 and 28 days (first ones received 27 Oct 2026)</td><td>none</td></tr>
@@ -1025,9 +1120,11 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td><span class="pill">next</span></td><td>More automatic checks: overlapping text, contrast, frozen stretches</td><td>catches what a tired eye misses</td></tr>
         <tr><td><span class="pill live">live</span></td><td>Motion blur from in-between frames (never across a hard cut)</td><td>fast movement looks filmed, not computed</td></tr>
         <tr><td><span class="pill live">live</span></td><td>Word-level timing from Whisper, for the score (<code>words.py</code>)</td><td>music hits land on the exact word</td></tr>
-        <tr><td><span class="pill">next</span></td><td>Word-level timing for animation and captions</td><td>things appear on the exact word; word-by-word captions for Shorts</td></tr>
+        <tr><td><span class="pill live">live</span></td><td>Word-level timing for animation (<code>S.word</code>)</td><td>things happen on the exact word, and re-time themselves when the voice changes</td></tr>
+        <tr><td><span class="pill">next</span></td><td>Word-by-word captions for Shorts</td><td>easier to follow with the sound off</td></tr>
         <tr><td><span class="pill">next</span></td><td>A motion style sheet per playlist</td><td>consistency reads as confidence</td></tr>
-        <tr><td><span class="pill">next</span></td><td>A camera with depth layers, and character acting</td><td>depth, continuity, people who seem to think</td></tr>
+        <tr><td><span class="pill live">live</span></td><td>Character acting: Bindu and Gappu (<code>chars.mjs</code>), a camera moving through one continuous world</td><td>people who seem to think; continuity instead of slides</td></tr>
+        <tr><td><span class="pill">next</span></td><td>Character kit 2: walking, hands, a mouth that moves with the voice; a 9:16 re-layout for every animated short</td><td>longer character scenes, and Shorts made from the same world</td></tr>
         <tr><td><span class="pill live">live</span></td><td>Real footage, clippings and AI shots from you: an asset plan with prompts for every film, upload intake, automatic credits and AI labels</td><td>realism where code isn't enough, honestly labelled</td></tr>
         <tr><td><span class="pill live">live</span></td><td>A thriller score scored to the words: a driving pulse, drums, silence, hits on the word</td><td>tension that matches the story without drowning the voice</td></tr>
         <tr><td><span class="pill">next</span></td><td>An interactive figure for each film's key mechanism</td><td>a second way into every film, and a Short from the same figure</td></tr>
@@ -1052,6 +1149,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/beamnxw/status/2108616740846420354">"Motion Engineering with Opus 5.5: Build Launch Videos You Can Sell"</a> (beamnxw)</td><td>A third retelling of the same process. Added small rules: reading time counts from when text is legible, lay out for the longest copy (vital for Hindi), measured vs estimated values from references, a fix order, and a phone-speaker check. Selling $150 launch clips is a business choice, not a pipeline change.</td></tr>
         <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/0xwhrrari/status/2105643919119696297">"Motion Engineering: Build a Video Studio Around Opus 5.5"</a> (rari), the original of the Mori article</td><td>Mostly already in <code>/make-film</code>. Added three small rules: a motion rule per kind of object, the eyes-closed listening test, and a last frame that works as a poster.</td></tr>
         <tr><td class="nowrap">28 Oct 2026</td><td>Building the cyber security film end to end</td><td>Four rules added. Security topics explain what goes wrong and why, never how to do it: no attack walk-throughs or code on screen, and every attack beat ends on what stops it (chapter 2 was rewritten this way). The subtitle band stays clear: labels above y 930, source notes below the subtitles. No empty seconds: a line opens on something it is about. Whole films render with motion blur (<code>BLUR=2</code>).</td></tr>
+        <tr><td class="nowrap">9 Nov 2026</td><td><a href="https://x.com/treyscalez/status/2119489762134295014">A "Kurzgesagt-style" animation prompt</a> (@treyscalez, 8 Nov) and your sample, the same 67-second "Why pirates wore eye patches" demo</td><td>Measured it: 159 words a minute, 3 hard cuts in 67 s, −14.1 LUFS, 2–4 word labels instead of subtitles. Adopted its story shape (a premise that sounds wrong, "you" in the story, a problem you feel, the reveal, a laugh, an honest hedge with evidence, the title as payoff), one continuous world, characters who act, and light as a story beat. Declined the costume: Kurzgesagt's look, font and characters, and its see-through face in the dark scene. The prompt is the one reviewed on 27 Oct; "1200 hours vs 20 minutes" still compares a 30-second clip with a 10-minute studio film. Result: the Animated short format, Bindu and Gappu, and the pilot. Notes: <code>docs/references/animated-short-sample.md</code>.</td></tr>
         <tr><td class="nowrap">31 Oct 2026</td><td>Your note: the background music is hardly audible in many places; raise it without hurting the narration</td><td>Measured it: in the quietest scenes the music sat 18–20 dB under the voice. The mix now lifts any stretch that falls that low (up to 8 dB, changing slowly, designed silences untouched) and adds 1 dB overall; the voice band is still ducked under speech, and clarity is measured on every mix.</td></tr>
         <tr><td class="nowrap">31 Oct 2026</td><td>Your notes on the cyber film: answer a layman's questions in every chapter; finish the "two keys" idea; check DigiLocker; drop Heartbleed; explain each kind of attack simply, keeping only those the public needs</td><td>Adopted as two script passes. DigiLocker isn't linked to eMudhra in any report, so the film gives the government's reassurance on eSign and digital signatures instead of naming it. The attacks were ranked against FBI, I4C and Verizon figures: DDoS, Log4Shell and xz were dropped; a data-breach scene (Yahoo) and India's "digital arrest" scams were added.</td></tr>
         <tr><td class="nowrap">31 Oct 2026</td><td>Your ask: Shorts that bring people to the full film, and an upload kit to make the film go viral</td><td>Adopted what can be controlled: payoff titles, a call to the film, Related-video links, three thumbnails for Test &amp; compare, a title test, a pinned question, a launch plan and a schedule. Reach can't be promised; the 7- and 28-day numbers decide what changes next.</td></tr>
@@ -1073,6 +1171,13 @@ LABEL    AI-generated illustration</code></pre>
 <section class="stack" aria-labelledby="changelog">
   <h2 id="changelog">Changelog</h2>
   <ul class="plain">
+    <li><strong>v1.2 · 9 Nov 2026.</strong> A new format and a cast:
+      <ul class="plain">
+        <li><strong>Animated short:</strong> its story shape, craft rules and approvals, with the pilot (What If Every Password Leaked?, 76 s, QA all pass).</li>
+        <li><strong>Characters:</strong> Bindu and Gappu, drawn in code with poses, expressions, blinking, gaze and squash.</li>
+        <li><strong>The format guide:</strong> length, pace, voice, music, look, approvals and deliverables for every format, side by side.</li>
+        <li><strong>Engine:</strong> a film can be one function of film time (no ghosting between scenes); events placed on heard words re-time themselves to a new voice.</li>
+      </ul></li>
     <li><strong>v1.1 · 31 Oct 2026.</strong> Learned from finishing the cyber film:
       <ul class="plain">
         <li><strong>Narration:</strong> Arjun recorded once per scene; later script changes re-record only the changed scenes, with the cost approved first; every line is checked against the script.</li>
@@ -1151,6 +1256,7 @@ LABEL    AI-generated illustration</code></pre>
     news: { name: 'News explainer (60–90 s)', steps: ['Script and fact table approved', 'Look and asset plan approved', 'Assets uploaded and ingested', 'Voice and clock built', 'Scenes built', 'Score scored to the words', 'Preview passed the critic', 'Full render', 'Short', 'Thumbnail', 'Upload kit with sources and "as of" date', 'Published'] },
     business: { name: 'Business film', steps: ['Dossier and script approved', 'Look approved', 'Voice and clock built', 'Business Engine and red-team scenes built', 'Not-investment-advice note on screen', 'Preview passed the critic', 'Full render', 'Shorts', 'Thumbnails', 'Upload kit with sources', 'Master on the masters branch', 'Published'] },
     imagine: { name: 'Imagine film (past or future)', steps: ['Dossier and design approved', 'Look approved', 'Voice and clock built', 'Worlds and scenes built', 'Imagined / evidence labels checked', 'Preview passed the critic', 'Full render', 'Shorts', 'Thumbnails', 'Upload kit with sources', 'Master on the masters branch', 'Published'] },
+    animated: { name: 'Animated short', steps: ['Story, script and characters approved', 'Key frames approved', 'Draft voice and clock built', 'World and characters animated on the words', 'Score and code effects', 'Animated preview approved', 'Arjun recorded (cost approved)', 'Final render, QA all pass', '9:16 version re-laid out', 'Thumbnail and upload kit', 'Published, linked to the full film'] },
     shorts: { name: 'Shorts', steps: ['Ideas and line ranges chosen', 'Rendered at 9:16', 'Each checked on its own stills', 'Readable with the sound off', 'Titles and descriptions', 'Published'] },
     language: { name: 'Hindi version', steps: ['Hindi script approved', 'Every on-screen word translated', 'Voice and clock built', 'Whisper pronunciation check passed', 'Contact sheets: no English left', 'Full render', 'Hindi Shorts', 'Hindi thumbnails and upload kit', 'Published'] },
     lab: { name: 'Lab experience', steps: ['Plan approved', 'One model of the system written', 'Story mode built', 'Explore, Map and Break-it built', 'Sources and trust labels complete', 'Interaction audit passes', 'Works on phone and without WebGL', 'Expert review status shown', 'Deployed and linked from the film'] },
