@@ -155,7 +155,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
 <header class="stack">
   <div class="eyebrow">First Principles Studio · production handbook</div>
   <h1>The content pipeline</h1>
-  <p><span class="pill live">Pipeline v1.7</span> <span class="note">First fixed on 27 October 2026; v1.7 on 9 November 2026. Changes go through the <a href="#ideas">ideas log</a> and the <a href="#changelog">changelog</a>.</span></p>
+  <p><span class="pill live">Pipeline v1.8</span> <span class="note">First fixed on 27 October 2026; v1.8 on 9 November 2026. Changes go through the <a href="#ideas">ideas log</a> and the <a href="#changelog">changelog</a>.</span></p>
   <p class="lede">How we turn a question into a film, a Short, a Hindi version or an interactive experience, all made in code, with no camera and no editing timeline. Pick what you're making, follow the steps, and track each production at the bottom of this page.</p>
   <nav class="jump" aria-label="On this page">
     <a href="#pick">1 · Pick a format</a>
@@ -191,6 +191,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <button class="fmt" role="tab" id="t-business" aria-controls="p-business" aria-selected="false"><span class="tag">Film · Business, Unpacked</span><b>Business film</b><span>"What's the machine under this business?"</span></button>
     <button class="fmt" role="tab" id="t-imagine" aria-controls="p-imagine" aria-selected="false"><span class="tag">Film · Imagine</span><b>Past or future film</b><span>"What would it look and feel like?"</span></button>
     <button class="fmt" role="tab" id="t-animated" aria-controls="p-animated" aria-selected="false"><span class="tag">Film · Animated</span><b>Animated short</b><span>60 s–3 min: stories with our characters</span></button>
+    <button class="fmt" role="tab" id="t-buildit" aria-controls="p-buildit" aria-selected="false"><span class="tag">Short · First Principles</span><b>Build-it short</b><span>60–75 s: build an everyday thing, one problem at a time</span></button>
     <button class="fmt" role="tab" id="t-casefile" aria-controls="p-casefile" aria-selected="false"><span class="tag">Film · Case File</span><b>Case file</b><span>4–8 min: a true story, on a board or in chapters</span></button>
     <button class="fmt" role="tab" id="t-cinematic" aria-controls="p-cinematic" aria-selected="false"><span class="tag">Film · Cinematic</span><b>Cinematic short</b><span>35–60 s: one mystery, real photos that move</span></button>
     <button class="fmt" role="tab" id="t-shorts" aria-controls="p-shorts" aria-selected="false"><span class="tag">From every film</span><b>Shorts</b><span>one idea, vertical, under a minute</span></button>
@@ -407,6 +408,8 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
       <div><p><strong>Animated story, 2–3 minutes</strong> (9:16 first, also 16:9): a story told scene by scene, one scene per line of narration, about 6 seconds each. For Indian epics, legends and history told for what they explain (the rules of war at Kurukshetra, Ekalavya's thumb, Nachiketa and Yama). Reference: "Abraham's Covenant" (1:47).</p></div>
       <div><p><strong>Two routes:</strong> drawn in code (our characters and worlds, free, never drifts), or AI-illustrated (pictures and clips made from one design per character and place, priced and approved first, labelled "AI illustration"). We pick whichever gives the better film.</p></div>
     </div>
+    <h3>Survival story: a series in parts</h3>
+    <p>"Imagine you're on a local train in Mumbai and the water is rising…" Gappu is you, in a real hazard (a flood, a 47 °C heat wave, an earthquake, a crowd crush, a "digital arrest" call). A display shows the day, the clock and your phone battery; numbered rule cards come from official guidance (NDMA, IMD, I4C), and a fact card per part explains why the rule works (why six inches of moving water knocks you down). Each 60–90 second part ends on a real choice and a vote ("Comment WADE or WAIT · Part 2"). Real hazards only, a scenario label, no gore or horror.</p>
     <h3>Animated story: what makes it work</h3>
     <ul class="plain">
       <li><strong>Open on the doubt or the question,</strong> then "long before…"; end on the payoff and a question to the viewer (never a like-share-subscribe card).</li>
@@ -469,6 +472,64 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
       <button class="copy" type="button">Copy prompt</button>
     </div>
     <div class="row"><button class="track solid" type="button">Track a new animated short</button></div>
+  </div>
+
+  <div class="panel" role="tabpanel" id="p-buildit" aria-labelledby="t-buildit" data-format="buildit" hidden>
+    <h3>Build-it short: build an everyday thing, one problem at a time</h3>
+    <p>"Scrape the grass off a strip of your yard and drive on it: you have a road. But the first rain turns it to mud, so you add stones. But round stones roll…" Each fix causes the next problem, each fix gets its real name, and every episode ends on the same line: "Congratulations, you've built a road." It is first principles in its purest form, in one continuous cutaway world: the ground sliced open under the thing being built.</p>
+    <dl class="facts">
+      <div><dt>Length</dt><dd>60–75 s (190–240 words)</dd></div>
+      <div><dt>Pace</dt><dd>180–200 words a minute</dd></div>
+      <div><dt>Example</dt><dd>reference: You Built It (58.6M TikTok views in three weeks, per the article); pilot pending: a road that survives the monsoon</dd></div>
+      <div><dt>Approvals</dt><dd>the problem chain and its facts, then the cutaway world (key frames), then the preview before Arjun records</dd></div>
+    </dl>
+    <div class="cols">
+      <div>
+        <h3>The story shape</h3>
+        <ol>
+          <li><strong>The naive version</strong> in the first line: "Dig a hole and fill it with water: you have a pond."</li>
+          <li><strong>"But…"</strong> the first problem, shown happening (the water soaks away overnight).</li>
+          <li><strong>"So you…"</strong> the fix, named on screen ("This is a liner").</li>
+          <li><strong>Repeat</strong> until it works; each fix causes the next problem.</li>
+          <li><strong>One surprising fact</strong> near the end, sourced ("water is heaviest at 4 °C, so the deep end never freezes").</li>
+          <li><strong>The signature line:</strong> "Congratulations, you've built a ___."</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Craft rules</h3>
+        <ul class="plain">
+          <li><strong>One continuous world, no cuts:</strong> a cross-section of soil, rock, water and pipes under the thing; the camera moves to each new layer on its word.</li>
+          <li><strong>Every problem is seen, not told:</strong> rain soaks in, wheels sink, ice lifts the road.</li>
+          <li><strong>One caption word at a time,</strong> centred; the narrator calm, never hyped; 180–200 words a minute (the reference's 240 is too fast for many of our viewers and for Hindi).</li>
+          <li><strong>Indian topics first:</strong> a road that survives the monsoon, a stepwell, a rooftop water tank, a pressure cooker, a metro tunnel, a UPI payment, a dam, a chulha that doesn't smoke.</li>
+          <li><strong>Every named fix and every number</strong> is checked against a source in the fact table.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cols">
+      <div>
+        <h3>How it's built</h3>
+        <ul class="plain">
+          <li>A cutaway kit (next on the roadmap): soil and rock layers, water tables, pipes, weather and wheels acting on them, in our engine now; real 3D later.</li>
+          <li>Events placed on spoken words, so the picture re-times itself when Arjun records.</li>
+          <li>The series frame (opening move and last line) stays the same every episode.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Done when</h3>
+        <ul class="plain">
+          <li>Every problem in the chain is visible on screen before it's named.</li>
+          <li>The critic scores it against two or three of the reference's best videos on the same rubric.</li>
+          <li><code>qa.py</code> reads ALL PASS; a 16:9 version exists for the channel page.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt">
+      <div class="eyebrow">Kick it off in Claude Code</div>
+<pre><code>/make-film A build-it short, about 70 seconds: "[a road that survives the monsoon]". Start from the naive version, then "but… so you…" until it works, naming each fix; one sourced surprising fact near the end; end on "Congratulations, you've built a ___". One continuous cutaway world, no cuts, one caption word at a time, 180–200 words a minute. Stop for my approval after the problem chain, after the key frames, and after the preview.</code></pre>
+      <button class="copy" type="button">Copy prompt</button>
+    </div>
+    <div class="row"><button class="track solid" type="button">Track a new build-it short</button></div>
   </div>
 
   <div class="panel" role="tabpanel" id="p-casefile" aria-labelledby="t-casefile" data-format="casefile" hidden>
@@ -607,7 +668,8 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
   <!-- shorts -->
   <div class="panel" role="tabpanel" id="p-shorts" aria-labelledby="t-shorts" data-format="shorts" hidden>
     <h3>Shorts: one idea, vertical, under a minute</h3>
-    <p>Cut from a finished film. Chosen sentences are re-rendered in a 1080×1920 frame with a big title on top and large subtitles below, and each Short gets its own music that builds to its key line.</p>
+    <p><strong>Explainer reel (made for Shorts, 45–60 s):</strong> Bindu presents from a corner while titles and cards land on the exact spoken word, a diagram builds one step per sentence, "Step 1, 2, 3", "one catch", and the last line loops back to the first. Made for Shorts from the start, readable muted, pointing to the related full film.</p>
+    <p><strong>Cut-downs:</strong> cut from a finished film. Chosen sentences are re-rendered in a 1080×1920 frame with a big title on top and large subtitles below, and each Short gets its own music that builds to its key line.</p>
     <dl class="facts">
       <div><dt>Length</dt><dd>20–35 s each</dd></div>
       <div><dt>How many</dt><dd>3–7 per film</dd></div>
@@ -772,7 +834,8 @@ npm run build:static        <span class="c"># → out/ for Hostinger</span></cod
         <tr><td>News explainer</td><td>60–90 s</td><td>140–160 wpm</td><td>thriller kit, no siren layers, violin builds</td><td>highlighter clippings, maps, lens transitions</td><td>script + facts · look + assets</td><td>film, 1 Short, thumbnail, kit</td></tr>
         <tr><td>Business film</td><td>15–20 min</td><td>115–130 wpm</td><td>Organ &amp; Time</td><td>the Business Engine, red-team scenes</td><td>dossier · look</td><td>film, Shorts, thumbnails, kit, master</td></tr>
         <tr><td>Imagine (past or future)</td><td>13–20 min</td><td>110–125 wpm</td><td>Organ &amp; Time (Interstellar-style)</td><td>painted worlds, IMAGINED labels</td><td>dossier + design · look</td><td>film, Shorts, thumbnails, kit, master</td></tr>
-        <tr><td><strong>Animated short</strong> (story: 2–3 min)</td><td>60–90 s; story 2–3 min</td><td>~150 wpm</td><td>Arjun; Bindu and Gappu on screen</td><td>Organ &amp; Time played light + code effects</td><td>our characters in one continuous world</td><td>story + characters · key frames · animated preview</td><td>16:9 film, 9:16 version, thumbnail, kit</td></tr>
+        <tr><td><strong>Animated short</strong> (story: 2–3 min)</td><td>60–90 s; story 2–3 min; survival series 60–90 s a part</td><td>~150 wpm</td><td>Arjun; Bindu and Gappu on screen</td><td>Organ &amp; Time played light + code effects</td><td>our characters in one continuous world</td><td>story + characters · key frames · animated preview</td><td>16:9 film, 9:16 version, thumbnail, kit</td></tr>
+        <tr><td><strong>Build-it short</strong></td><td>60–75 s</td><td>180–200 wpm</td><td>Arjun</td><td>Organ &amp; Time, light, with recorded sound</td><td>one continuous cutaway world, one caption word at a time</td><td>problem chain + facts · key frames · preview</td><td>9:16 and 16:9, thumbnail, kit</td></tr>
         <tr><td><strong>Case file</strong></td><td>4–8 min</td><td>Board ~130 wpm; Cinematic 80–110</td><td>Arjun</td><td>Organ &amp; Time</td><td>Board: one evidence board, one camera, no cuts · Cinematic: dated chapters, archive in 2.5D, a returning motif</td><td>story + sources + rights · board and beat table · preview</td><td>film, 3–5 Shorts, thumbnails, kit, master</td></tr>
         <tr><td><strong>Cinematic short</strong></td><td>35–60 s</td><td>~130 wpm</td><td>Arjun</td><td>Organ &amp; Time, low and dark</td><td>real photos moved in 2.5D, one word per shot</td><td>story + photo list · animatic</td><td>16:9 film, 9:16 version, thumbnail, kit</td></tr>
         <tr><td>Shorts</td><td>20–35 s</td><td>up to 165 wpm</td><td>from the film</td><td>from the film</td><td>re-laid out for 9:16, payoff title, 6 s call to the film</td><td>the list of Shorts</td><td>Shorts + per-Short kit (title, description, cover frame, pinned comment, day)</td></tr>
@@ -960,7 +1023,7 @@ python3 scripts/qa.py videos/<span class="k">&lt;film&gt;</span>            <spa
         </ul></li>
       <li><strong>Assets:</strong> nothing AI stands in for evidence, every AI shot is labelled, every real one credited, and no AI tells are visible at full size.</li>
       <li><strong>Findings:</strong> the three biggest problems, each with its exact frame, what's wrong, why it matters, the smallest fix, and what must not change.</li>
-      <li><strong>Also:</strong> the three weakest shots by timestamp; any shot where only the camera moves; any frame that could belong to another film; anything from the cliché checklist; and one overall score on a fixed scale (5 student · 6 template · 7 solid professional · 8 high-end agency · 9 award shortlist).</li>
+      <li><strong>Also:</strong> the three weakest shots by timestamp; any shot where only the camera moves; any frame that could belong to another film; anything from the cliché checklist; and one overall score on a fixed scale (5 student · 6 template · 7 solid professional · 8 high-end agency · 9 award shortlist). When the film follows a proven format, the critic scores two or three of the reference's best videos on the same rubric, so an 8 means "as good as what already works".</li>
       <li><strong>Last test:</strong> it restates the film's message from the frames alone. If it can't, the story fails.</li>
     </ul>
     <div class="files"><span class="file out">review/FINDINGS.md</span></div>
@@ -1255,6 +1318,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td>Film length (31 Oct)</td><td>the cyber film keeps its full 25:40, your choice; ready trims are listed in its review notes</td><td>12–15 minutes, or a two-part split</td></tr>
         <tr><td>Characters (9 Nov)</td><td>Bindu, a warm drop of light, is the mascot in every animated short; Gappu, an Indian kid, is "you" when a story needs a person</td><td>a new cast for each film</td></tr>
         <tr><td>Animated shorts (9 Nov)</td><td>about 75 s; our own look (never another channel's); labels in the 16:9 film, full subtitles in the 9:16 version; Arjun records after you approve the animated preview</td><td>under 60 s; burned-in subtitles everywhere</td></tr>
+        <tr><td>Build-it, survival, reels (9 Nov)</td><td>Build-it short as a new format; Survival story as an Animated series; Explainer reel as a native Shorts variant</td><td>keep to cut-down Shorts</td></tr>
         <tr><td>AI pictures (9 Nov)</td><td>used wherever they raise quality and imagination, no fixed share; evidence never AI, real people in real photos only, every AI shot labelled, its cost approved by you before generating</td><td>a cap of about 20% of runtime (the rule until 9 Nov)</td></tr>
         <tr><td>Animated story (9 Nov)</td><td>a 2–3 minute story variant of the Animated type, drawn in code or AI-illustrated, whichever gives the better film</td><td>a separate category</td></tr>
         <tr><td>Type per series (9 Nov)</td><td>Anek (First Principles), Newsreader + Archivo Narrow (In Context), Archivo Expanded + Source Serif (Business, Unpacked), Eczar + Literata (Imagine), Teko + Hind + Courier Prime (Case File, Cinematic shorts), Baloo 2 (Animated); each with a Hindi partner</td><td>the engine's default fonts, which read as AI-generated</td></tr>
@@ -1310,6 +1374,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td><span class="pill live">live</span></td><td>2.5D plates: a camera moving through a still photo, documentary title cards, number rolls, flashes and scan-line wipes</td><td>photos and archive frames play like shots; the Cinematic short format</td></tr>
         <tr><td><span class="pill">next</span></td><td>A reference-measuring script (shots, shot length, pace, palette, loudness, music level), a library of real recorded sounds, and more <code>qa.py</code> checks (loudness per scene, camera-only shots, text size and contrast)</td><td>faster reference analysis, real sound, problems a whole-film number hides</td></tr>
         <tr><td><span class="pill live">live</span></td><td>Type for each series, with a Hindi partner (your picks, in the engine)</td><td>a recognisable identity; Hindi versions that match</td></tr>
+        <tr><td><span class="pill">next</span></td><td>A cutaway kit for Build-it shorts (soil, rock, water, pipes in cross-section, weather and wheels acting on them) and series devices (a stakes display, rule and fact cards, a vote end card)</td><td>the Build-it and Survival formats in our engine</td></tr>
         <tr><td><span class="pill">next</span></td><td>An AI illustration route: a cast sheet, then every scene from it, with image-to-video for the hero moments and a cost sheet per film before generating</td><td>Animated stories and imagined worlds beyond what code can draw, with nothing drifting between shots</td></tr>
         <tr><td><span class="pill">next</span></td><td>The board kit for Case files: a board world, a camera path on spoken words, marks (circle, stamp, X, tally), an India state map, word-accurate karaoke captions, the closing pull-back</td><td>the Case file format; Evidence films can use the same board</td></tr>
         <tr><td><span class="pill">next</span></td><td>A Cinematic short pilot; 2.5D plates in Shorts and in the Imagine films' painted worlds</td><td>proves the format with Arjun and the score; one photo serves 16:9 and 9:16</td></tr>
@@ -1343,6 +1408,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td class="nowrap">9 Nov 2026</td><td><a href="https://x.com/exploraX_/status/2119350502961889592">An "evidence board" cinematic documentary on Al Capone</a> (@exploraX_, 8 Nov), made from one prompt (<a href="https://x.com/exploraX_/status/2119350889295040999">the prompt</a>)</td><td>Measured it: 5:21 with no cuts at all, 130 words a minute, karaoke captions, marks on the spoken word, the whole board revealed at the end. Adopted as a new category, the Case file. Adopted for every format: one hero per line in the beat sheet, every phrase on screen once, grey lines for document text, no clutter, a camera that never stops dead, frame sequences of camera moves in review. Not copied: caption boxes that cut words in half, a recreated ledger shown like a scan.</td></tr>
         <tr><td class="nowrap">9 Nov 2026</td><td><a href="https://x.com/sarpstar/status/2119083216644555154">"Columbus's Light"</a> (@sarpstar, 7 Nov), a 7:51 Bermuda Triangle documentary, and <a href="https://github.com/sarpstar/cinecode">cinecode</a>, the free (MIT) Claude skill that made it, all 23 of its guides read</td><td>Measured it: about 80 words a minute with long silences, dated chapter cards, a motif that returns, legends checked against the record. Not a new category: it became the Cinematic look of the Case file. From the skill we took about twenty practices (angles, the caption test, the curiosity map, key moments, cut reasons, the cliché checklist, real recorded sound with an event list, per-scene loudness, the notes protocol, the critic's fixed scale). Not taken: its engine, its generated voices, stock music and clips.</td></tr>
         <tr><td class="nowrap">9 Nov 2026</td><td><a href="https://x.com/OlatundeAI/status/2118954211396264273">"Abraham's Covenant"</a> (@OlatundeAI, 7 Nov), a 1:47 AI-illustrated Bible story made free with Google Flow</td><td>Measured it: about 140 words a minute, 17 scenes of about 6 seconds, one consistent character, God shown only as gold light, a picture-metaphor for each key line, and clipping audio (−9.2 LUFS). Adopted as the Animated story (2–3 min). Your decision: AI wherever it raises quality, no fixed share. Not copied: the clipping, the title on black and title badge, caption fragments, the drop to zooming stills when credits ran out, unlabelled AI.</td></tr>
+        <tr><td class="nowrap">9 Nov 2026</td><td><a href="https://x.com/theoxmotion/status/2116684286837330374">"How to make viral videos with Claude Code for $0"</a> (@theoxmotion, X article), ten free formats; the author's guides were gone, so the embedded clips were measured</td><td>Adopted three: the <strong>Build-it short</strong> (a problem chain in one cutaway world, no cuts; the original page had 58.6M TikTok views in three weeks, per the article), the <strong>Survival story</strong> (second person, real hazards, rule and fact cards, a vote) and the <strong>Explainer reel</strong> (Bindu presenting, cards on the word). Also: a fixed series frame, and a critic calibrated on the reference's best videos. Not taken: horror, invented rules, 240 words a minute, unmastered audio.</td></tr>
         <tr><td class="nowrap">31 Oct 2026</td><td>Your note: the background music is hardly audible in many places; raise it without hurting the narration</td><td>Measured it: in the quietest scenes the music sat 18–20 dB under the voice. The mix now lifts any stretch that falls that low (up to 8 dB, changing slowly, designed silences untouched) and adds 1 dB overall; the voice band is still ducked under speech, and clarity is measured on every mix.</td></tr>
         <tr><td class="nowrap">31 Oct 2026</td><td>Your notes on the cyber film: answer a layman's questions in every chapter; finish the "two keys" idea; check DigiLocker; drop Heartbleed; explain each kind of attack simply, keeping only those the public needs</td><td>Adopted as two script passes. DigiLocker isn't linked to eMudhra in any report, so the film gives the government's reassurance on eSign and digital signatures instead of naming it. The attacks were ranked against FBI, I4C and Verizon figures: DDoS, Log4Shell and xz were dropped; a data-breach scene (Yahoo) and India's "digital arrest" scams were added.</td></tr>
         <tr><td class="nowrap">31 Oct 2026</td><td>Your ask: Shorts that bring people to the full film, and an upload kit to make the film go viral</td><td>Adopted what can be controlled: payoff titles, a call to the film, Related-video links, three thumbnails for Test &amp; compare, a title test, a pinned question, a launch plan and a schedule. Reach can't be promised; the 7- and 28-day numbers decide what changes next.</td></tr>
@@ -1364,6 +1430,7 @@ LABEL    AI-generated illustration</code></pre>
 <section class="stack" aria-labelledby="changelog">
   <h2 id="changelog">Changelog</h2>
   <ul class="plain">
+    <li><strong>v1.8 · 9 Nov 2026.</strong> Three formats from the viral roundup: the <strong>Build-it short</strong> (new), the <strong>Survival story</strong> (an Animated series) and the <strong>Explainer reel</strong> (made for Shorts); the critic now scores the reference's best videos on the same rubric.</li>
     <li><strong>v1.7 · 9 Nov 2026.</strong> AI wherever it raises quality (your decision; the 20% cap is gone, labels and cost approval stay), and the <strong>Animated story</strong> (2–3 min) with its rules.</li>
     <li><strong>v1.6 · 9 Nov 2026.</strong> Type per series: your picks for all six series are in the engine, each with a Hindi partner (<a href="#type">the table</a>).</li>
     <li><strong>v1.5 · 9 Nov 2026.</strong> A fourth reference and a whole skill read:
@@ -1469,6 +1536,8 @@ LABEL    AI-generated illustration</code></pre>
     animated: { name: 'Animated short', steps: ['Story, script and characters approved', 'Key frames approved', 'Draft voice and clock built', 'World and characters animated on the words', 'Score and code effects', 'Animated preview approved', 'Arjun recorded (cost approved)', 'Final render, QA all pass', '9:16 version re-laid out', 'Thumbnail and upload kit', 'Published, linked to the full film'] },
     casefile: { name: 'Case file', steps: ['Story, sources and photo rights approved', 'Board layout and beat table approved', 'Photos and documents fetched and credited', 'Draft voice and clock built', 'Board and camera path built on the words', 'Marks, captions and score', 'Preview approved', 'Arjun recorded (cost approved)', 'Final render, QA all pass', 'Shorts', 'Thumbnails and upload kit', 'Master', 'Published'] },
     cinematic: { name: 'Cinematic short', steps: ['Story, sources and photo list approved', 'Photos fetched and credited', 'Depth plates built', 'Animatic approved (moves and words)', 'Draft voice and clock built', 'Score', 'Arjun recorded (cost approved)', 'Final render, QA all pass', '9:16 version', 'Thumbnail and upload kit', 'Published'] },
+    buildit: { name: 'Build-it short', steps: ['Problem chain and fact table approved', 'Cutaway world key frames approved', 'Draft voice and clock built', 'World built, every problem visible on its word', 'Captions and sound', 'Preview approved (scored against the reference)', 'Arjun recorded (cost approved)', 'Final render, QA all pass', '9:16 and 16:9', 'Thumbnail and kit', 'Published'] },
+    survival: { name: 'Survival story (part)', steps: ['Hazard, official rules and sources approved', 'Part plan with the choice and vote approved', 'Key frames approved', 'Draft voice and clock built', 'Scenes, stakes display, rule and fact cards', 'Preview approved', 'Arjun recorded (cost approved)', 'Final render, QA all pass', 'Published with the vote pinned'] },
     animstory: { name: 'Animated story (2–3 min)', steps: ['Story, sources and cast sheet approved', 'Route chosen (code or AI) and AI cost approved', 'Key frames approved', 'Draft voice and clock built', 'Every scene made from the cast sheet', 'Score and sound', 'Animated preview approved', 'Arjun recorded (cost approved)', 'Final render, QA all pass', '9:16 and 16:9', 'Thumbnail and upload kit', 'Published'] },
     shorts: { name: 'Shorts', steps: ['Ideas and line ranges chosen', 'Rendered at 9:16', 'Each checked on its own stills', 'Readable with the sound off', 'Titles and descriptions', 'Published'] },
     language: { name: 'Hindi version', steps: ['Hindi script approved', 'Every on-screen word translated', 'Voice and clock built', 'Whisper pronunciation check passed', 'Contact sheets: no English left', 'Full render', 'Hindi Shorts', 'Hindi thumbnails and upload kit', 'Published'] },
