@@ -155,7 +155,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
 <header class="stack">
   <div class="eyebrow">First Principles Studio · production handbook</div>
   <h1>The content pipeline</h1>
-  <p><span class="pill live">Pipeline v1.9</span> <span class="note">First fixed on 27 October 2026; v1.9 on 9 November 2026. Changes go through the <a href="#ideas">ideas log</a> and the <a href="#changelog">changelog</a>.</span></p>
+  <p><span class="pill live">Pipeline v1.10</span> <span class="note">First fixed on 27 October 2026; v1.10 on 9 November 2026. Changes go through the <a href="#ideas">ideas log</a> and the <a href="#changelog">changelog</a>.</span></p>
   <p class="lede">How we turn a question into a film, a Short, a Hindi version or an interactive experience, all made in code, with no camera and no editing timeline. Pick what you're making, follow the steps, and track each production at the bottom of this page.</p>
   <nav class="jump" aria-label="On this page">
     <a href="#pick">1 · Pick a format</a>
@@ -197,7 +197,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <button class="fmt" role="tab" id="t-shorts" aria-controls="p-shorts" aria-selected="false"><span class="tag">From every film</span><b>Shorts</b><span>one idea, vertical, under a minute</span></button>
     <button class="fmt" role="tab" id="t-language" aria-controls="p-language" aria-selected="false"><span class="tag">From any film</span><b>Hindi version</b><span>the same film in another language</span></button>
     <button class="fmt" role="tab" id="t-lab" aria-controls="p-lab" aria-selected="false"><span class="tag">Interactive · Lab</span><b>Lab experience</b><span>a 3D world you enter and break</span></button>
-    <button class="fmt" role="tab" id="t-figure" aria-controls="p-figure" aria-selected="false"><span class="tag">Interactive · planned</span><b>Interactive figure</b><span>one machine you click through</span></button>
+    <button class="fmt" role="tab" id="t-figure" aria-controls="p-figure" aria-selected="false"><span class="tag">Interactive · planned</span><b>Interactive figure</b><span>a real machine you take apart and rebuild</span></button>
   </div>
 
   <!-- explainer -->
@@ -792,34 +792,57 @@ npm run build:static        <span class="c"># → out/ for Hostinger</span></cod
 
   <!-- figure -->
   <div class="panel" role="tabpanel" id="p-figure" aria-labelledby="t-figure" data-format="figure" hidden>
-    <h3>Interactive figure (planned): one machine you click through</h3>
-    <p>Lighter than a Lab experience: one mechanism as a recognisable machine. Step buttons (only the next one is live), a window cut into the part doing the work, and live numbers from one model of the real thing. The same figure can be recorded as a Short. Made with the free <a href="https://github.com/wheresryan22/anatomy">anatomy</a> skill (MIT licence).</p>
+    <h3>Interactive figure (planned): a real machine you take apart and rebuild</h3>
+    <p>Lighter than a Lab experience: one real machine, built entirely in 3D code, that the visitor opens part by part. Before a plate comes off, they guess what's under it; they drag the part out, see what changes (take the fan off and the temperature climbs), and finally rebuild it. One build gives three things: the figure (linked from the film), 3D shots for the film, and a 10-second Short.</p>
     <dl class="facts">
       <div><dt>Status</dt><dd>planned, no pilot yet</dd></div>
-      <div><dt>First pilot</dt><dd>ASML's tin-droplet light source</dd></div>
-      <div><dt>Build time</dt><dd>about an hour</dd></div>
+      <div><dt>First pilot</dt><dd>Chandrayaan-3's Vikram lander (from ISRO's public material); then ASML's light source</dd></div>
+      <div><dt>Method</dt><dd>Nyxera's <a href="https://github.com/Nyxera0x/cutaway">cutaway</a> (MIT) with our interaction rules</dd></div>
+      <div><dt>Approvals</dt><dd>the reference and checklist, then the still after round 2 (nothing filmed before your yes), then the interaction</dd></div>
     </dl>
     <div class="cols">
       <div>
-        <h3>Rules</h3>
+        <h3>How it's built</h3>
+        <ol>
+          <li><strong>A reference picture</strong> sets the look only (an AI image is fine, labelled as a concept); it's rebuilt in code, never imported. The facts come from public sources.</li>
+          <li><strong>Measure it first:</strong> proportions as shares of the length, and how much dark mechanism shows.</li>
+          <li><strong>A 10–12 line checklist</strong> for this picture: every vague word gets a number, and "never" sits next to the default ("clear glass, never a solid white shell").</li>
+          <li><strong>The still loop:</strong> the reference, our still and an approved still side by side, graded line by line against the picture and measured; you see it after round 2.</li>
+          <li><strong>Every part its own piece</strong> with an anchor, so the figure, the film and the Short can all open it.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>The interaction (our Lab rules)</h3>
         <ul class="plain">
-          <li>The object is the explanation: a real machine, not boxes and arrows.</li>
-          <li>Sped-up or slowed time carries a badge (×4, ×1/20); the clock still shows real seconds.</li>
-          <li>One sentence under the figure: the big idea.</li>
+          <li><strong>Predict first:</strong> "What do you think is under this plate?" before it opens.</li>
+          <li><strong>Hands on:</strong> drag the part out, with resistance and snapping; buttons only as the accessible fallback.</li>
+          <li><strong>Consequences:</strong> a removed part changes how the machine works, on a live card.</li>
+          <li><strong>Rebuild as the test:</strong> put it back; a wrong order shows why the order matters.</li>
+          <li><strong>Honest:</strong> "a representative reconstruction", every part named with its real job; sped-up time carries a badge.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cols">
+      <div>
+        <h3>The film and the Short</h3>
+        <ul class="plain">
+          <li>Every part gets its own camera (side, height, distance); a check catches a camera that stays parked.</li>
+          <li>A part opens in about 1 second, holds, closes in half a second; a new beat every 2–3 seconds; a full explode and reassembly.</li>
+          <li>The 10-second Short has its own script, opening and exit, never the long film's highlights stitched together.</li>
         </ul>
       </div>
       <div>
         <h3>Done when</h3>
         <ul class="plain">
-          <li>A first-time visitor gets the big idea by pressing through it.</li>
-          <li>Its numbers match the film's sources.</li>
-          <li>It's linked from the film's description.</li>
+          <li>The checklist passes and the still matches the reference's density and proportions.</li>
+          <li>A first-time visitor predicts, opens, breaks and rebuilds it, and gets the big idea.</li>
+          <li>Its numbers match the film's sources; it's linked from the film's description.</li>
         </ul>
       </div>
     </div>
     <div class="prompt">
-      <div class="eyebrow">Kick it off in Claude Code (with the anatomy skill installed)</div>
-<pre><code>/anatomy Build an interactive figure that answers "[the question]" as a real machine: step buttons, a window into the working part, every number from one small model of the real thing (sources from videos/[film]), and one line under it with the big idea.</code></pre>
+      <div class="eyebrow">Kick it off in Claude Code</div>
+<pre><code>Build an interactive figure of [Chandrayaan-3's Vikram lander] with the cutaway method: a reference picture for the look, measured; a numbered checklist; a still loop graded against the picture; stop after round 2 for my yes. Every part its own anchor. Interaction by our Lab rules: predict before opening, drag parts out, show the consequence on a live card, rebuild. Facts from public sources, labelled as a representative reconstruction.</code></pre>
       <button class="copy" type="button">Copy prompt</button>
     </div>
     <div class="row"><button class="track solid" type="button">Track a new figure</button></div>
@@ -1305,6 +1328,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td>Moving photos (2.5D)</td><td>one small move per shot; no torn edges on a full-size frame; every photo credited; AI pictures labelled; one word per shot, never a sentence</td><td>critic</td></tr>
         <tr><td>Animation</td><td>characters are solid figures that blink, look and react on the word; nothing holds still for more than about 2 s; hard cuts only where the story jumps; our own look</td><td>critic</td></tr>
         <tr><td>Reading and framing</td><td>text held (letters ÷ 15 + 1.5) s, subtitles ≥ 1.8 s, titles ≥ 4 s; no subject too small, too dark or under a subtitle; no blank frame in a transition; at least four camera moves and one signature shot</td><td>critic</td></tr>
+        <tr><td>Matching a reference</td><td>a checklist with numbers; density and proportions measured against it; shown to you after round 2; every correction added to the brief</td><td>Claude · you</td></tr>
         <tr><td>Maps</td><td>India's boundaries as the Survey of India draws them, or none; map data credited</td><td>critic · you</td></tr>
         <tr><td>Sound events</td><td>every on-screen event has its sound (coverage reported); at most 2 whooshes per 30 s; each scene within 3 LU of the median scene</td><td>Claude · critic</td></tr>
         <tr><td>Craft</td><td>every critic score ≥ 8 (hook, clarity, composition, readability, motion, timing, continuity, honesty, sound); the three weakest shots named; overall at least 8 on the fixed scale (5 student · 7 solid professional · 8 high-end agency · 9 award shortlist)</td><td>critic</td></tr>
@@ -1343,6 +1367,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td>Film length (31 Oct)</td><td>the cyber film keeps its full 25:40, your choice; ready trims are listed in its review notes</td><td>12–15 minutes, or a two-part split</td></tr>
         <tr><td>Characters (9 Nov)</td><td>Bindu, a warm drop of light, is the mascot in every animated short; Gappu, an Indian kid, is "you" when a story needs a person</td><td>a new cast for each film</td></tr>
         <tr><td>Animated shorts (9 Nov)</td><td>about 75 s; our own look (never another channel's); labels in the 16:9 film, full subtitles in the 9:16 version; Arjun records after you approve the animated preview</td><td>under 60 s; burned-in subtitles everywhere</td></tr>
+        <tr><td>Interactive figure (9 Nov)</td><td>built with the cutaway method (a measured reference, a numbered checklist, your yes after round 2) and our interaction rules (predict, drag, consequence, rebuild); first pilot Chandrayaan-3's Vikram lander, then ASML's light source</td><td>press-and-watch buttons, as in the reference</td></tr>
         <tr><td>Build-it, survival, reels (9 Nov)</td><td>Build-it short as a new format; Survival story as an Animated series; Explainer reel as a native Shorts variant</td><td>keep to cut-down Shorts</td></tr>
         <tr><td>AI pictures (9 Nov)</td><td>used wherever they raise quality and imagination, no fixed share; evidence never AI, real people in real photos only, every AI shot labelled, its cost approved by you before generating</td><td>a cap of about 20% of runtime (the rule until 9 Nov)</td></tr>
         <tr><td>Animated story (9 Nov)</td><td>a 2–3 minute story variant of the Animated type, drawn in code or AI-illustrated, whichever gives the better film</td><td>a separate category</td></tr>
@@ -1399,6 +1424,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td><span class="pill live">live</span></td><td>2.5D plates: a camera moving through a still photo, documentary title cards, number rolls, flashes and scan-line wipes</td><td>photos and archive frames play like shots; the Cinematic short format</td></tr>
         <tr><td><span class="pill">next</span></td><td>A reference-measuring script (shots, shot length, pace, palette, loudness, music level), a library of real recorded sounds, and more <code>qa.py</code> checks (loudness per scene, camera-only shots, text size and contrast)</td><td>faster reference analysis, real sound, problems a whole-film number hides</td></tr>
         <tr><td><span class="pill live">live</span></td><td>Type for each series, with a Hindi partner (your picks, in the engine)</td><td>a recognisable identity; Hindi versions that match</td></tr>
+        <tr><td><span class="pill">next</span></td><td>The first Interactive figure: Chandrayaan-3's Vikram lander, built in 3D code, taken apart and rebuilt by the visitor, with its film shots and a 10-second Short</td><td>a second way into a film, evergreen for students</td></tr>
         <tr><td><span class="pill">next</span></td><td>One scene code, three shapes (9:16, 1:1, 16:9 from one film, each checked); an India map kit (official boundaries, states, rivers, cities); review checks for still stretches, cut-off text and reading time</td><td>vertical versions without a rebuild; correct maps; fewer misses</td></tr>
         <tr><td><span class="pill">next</span></td><td>A cutaway kit for Build-it shorts (soil, rock, water, pipes in cross-section, weather and wheels acting on them) and series devices (a stakes display, rule and fact cards, a vote end card)</td><td>the Build-it and Survival formats in our engine</td></tr>
         <tr><td><span class="pill">next</span></td><td>An AI illustration route: a cast sheet, then every scene from it, with image-to-video for the hero moments and a cost sheet per film before generating</td><td>Animated stories and imagined worlds beyond what code can draw, with nothing drifting between shots</td></tr>
@@ -1436,6 +1462,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td class="nowrap">9 Nov 2026</td><td><a href="https://x.com/OlatundeAI/status/2118954211396264273">"Abraham's Covenant"</a> (@OlatundeAI, 7 Nov), a 1:47 AI-illustrated Bible story made free with Google Flow</td><td>Measured it: about 140 words a minute, 17 scenes of about 6 seconds, one consistent character, God shown only as gold light, a picture-metaphor for each key line, and clipping audio (−9.2 LUFS). Adopted as the Animated story (2–3 min). Your decision: AI wherever it raises quality, no fixed share. Not copied: the clipping, the title on black and title badge, caption fragments, the drop to zooming stills when credits ran out, unlabelled AI.</td></tr>
         <tr><td class="nowrap">9 Nov 2026</td><td><a href="https://x.com/theoxmotion/status/2116684286837330374">"How to make viral videos with Claude Code for $0"</a> (@theoxmotion, X article), ten free formats; the author's guides were gone, so the embedded clips were measured</td><td>Adopted three: the <strong>Build-it short</strong> (a problem chain in one cutaway world, no cuts; the original page had 58.6M TikTok views in three weeks, per the article), the <strong>Survival story</strong> (second person, real hazards, rule and fact cards, a vote) and the <strong>Explainer reel</strong> (Bindu presenting, cards on the word). Also: a fixed series frame, and a critic calibrated on the reference's best videos. Not taken: horror, invented rules, 240 words a minute, unmastered audio.</td></tr>
         <tr><td class="nowrap">9 Nov 2026</td><td>Four open video skills, read in full: <a href="https://github.com/cth9191/animate">animate</a>, <a href="https://github.com/lemomo-ai/lemo-opuscar">lemo-opuscar</a>, <a href="https://github.com/showheyohtaki/motion-prompt">motion-prompt</a>, <a href="https://github.com/kelano86/what-if-animation">what-if-animation</a> (all MIT)</td><td>Adopted the craft: animate's story grammar (engine, stage, clock), six invariants, frame checklist and review checks; lemo-opuscar's treatment, camera, reading-time, sound and failure rules, its looks as a study list per format, and its map rule turned into ours for India; motion-prompt's 192 names as our shared motion vocabulary; what-if-animation's seven-beat formula and character traps. Not taken: their engines and voices.</td></tr>
+        <tr><td class="nowrap">9 Nov 2026</td><td><a href="https://x.com/Nyxera0x/status/2118689860437315679">"How I Turn One Image Into a 3D Simulator That Takes Itself Apart"</a> (@Nyxera0x) and its free skill <a href="https://github.com/Nyxera0x/cutaway">cutaway</a> (MIT), read in full</td><td>Adopted its build method for the Interactive figure and 3D objects in films: a reference picture for the look, measured; a numbered checklist with "never" against the default; a still loop graded against the picture; your yes after round 2; a camera per part; a lessons list. Changed its press-and-watch page to our Lab rules: predict, drag, consequence, rebuild. Pilot: the Vikram lander.</td></tr>
         <tr><td class="nowrap">31 Oct 2026</td><td>Your note: the background music is hardly audible in many places; raise it without hurting the narration</td><td>Measured it: in the quietest scenes the music sat 18–20 dB under the voice. The mix now lifts any stretch that falls that low (up to 8 dB, changing slowly, designed silences untouched) and adds 1 dB overall; the voice band is still ducked under speech, and clarity is measured on every mix.</td></tr>
         <tr><td class="nowrap">31 Oct 2026</td><td>Your notes on the cyber film: answer a layman's questions in every chapter; finish the "two keys" idea; check DigiLocker; drop Heartbleed; explain each kind of attack simply, keeping only those the public needs</td><td>Adopted as two script passes. DigiLocker isn't linked to eMudhra in any report, so the film gives the government's reassurance on eSign and digital signatures instead of naming it. The attacks were ranked against FBI, I4C and Verizon figures: DDoS, Log4Shell and xz were dropped; a data-breach scene (Yahoo) and India's "digital arrest" scams were added.</td></tr>
         <tr><td class="nowrap">31 Oct 2026</td><td>Your ask: Shorts that bring people to the full film, and an upload kit to make the film go viral</td><td>Adopted what can be controlled: payoff titles, a call to the film, Related-video links, three thumbnails for Test &amp; compare, a title test, a pinned question, a launch plan and a schedule. Reach can't be promised; the 7- and 28-day numbers decide what changes next.</td></tr>
@@ -1457,6 +1484,7 @@ LABEL    AI-generated illustration</code></pre>
 <section class="stack" aria-labelledby="changelog">
   <h2 id="changelog">Changelog</h2>
   <ul class="plain">
+    <li><strong>v1.10 · 9 Nov 2026.</strong> The <strong>Interactive figure</strong> redefined: a real machine built in 3D code with the cutaway method, taken apart and rebuilt by the visitor; pilot: the Vikram lander. Plus a rule for matching any reference: a numbered checklist, measured, shown after round 2.</li>
     <li><strong>v1.9 · 9 Nov 2026.</strong> Craft from four open video skills: a story grammar and six invariants, a frame checklist, camera and reading-time minimums, sound rules, the India map rule, character traps, the What If formula, and looks to study per format.</li>
     <li><strong>v1.8 · 9 Nov 2026.</strong> Three formats from the viral roundup: the <strong>Build-it short</strong> (new), the <strong>Survival story</strong> (an Animated series) and the <strong>Explainer reel</strong> (made for Shorts); the critic now scores the reference's best videos on the same rubric.</li>
     <li><strong>v1.7 · 9 Nov 2026.</strong> AI wherever it raises quality (your decision; the 20% cap is gone, labels and cost approval stay), and the <strong>Animated story</strong> (2–3 min) with its rules.</li>
@@ -1570,7 +1598,7 @@ LABEL    AI-generated illustration</code></pre>
     shorts: { name: 'Shorts', steps: ['Ideas and line ranges chosen', 'Rendered at 9:16', 'Each checked on its own stills', 'Readable with the sound off', 'Titles and descriptions', 'Published'] },
     language: { name: 'Hindi version', steps: ['Hindi script approved', 'Every on-screen word translated', 'Voice and clock built', 'Whisper pronunciation check passed', 'Contact sheets: no English left', 'Full render', 'Hindi Shorts', 'Hindi thumbnails and upload kit', 'Published'] },
     lab: { name: 'Lab experience', steps: ['Plan approved', 'One model of the system written', 'Story mode built', 'Explore, Map and Break-it built', 'Sources and trust labels complete', 'Interaction audit passes', 'Works on phone and without WebGL', 'Expert review status shown', 'Deployed and linked from the film'] },
-    figure: { name: 'Interactive figure', steps: ['Question and big idea approved', 'Model of the real thing written', 'Machine built with step buttons', 'Numbers checked against sources', 'Recorded as a Short', 'Linked from the film'] },
+    figure: { name: 'Interactive figure', steps: ['Question, big idea and public sources approved', 'Reference picture measured, checklist written', 'Still loop: round 2 shown and approved', 'Every part built with its anchor', 'Interaction: predict, drag, consequence, rebuild', 'Numbers checked against sources', 'First-time visitor test passed', 'Film shots and 10 s Short rendered', 'Linked from the film'] },
   };
   const GATES = /approved|passed the critic|^Published$/;
   const KEY = 'fps-pipeline-tracker-v1';
