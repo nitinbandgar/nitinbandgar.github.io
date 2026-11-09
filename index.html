@@ -191,6 +191,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <button class="fmt" role="tab" id="t-business" aria-controls="p-business" aria-selected="false"><span class="tag">Film · Business, Unpacked</span><b>Business film</b><span>"What's the machine under this business?"</span></button>
     <button class="fmt" role="tab" id="t-imagine" aria-controls="p-imagine" aria-selected="false"><span class="tag">Film · Imagine</span><b>Past or future film</b><span>"What would it look and feel like?"</span></button>
     <button class="fmt" role="tab" id="t-animated" aria-controls="p-animated" aria-selected="false"><span class="tag">Film · Animated</span><b>Animated short</b><span>60–90 s: a story with Bindu and Gappu</span></button>
+    <button class="fmt" role="tab" id="t-casefile" aria-controls="p-casefile" aria-selected="false"><span class="tag">Film · Case File</span><b>Case file</b><span>4–8 min: a true story on one evidence board</span></button>
     <button class="fmt" role="tab" id="t-cinematic" aria-controls="p-cinematic" aria-selected="false"><span class="tag">Film · Cinematic</span><b>Cinematic short</b><span>35–60 s: one mystery, real photos that move</span></button>
     <button class="fmt" role="tab" id="t-shorts" aria-controls="p-shorts" aria-selected="false"><span class="tag">From every film</span><b>Shorts</b><span>one idea, vertical, under a minute</span></button>
     <button class="fmt" role="tab" id="t-language" aria-controls="p-language" aria-selected="false"><span class="tag">From any film</span><b>Hindi version</b><span>the same film in another language</span></button>
@@ -456,6 +457,68 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <div class="row"><button class="track solid" type="button">Track a new animated short</button></div>
   </div>
 
+  <div class="panel" role="tabpanel" id="p-casefile" aria-labelledby="t-casefile" data-format="casefile" hidden>
+    <h3>Case file: a true story on one evidence board, 4–8 minutes</h3>
+    <p>A cinematic documentary about a person, a case or an event ("How a phone call stole ₹60 lakh from the State Bank in 1971"). The whole film is one continuous camera move over one big evidence board: a map, real photos and papers pinned where each part of the story happens, red string between them. Nothing cuts. Each line of narration gets one hero on screen, and the last line pulls back to show the whole board. Our difference: every case turns on one rule or mechanism, and we explain it from first principles.</p>
+    <dl class="facts">
+      <div><dt>Length</dt><dd>4–8 min (520–1,040 words)</dd></div>
+      <div><dt>Pace</dt><dd>about 130 words a minute</dd></div>
+      <div><dt>Example</dt><dd>reference: Al Capone (5:21, no cuts); pilot pending</dd></div>
+      <div><dt>Approvals</dt><dd>story, sources and photo rights, then the board layout and beat table, then the preview before Arjun records</dd></div>
+    </dl>
+    <div class="cols">
+      <div>
+        <h3>The story shape</h3>
+        <ol>
+          <li><strong>Open on the climax</strong> (about 30 s) and promise the twist ("not to a bullet: to a ledger").</li>
+          <li><strong>"It all begins…":</strong> the rise, told in order, with dates on the board.</li>
+          <li><strong>The turn:</strong> the moment it starts to go wrong.</li>
+          <li><strong>The one rule that decides the case,</strong> said plainly and explained from first principles ("illegal income is still income").</li>
+          <li><strong>The hunt or the proof:</strong> the document, the witness, the one line.</li>
+          <li><strong>The fall,</strong> and what became of everyone.</li>
+          <li><strong>The last line calls back the first</strong> while the camera pulls back over the whole board.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Craft rules</h3>
+        <ul class="plain">
+          <li><strong>One world, one camera:</strong> nothing cuts. The camera glides between heroes on spoken words, pushes in on details, pulls back to travel. It never stops dead: in a hold it drifts toward where it goes next. A little handheld, grain, glow, vignette.</li>
+          <li><strong>One hero per line:</strong> a photo, a word or a document; the rest of the board dims.</li>
+          <li><strong>Marks on the spoken word:</strong> a circle drawn round the line being read, a stamp slamming on the beat, an X, a tally, a state lighting up on the map.</li>
+          <li><strong>Every phrase on screen once,</strong> on a real document or typed, never both. Drawn documents show grey lines, not filler words. No decorative clutter.</li>
+          <li><strong>Karaoke captions,</strong> the spoken word boxed, with the box measured on the word (the reference's boxes cut words in half).</li>
+          <li><strong>Rights decide the topic:</strong> Indian photos are protected for 60 years after publication (roughly pre-1966 is free); recent news photos need a licence or a short, credited quote; court judgments may be reproduced. Maps, drawn documents and labelled reconstructions fill the gaps.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cols">
+      <div>
+        <h3>How it's built</h3>
+        <ul class="plain">
+          <li>The board kit (next on the roadmap): pinned prints, torn papers, grey-line documents, stamps, red string and labels in one world, with a camera path placed on heard words.</li>
+          <li>An India map from Natural Earth (public domain) whose states light up as the story moves.</li>
+          <li>Real photos and clippings through the asset pipeline (<code>still()</code>, <code>clipping()</code>), each with its credit.</li>
+          <li>Drafted with Kokoro, timed, previewed; Arjun records once the preview is approved.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Done when</h3>
+        <ul class="plain">
+          <li>The beat table gives every line one hero, and the frames show it.</li>
+          <li>A frame sequence of every camera move shows no jerks and no dead stops.</li>
+          <li>Every photo and document is credited and cleared; every reconstruction says so.</li>
+          <li><code>qa.py</code> reads ALL PASS; 3–5 Shorts cut from the strongest beats point back to the film.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt">
+      <div class="eyebrow">Kick it off in Claude Code</div>
+<pre><code>/make-film A case file, about 6 minutes: "[the person, case or event]". One continuous camera move over one evidence board (a map, real photos and papers pinned where the story happens, red string), no cuts. One hero per line, marks on the spoken word, karaoke captions, the whole board revealed on the last line. Explain the one rule that decides the case from first principles. Check photo rights first. Stop for my approval after the story and sources, after the board layout and beat table, and after the preview (before Arjun records).</code></pre>
+      <button class="copy" type="button">Copy prompt</button>
+    </div>
+    <div class="row"><button class="track solid" type="button">Track a new case file</button></div>
+  </div>
+
   <div class="panel" role="tabpanel" id="p-cinematic" aria-labelledby="t-cinematic" data-format="cinematic" hidden>
     <h3>Cinematic short: one mystery in 35–60 seconds</h3>
     <p>A dark, filmic short built on one "why" ("Why hasn't the Delhi iron pillar rusted in 1,600 years?"). Every line gets its own shot: a real photo that the camera moves <em>through</em> (near things slide past far ones, so a still plays like a shot), one big word on screen, and a reveal every few seconds. It answers the mystery from first principles, which is where we differ from the channels that only tease it.</p>
@@ -689,6 +752,7 @@ npm run build:static        <span class="c"># → out/ for Hostinger</span></cod
         <tr><td>Business film</td><td>15–20 min</td><td>115–130 wpm</td><td>Organ &amp; Time</td><td>the Business Engine, red-team scenes</td><td>dossier · look</td><td>film, Shorts, thumbnails, kit, master</td></tr>
         <tr><td>Imagine (past or future)</td><td>13–20 min</td><td>110–125 wpm</td><td>Organ &amp; Time (Interstellar-style)</td><td>painted worlds, IMAGINED labels</td><td>dossier + design · look</td><td>film, Shorts, thumbnails, kit, master</td></tr>
         <tr><td><strong>Animated short</strong></td><td>60–90 s</td><td>~150 wpm</td><td>Arjun; Bindu and Gappu on screen</td><td>Organ &amp; Time played light + code effects</td><td>our characters in one continuous world</td><td>story + characters · key frames · animated preview</td><td>16:9 film, 9:16 version, thumbnail, kit</td></tr>
+        <tr><td><strong>Case file</strong></td><td>4–8 min</td><td>~130 wpm</td><td>Arjun</td><td>Organ &amp; Time</td><td>one evidence board, one continuous camera, no cuts</td><td>story + sources + rights · board and beat table · preview</td><td>film, 3–5 Shorts, thumbnails, kit, master</td></tr>
         <tr><td><strong>Cinematic short</strong></td><td>35–60 s</td><td>~130 wpm</td><td>Arjun</td><td>Organ &amp; Time, low and dark</td><td>real photos moved in 2.5D, one word per shot</td><td>story + photo list · animatic</td><td>16:9 film, 9:16 version, thumbnail, kit</td></tr>
         <tr><td>Shorts</td><td>20–35 s</td><td>up to 165 wpm</td><td>from the film</td><td>from the film</td><td>re-laid out for 9:16, payoff title, 6 s call to the film</td><td>the list of Shorts</td><td>Shorts + per-Short kit (title, description, cover frame, pinned comment, day)</td></tr>
         <tr><td>Hindi version</td><td>as the film</td><td>as the film</td><td>hm_psi (Kokoro) at 0.9</td><td>as the film</td><td>every on-screen word in Hindi</td><td>Hindi script</td><td>Hindi film, Shorts, thumbnails, kit</td></tr>
@@ -738,7 +802,7 @@ npm run build:static        <span class="c"># → out/ for Hostinger</span></cod
       <li><strong>The hook:</strong> movement in the first 15 frames, a question in the first 2 seconds. Real stakes from the real world (a headline, a number, a person) beat a definition.</li>
       <li><strong>Research from primary sources</strong> (official alerts, filings, papers, the company's own page), then a fact table: every number with its source, date and claim class (measured · official projection · company statement · estimate · analysis · contested). Missing evidence is found or asked for, never invented, and widely repeated figures are traced to their origin (the Morris worm's "6,000 machines" turned out to be an extrapolation).</li>
       <li><strong>The script,</strong> sized to the length (108–134 spoken words a minute for explainers, up to 165 for Shorts). Jargon only after the intuition. If picture and voice don't fit, tighten the words; never pad the voice.</li>
-      <li><strong>The beat sheet:</strong> every line names the one thing that changes on screen and the word that triggers it.</li>
+      <li><strong>The beat sheet:</strong> every line names its one hero on screen (a photo, a word or a document; everything else dims), the one thing that changes, and the word that triggers it.</li>
     </ul>
     <span class="gate">✓ You approve the story</span>
     <div class="files"><span class="file out">review/APPROACH_REVIEW.md</span><span class="file out">review/RESEARCH_DOSSIER.md</span><span class="file out">README.md (fact table)</span><span class="file out">narration.txt</span></div>
@@ -1080,9 +1144,9 @@ LABEL    AI-generated illustration</code></pre>
   <div class="two">
     <div><h3>Story</h3><p>One message per film, one new thing to know per scene. A hook in the first two seconds. Where possible, the explanation is a recognisable machine with a window into the working part.</p></div>
     <div><h3>Time for the viewer</h3><p>One thing to take in at a time. Text stays up at least 1.2 seconds per 8 words, counted from when it becomes readable; read it aloud to check. Lay out every text for its longest version, including the Hindi one. Fast actions, held meanings.</p></div>
-    <div><h3>Motion</h3><p>Nothing moves in a straight line at constant speed. Each kind of object has its own motion: small controls snap, panels settle, the camera glides almost unseen. Only one thing that matters moves at a time. Characters anticipate, overlap and never move in unison. Things that appear pop on a spring (a small overshoot, then settle); text rises into place rather than fading in whole.</p></div>
+    <div><h3>Motion</h3><p>Nothing moves in a straight line at constant speed. Each kind of object has its own motion: small controls snap, panels settle, the camera glides almost unseen. Only one thing that matters moves at a time. Characters anticipate, overlap and never move in unison. Things that appear pop on a spring (a small overshoot, then settle); text rises into place rather than fading in whole. The camera never stops dead: in a hold it keeps drifting toward where it goes next.</p></div>
     <div><h3>Edit</h3><p>Scene changes are designed: a hard cut on a hit, a match, a push or a lens, not a cross-fade everywhere. The last frame is held as the poster frame. Text and on-screen moments land on the exact word the narrator says. Before building, a beat sheet names, for every line, the one thing that changes on screen and the word that triggers it. If the picture and the voice don't fit, tighten the words; never pad the voice.</p></div>
-    <div><h3>Picture</h3><p>One focal point, real empty space, text inside the safe area. Vertical versions are rearranged, never cropped.</p></div>
+    <div><h3>Picture</h3><p>One focal point, real empty space, text inside the safe area. Vertical versions are rearranged, never cropped. Every phrase appears on screen once (on a document or typed, never both); drawn documents show grey lines, not filler words; nothing on screen that isn't part of the story. If it can't be read on a phone in one second, it's too small or there's too much.</p></div>
     <div><h3>Sound</h3><p>Every visual event has a sound and every sound has a reason. Not every cut gets a whoosh. Listen with your eyes closed: the soundtrack should have a shape of its own. Sound effects land 2–3 frames before the picture. Loudness at −14 LUFS with true peak at or below −1 dBTP; check it on headphones and a phone speaker.</p></div>
     <div><h3>Score like a thriller</h3><p>A thriller needs a machine running under it, not a soft bed: a relentless pulse of short string notes, a pumping bass, nervous high strings, drums that build into rolls, and risers into every hit. On top, the tricks of Dunkirk, Inception, Interstellar and The Dark Knight: one small motif, a ticking clock that lands exactly on the hit, one low note that only grows, a heavy "braam" on the three or four biggest moments, dead silence before the turn, an unresolved ending. Sit it close under the voice (too far under and it sounds like a documentary), keep it out of the voice's frequencies, and land every hit on its word.</p></div>
     <div><h3>Outside assets</h3><p>Evidence is real or rebuilt in code, never AI. Real people appear only in real photos. AI shots are labelled on screen and kept to about 20% of the runtime. Every upload carries its credit and rights, or it won't render (<a href="#assets">step 4</a>).</p></div>
@@ -1107,6 +1171,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td>Clarity</td><td>Whisper understands the final mix: word error rate ≤ 5% (numerals count as errors, so real comprehension is higher)</td><td><code>qa.py</code></td></tr>
         <tr><td>Loudness</td><td>−14 LUFS (±0.5), true peak ≤ −1 dBTP on the encoded file</td><td><code>qa.py</code></td></tr>
         <tr><td>Score</td><td>its own theme and story; lines on the beat; hits on words; bed 10–14 LU under the voice; speech band about 20 dB clear while anyone talks (never below 18); never hardly audible: quiet stretches are lifted</td><td><code>music.py</code> report · critic</td></tr>
+        <tr><td>One world (Case files)</td><td>one hero per line; no jerks or dead stops in a frame sequence of every camera move; karaoke boxes measured on the word; every document credited or labelled a reconstruction</td><td>critic</td></tr>
         <tr><td>Moving photos (2.5D)</td><td>one small move per shot; no torn edges on a full-size frame; every photo credited; AI pictures labelled; one word per shot, never a sentence</td><td>critic</td></tr>
         <tr><td>Animation</td><td>characters are solid figures that blink, look and react on the word; nothing holds still for more than about 2 s; hard cuts only where the story jumps; our own look</td><td>critic</td></tr>
         <tr><td>Craft</td><td>every critic score ≥ 8 (hook, clarity, composition, readability, motion, timing, continuity, honesty, sound)</td><td>critic</td></tr>
@@ -1145,6 +1210,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td>Film length (31 Oct)</td><td>the cyber film keeps its full 25:40, your choice; ready trims are listed in its review notes</td><td>12–15 minutes, or a two-part split</td></tr>
         <tr><td>Characters (9 Nov)</td><td>Bindu, a warm drop of light, is the mascot in every animated short; Gappu, an Indian kid, is "you" when a story needs a person</td><td>a new cast for each film</td></tr>
         <tr><td>Animated shorts (9 Nov)</td><td>about 75 s; our own look (never another channel's); labels in the 16:9 film, full subtitles in the 9:16 version; Arjun records after you approve the animated preview</td><td>under 60 s; burned-in subtitles everywhere</td></tr>
+        <tr><td>Case files (9 Nov)</td><td>a new category: 4–8 min true stories on one evidence board, one continuous camera; the pilots come next, Cinematic short first</td><td>keep to explainers and Shorts</td></tr>
         <tr><td>Cinematic shorts (9 Nov)</td><td>real photos made to move with depth (free, on our computer); AI pictures only for what no camera saw, labelled; a first-principles answer, not just the tease</td><td>all-AI pictures, as in the reference</td></tr>
         <tr><td>Expert review</td><td>you review each technical film before it goes out</td><td>an outside reviewer, named on screen</td></tr>
         <tr><td>News footage you supply</td><td>used as short quotations: each excerpt 5 s or less, with our commentary, the source on screen, and credits and thanks in the description. A private upload passes YouTube's copyright Checks before publishing.</td><td>a licence from the broadcaster, or a clipping of the same story</td></tr>
@@ -1193,6 +1259,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td><span class="pill">next</span></td><td>A motion style sheet per playlist</td><td>consistency reads as confidence</td></tr>
         <tr><td><span class="pill live">live</span></td><td>Character acting: Bindu and Gappu (<code>chars.mjs</code>), a camera moving through one continuous world</td><td>people who seem to think; continuity instead of slides</td></tr>
         <tr><td><span class="pill live">live</span></td><td>2.5D plates: a camera moving through a still photo, documentary title cards, number rolls, flashes and scan-line wipes</td><td>photos and archive frames play like shots; the Cinematic short format</td></tr>
+        <tr><td><span class="pill">next</span></td><td>The board kit for Case files: a board world, a camera path on spoken words, marks (circle, stamp, X, tally), an India state map, word-accurate karaoke captions, the closing pull-back</td><td>the Case file format; Evidence films can use the same board</td></tr>
         <tr><td><span class="pill">next</span></td><td>A Cinematic short pilot; 2.5D plates in Shorts and in the Imagine films' painted worlds</td><td>proves the format with Arjun and the score; one photo serves 16:9 and 9:16</td></tr>
         <tr><td><span class="pill">next</span></td><td>Character kit 2: walking, hands, a mouth that moves with the voice; a 9:16 re-layout for every animated short</td><td>longer character scenes, and Shorts made from the same world</td></tr>
         <tr><td><span class="pill live">live</span></td><td>Real footage, clippings and AI shots from you: an asset plan with prompts for every film, upload intake, automatic credits and AI labels</td><td>realism where code isn't enough, honestly labelled</td></tr>
@@ -1221,6 +1288,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td class="nowrap">28 Oct 2026</td><td>Building the cyber security film end to end</td><td>Four rules added. Security topics explain what goes wrong and why, never how to do it: no attack walk-throughs or code on screen, and every attack beat ends on what stops it (chapter 2 was rewritten this way). The subtitle band stays clear: labels above y 930, source notes below the subtitles. No empty seconds: a line opens on something it is about. Whole films render with motion blur (<code>BLUR=2</code>).</td></tr>
         <tr><td class="nowrap">9 Nov 2026</td><td><a href="https://x.com/treyscalez/status/2119489762134295014">A "Kurzgesagt-style" animation prompt</a> (@treyscalez, 8 Nov) and your sample, the same 67-second "Why pirates wore eye patches" demo</td><td>Measured it: 159 words a minute, 3 hard cuts in 67 s, −14.1 LUFS, 2–4 word labels instead of subtitles. Adopted its story shape (a premise that sounds wrong, "you" in the story, a problem you feel, the reveal, a laugh, an honest hedge with evidence, the title as payoff), one continuous world, characters who act, and light as a story beat. Declined the costume: Kurzgesagt's look, font and characters, and its see-through face in the dark scene. The prompt is the one reviewed on 27 Oct; "1200 hours vs 20 minutes" still compares a 30-second clip with a 10-minute studio film. Result: the Animated short format, Bindu and Gappu, and the pilot. Notes: <code>docs/references/animated-short-sample.md</code>.</td></tr>
         <tr><td class="nowrap">9 Nov 2026</td><td><a href="https://x.com/leaf_sanren/status/2119029598310830094">A 2.5D "documentary short"</a> (@leaf_sanren, 7 Nov) and your sample, "Why has no one opened this tomb?" (40 s)</td><td>Measured it: 78 words in 36 s, 10 shots of 3–4 s, one big word per shot, −14.9 LUFS, the music only 0–4 dB under the voice. Adopted the format (Cinematic short), its story shape and its 2.5D trick, built into our engine with a free open depth model; a proof on two NASA photos works. Not adopted: its pictures are all AI and unlabelled, posing as history (a 1974 "photo", a soil scan), and "8,000 soldiers" is an estimate shown as a count.</td></tr>
+        <tr><td class="nowrap">9 Nov 2026</td><td><a href="https://x.com/exploraX_/status/2119350502961889592">An "evidence board" cinematic documentary on Al Capone</a> (@exploraX_, 8 Nov), made from one prompt (<a href="https://x.com/exploraX_/status/2119350889295040999">the prompt</a>)</td><td>Measured it: 5:21 with no cuts at all, 130 words a minute, karaoke captions, marks on the spoken word, the whole board revealed at the end. Adopted as a new category, the Case file. Adopted for every format: one hero per line in the beat sheet, every phrase on screen once, grey lines for document text, no clutter, a camera that never stops dead, frame sequences of camera moves in review. Not copied: caption boxes that cut words in half, a recreated ledger shown like a scan.</td></tr>
         <tr><td class="nowrap">31 Oct 2026</td><td>Your note: the background music is hardly audible in many places; raise it without hurting the narration</td><td>Measured it: in the quietest scenes the music sat 18–20 dB under the voice. The mix now lifts any stretch that falls that low (up to 8 dB, changing slowly, designed silences untouched) and adds 1 dB overall; the voice band is still ducked under speech, and clarity is measured on every mix.</td></tr>
         <tr><td class="nowrap">31 Oct 2026</td><td>Your notes on the cyber film: answer a layman's questions in every chapter; finish the "two keys" idea; check DigiLocker; drop Heartbleed; explain each kind of attack simply, keeping only those the public needs</td><td>Adopted as two script passes. DigiLocker isn't linked to eMudhra in any report, so the film gives the government's reassurance on eSign and digital signatures instead of naming it. The attacks were ranked against FBI, I4C and Verizon figures: DDoS, Log4Shell and xz were dropped; a data-breach scene (Yahoo) and India's "digital arrest" scams were added.</td></tr>
         <tr><td class="nowrap">31 Oct 2026</td><td>Your ask: Shorts that bring people to the full film, and an upload kit to make the film go viral</td><td>Adopted what can be controlled: payoff titles, a call to the film, Related-video links, three thumbnails for Test &amp; compare, a title test, a pinned question, a launch plan and a schedule. Reach can't be promised; the 7- and 28-day numbers decide what changes next.</td></tr>
@@ -1242,6 +1310,11 @@ LABEL    AI-generated illustration</code></pre>
 <section class="stack" aria-labelledby="changelog">
   <h2 id="changelog">Changelog</h2>
   <ul class="plain">
+    <li><strong>v1.4 · 9 Nov 2026.</strong> A third reference, a new category:
+      <ul class="plain">
+        <li><strong>Case file:</strong> a 4–8 minute true story told as one continuous camera move over an evidence board, with its story shape, craft rules, rights rules and approvals.</li>
+        <li><strong>For every format:</strong> one hero per line in the beat sheet; every phrase on screen once; grey lines for document text; no clutter; a camera that never stops dead; frame sequences of every camera move in review.</li>
+      </ul></li>
     <li><strong>v1.3 · 9 Nov 2026.</strong> A second new format from your next reference:
       <ul class="plain">
         <li><strong>Cinematic short:</strong> 35–60 s, one mystery answered from first principles, one shot per line, one word per shot.</li>
@@ -1333,6 +1406,7 @@ LABEL    AI-generated illustration</code></pre>
     business: { name: 'Business film', steps: ['Dossier and script approved', 'Look approved', 'Voice and clock built', 'Business Engine and red-team scenes built', 'Not-investment-advice note on screen', 'Preview passed the critic', 'Full render', 'Shorts', 'Thumbnails', 'Upload kit with sources', 'Master on the masters branch', 'Published'] },
     imagine: { name: 'Imagine film (past or future)', steps: ['Dossier and design approved', 'Look approved', 'Voice and clock built', 'Worlds and scenes built', 'Imagined / evidence labels checked', 'Preview passed the critic', 'Full render', 'Shorts', 'Thumbnails', 'Upload kit with sources', 'Master on the masters branch', 'Published'] },
     animated: { name: 'Animated short', steps: ['Story, script and characters approved', 'Key frames approved', 'Draft voice and clock built', 'World and characters animated on the words', 'Score and code effects', 'Animated preview approved', 'Arjun recorded (cost approved)', 'Final render, QA all pass', '9:16 version re-laid out', 'Thumbnail and upload kit', 'Published, linked to the full film'] },
+    casefile: { name: 'Case file', steps: ['Story, sources and photo rights approved', 'Board layout and beat table approved', 'Photos and documents fetched and credited', 'Draft voice and clock built', 'Board and camera path built on the words', 'Marks, captions and score', 'Preview approved', 'Arjun recorded (cost approved)', 'Final render, QA all pass', 'Shorts', 'Thumbnails and upload kit', 'Master', 'Published'] },
     cinematic: { name: 'Cinematic short', steps: ['Story, sources and photo list approved', 'Photos fetched and credited', 'Depth plates built', 'Animatic approved (moves and words)', 'Draft voice and clock built', 'Score', 'Arjun recorded (cost approved)', 'Final render, QA all pass', '9:16 version', 'Thumbnail and upload kit', 'Published'] },
     shorts: { name: 'Shorts', steps: ['Ideas and line ranges chosen', 'Rendered at 9:16', 'Each checked on its own stills', 'Readable with the sound off', 'Titles and descriptions', 'Published'] },
     language: { name: 'Hindi version', steps: ['Hindi script approved', 'Every on-screen word translated', 'Voice and clock built', 'Whisper pronunciation check passed', 'Contact sheets: no English left', 'Full render', 'Hindi Shorts', 'Hindi thumbnails and upload kit', 'Published'] },
