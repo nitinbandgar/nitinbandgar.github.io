@@ -155,7 +155,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
 <header class="stack">
   <div class="eyebrow">First Principles Studio · production handbook</div>
   <h1>The content pipeline</h1>
-  <p><span class="pill live">Pipeline v1.5</span> <span class="note">First fixed on 27 October 2026; v1.5 on 9 November 2026. Changes go through the <a href="#ideas">ideas log</a> and the <a href="#changelog">changelog</a>.</span></p>
+  <p><span class="pill live">Pipeline v1.6</span> <span class="note">First fixed on 27 October 2026; v1.6 on 9 November 2026. Changes go through the <a href="#ideas">ideas log</a> and the <a href="#changelog">changelog</a>.</span></p>
   <p class="lede">How we turn a question into a film, a Short, a Hindi version or an interactive experience, all made in code, with no camera and no editing timeline. Pick what you're making, follow the steps, and track each production at the bottom of this page.</p>
   <nav class="jump" aria-label="On this page">
     <a href="#pick">1 · Pick a format</a>
@@ -769,6 +769,22 @@ npm run build:static        <span class="c"># → out/ for Hostinger</span></cod
   </div>
   <p class="note">Every format, without exception: a fact table with sources and dates; the security-topic standard where it applies (what goes wrong and why, never how); −14 LUFS; the voice clear of the music; captions; a private upload to clear YouTube's copyright Checks before publishing.</p>
 
+  <h3 id="type">Our type: one pairing per series</h3>
+  <p>Your picks (9 November). Each series has its own fonts, chosen for its tone, with a matching Hindi typeface so the Hindi versions keep the same look. All are free to use (SIL Open Font Licence). Earlier films keep the fonts they were made with.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Series</th><th>Titles and numbers</th><th>Text</th><th>Labels</th><th>Hindi</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>First Principles</td><td>Anek Latin, extra bold</td><td>Anek Latin</td><td>Anek Latin, semibold</td><td>Anek Devanagari</td><td>one family for both scripts, from Mumbai's Ek Type; friendly and engineered</td></tr>
+        <tr><td>In Context</td><td>Newsreader, bold</td><td>Newsreader (italic for quotes)</td><td>Archivo Narrow</td><td>Noto Serif Devanagari</td><td>a serif made for news on screens; reads as reporting, not marketing</td></tr>
+        <tr><td>Business, Unpacked</td><td>Archivo Expanded</td><td>Source Serif</td><td>Archivo</td><td>Hind</td><td>wide, confident headlines and numbers, like an annual report</td></tr>
+        <tr><td>Imagine</td><td>Eczar, extra bold</td><td>Literata (italic for quotes)</td><td>Eczar</td><td>Eczar</td><td>an epic serif drawn for English and Hindi together by an Indian designer</td></tr>
+        <tr><td>Case File and Cinematic shorts</td><td>Teko</td><td>Hind</td><td>Teko</td><td>Teko, Hind</td><td>condensed case-board capitals made in India; Courier Prime for typed messages</td></tr>
+        <tr><td>Animated shorts</td><td>Baloo 2</td><td>Baloo 2</td><td>Baloo 2</td><td>Baloo 2 Devanagari</td><td>Bindu and Gappu's voice; unchanged</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <h3 id="characters">Our characters: Bindu and Gappu</h3>
   <p><img src="img/characters.jpg" alt="Bindu, a warm amber drop of light, and Gappu, an Indian kid in a blue hoodie, each in three poses" style="width:100%;height:auto;border-radius:14px"></p>
   <div class="two">
@@ -1225,6 +1241,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td>Film length (31 Oct)</td><td>the cyber film keeps its full 25:40, your choice; ready trims are listed in its review notes</td><td>12–15 minutes, or a two-part split</td></tr>
         <tr><td>Characters (9 Nov)</td><td>Bindu, a warm drop of light, is the mascot in every animated short; Gappu, an Indian kid, is "you" when a story needs a person</td><td>a new cast for each film</td></tr>
         <tr><td>Animated shorts (9 Nov)</td><td>about 75 s; our own look (never another channel's); labels in the 16:9 film, full subtitles in the 9:16 version; Arjun records after you approve the animated preview</td><td>under 60 s; burned-in subtitles everywhere</td></tr>
+        <tr><td>Type per series (9 Nov)</td><td>Anek (First Principles), Newsreader + Archivo Narrow (In Context), Archivo Expanded + Source Serif (Business, Unpacked), Eczar + Literata (Imagine), Teko + Hind + Courier Prime (Case File, Cinematic shorts), Baloo 2 (Animated); each with a Hindi partner</td><td>the engine's default fonts, which read as AI-generated</td></tr>
         <tr><td>Case file looks (9 Nov)</td><td>two looks for one category: Board (one evidence board, one camera) and Cinematic (dated chapters, archive in 2.5D); plus the practices from the cinecode skill</td><td>a separate category for each look</td></tr>
         <tr><td>Case files (9 Nov)</td><td>a new category: 4–8 min true stories on one evidence board, one continuous camera; the pilots come next, Cinematic short first</td><td>keep to explainers and Shorts</td></tr>
         <tr><td>Cinematic shorts (9 Nov)</td><td>real photos made to move with depth (free, on our computer); AI pictures only for what no camera saw, labelled; a first-principles answer, not just the tease</td><td>all-AI pictures, as in the reference</td></tr>
@@ -1276,7 +1293,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td><span class="pill live">live</span></td><td>Character acting: Bindu and Gappu (<code>chars.mjs</code>), a camera moving through one continuous world</td><td>people who seem to think; continuity instead of slides</td></tr>
         <tr><td><span class="pill live">live</span></td><td>2.5D plates: a camera moving through a still photo, documentary title cards, number rolls, flashes and scan-line wipes</td><td>photos and archive frames play like shots; the Cinematic short format</td></tr>
         <tr><td><span class="pill">next</span></td><td>A reference-measuring script (shots, shot length, pace, palette, loudness, music level), a library of real recorded sounds, and more <code>qa.py</code> checks (loudness per scene, camera-only shots, text size and contrast)</td><td>faster reference analysis, real sound, problems a whole-film number hides</td></tr>
-        <tr><td><span class="pill">next</span></td><td>Type for each series, replacing engine defaults that read as AI-generated (your pick)</td><td>a recognisable identity</td></tr>
+        <tr><td><span class="pill live">live</span></td><td>Type for each series, with a Hindi partner (your picks, in the engine)</td><td>a recognisable identity; Hindi versions that match</td></tr>
         <tr><td><span class="pill">next</span></td><td>The board kit for Case files: a board world, a camera path on spoken words, marks (circle, stamp, X, tally), an India state map, word-accurate karaoke captions, the closing pull-back</td><td>the Case file format; Evidence films can use the same board</td></tr>
         <tr><td><span class="pill">next</span></td><td>A Cinematic short pilot; 2.5D plates in Shorts and in the Imagine films' painted worlds</td><td>proves the format with Arjun and the score; one photo serves 16:9 and 9:16</td></tr>
         <tr><td><span class="pill">next</span></td><td>Character kit 2: walking, hands, a mouth that moves with the voice; a 9:16 re-layout for every animated short</td><td>longer character scenes, and Shorts made from the same world</td></tr>
@@ -1329,6 +1346,7 @@ LABEL    AI-generated illustration</code></pre>
 <section class="stack" aria-labelledby="changelog">
   <h2 id="changelog">Changelog</h2>
   <ul class="plain">
+    <li><strong>v1.6 · 9 Nov 2026.</strong> Type per series: your picks for all six series are in the engine, each with a Hindi partner (<a href="#type">the table</a>).</li>
     <li><strong>v1.5 · 9 Nov 2026.</strong> A fourth reference and a whole skill read:
       <ul class="plain">
         <li><strong>Case file, two looks:</strong> Board and Cinematic, one shared story shape.</li>
