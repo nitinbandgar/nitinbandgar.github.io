@@ -9,7 +9,7 @@
 <title>Growth Playbook</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&family=Anek+Latin:wght@400;700&family=Anek+Devanagari:wght@400;600&display=swap">
 <style>
 /* Layout: an edit-suite "production handbook". One reading column: pick a format, follow the shared stages, then
    manage productions in the tracker. Tokens are shared by light and dark themes. */
@@ -152,6 +152,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
 .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: 10px; margin: 0; }
 .tiles div { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; min-width: 0; }
 .tiles dt { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 520px) { .tiles { grid-template-columns: 1fr 1fr; } }
 .tiles dd { margin: 2px 0 0; font-family: var(--display); font-size: 1.3rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.2; }
 .tool { background: var(--sheet); border: 1px solid var(--accent); border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px 18px; }
@@ -188,6 +189,31 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
 .plats > div, .bank > div { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; font-size: 0.92rem; }
 .bank ol { font-size: 0.92rem; }
 .small { font-size: 0.9rem; }
+
+/* brand */
+.round { border-radius: 50%; }
+.logo-compare, .cast { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.logo-compare figure, .cast figure { margin: 0; background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start; min-width: 0; }
+.logo-compare img, .logo-compare svg, .cast img { flex: none; width: 96px; height: auto; }
+.logo-compare img { border-radius: 50%; }
+.cast figure { align-items: center; }
+.cast img { width: 110px; }
+figcaption { font-size: 0.9rem; }
+.sizes { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.lockup-band { background: #141a3a; border-radius: 10px; padding: 22px 20px; }
+.lockup { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.lockup svg { flex: none; }
+.wordmark { font-family: "Anek Latin", var(--display); font-weight: 700; font-size: clamp(1.4rem, 5vw, 2rem); color: #fffaf2; letter-spacing: -0.01em; line-height: 1.1; }
+.tag { font-family: "Anek Latin", var(--display); color: #ffb347; font-size: 1rem; }
+.tag.hi { font-family: "Anek Devanagari", var(--display); color: #ffe2a6; }
+.versions { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; }
+.versions > div { border-radius: 8px; padding: 14px 8px 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; border: 1px solid var(--rule); }
+.versions span { font-family: var(--mono); font-size: 0.7rem; color: #fffaf2; }
+.swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; }
+.swatches > div { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 8px; display: flex; flex-direction: column; gap: 2px; font-size: 0.82rem; }
+.swatches i { display: block; height: 34px; border-radius: 5px; border: 1px solid rgba(0,0,0,.12); margin-bottom: 4px; }
+.marks { display: flex; flex-wrap: wrap; gap: 8px; }
+.marks span { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; color: #fffaf2; background: #141a3a; border-left: 3px solid #ffb347; border-radius: 3px; padding: 4px 9px; }
 </style>
 </head>
 <body>
@@ -196,7 +222,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
 <header class="stack">
   <div class="eyebrow">First Principles Studio · growth playbook</div>
   <h1>Reaching millions, and earning from it</h1>
-  <p><span class="pill live">Growth v1.0</span> <span class="note">12 November 2026, with handbook v1.21. The production steps are on <a href="./">the content pipeline</a>; this page decides what we make, how long, in which format, where it goes and how it earns.</span></p>
+  <p><span class="pill live">Growth v1.1</span> <span class="note">12 November 2026, with handbook v1.22 (v1.1 adds the brand). The production steps are on <a href="./">the content pipeline</a>; this page decides what we make, how long, in which format, where it goes, how it earns, and how the brand looks.</span></p>
   <p class="lede">Your brief: videos that reach millions of views and earn, India first, in English and Hindi, explaining the news without taking sides, at one long film and 5–7 Shorts a week. Here is the plan, with the numbers behind it.</p>
   <nav class="jump" aria-label="On this page">
     <a href="./">← Content pipeline</a>
@@ -214,6 +240,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <a href="#policies">11 · Policies</a>
     <a href="#loop">12 · The numbers loop</a>
     <a href="#plan">13 · The first 90 days</a>
+    <a href="#brand">14 · Brand</a>
     <a href="#sources">Sources</a>
   </nav>
 </header>
@@ -518,6 +545,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <li><strong>Two languages on one video.</strong></li>
     <li><strong>Recognisable packaging:</strong> a thumbnail system per series (for "What if you…": Gappu, a two-word line, one bright object).</li>
   </ol>
+  <p>The brand itself (name, logo, colours, sound, Bindu and Gappu, every asset, the website and the app) is <a href="#brand">section 14</a>.</p>
   <p class="note">The human behind it: a five-second "I make these" moment or a voice note in a Community post builds trust. Your call; not required.</p>
 </section>
 
@@ -671,6 +699,158 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <div><h3>Monday–Friday</h3><p>Claude builds and the critics review; you watch, approve, publish one Short a day and reply to comments in the first hour.</p></div>
     <div><h3>The same evening each week</h3><p>The long film goes out (check Studio's "When your viewers are on YouTube").</p></div>
   </div>
+</section>
+
+<!-- ============================================================ 14 BRAND -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="dropFill" cx="36%" cy="34%" r="80%"><stop offset="0" stop-color="#ffe2a6"/><stop offset=".55" stop-color="#ffb347"/><stop offset="1" stop-color="#f08a2c"/></radialGradient>
+    <radialGradient id="dropGlow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffb347" stop-opacity=".32"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
+    <symbol id="drop" viewBox="-60 -62 120 120"><path d="M0-57.5C16.1-40 46-17.5 46 7.5C46 37.5 23 50 0 50C-23 50-46 37.5-46 7.5C-46-17.5-16.1-40 0-57.5Z" fill="url(#dropFill)"/><ellipse cx="-20.7" cy="-12.5" rx="6" ry="10" transform="rotate(-23 -20.7 -12.5)" fill="#fff" fill-opacity=".38"/></symbol>
+    <symbol id="dropFlat" viewBox="-60 -62 120 120"><path d="M0-57.5C16.1-40 46-17.5 46 7.5C46 37.5 23 50 0 50C-23 50-46 37.5-46 7.5C-46-17.5-16.1-40 0-57.5Z" fill="currentColor"/></symbol>
+    <symbol id="avatar" viewBox="0 0 512 512"><rect width="512" height="512" fill="#141a3a"/><circle cx="256" cy="262" r="230" fill="url(#dropGlow)"/><use href="#drop" x="96" y="110" width="320" height="320"/></symbol>
+  </defs>
+</svg>
+<section class="stack" aria-labelledby="brand">
+  <div class="eyebrow">14</div>
+  <h2 id="brand">Brand: name, logo, characters, every asset</h2>
+  <div class="summary">
+    <div class="eyebrow">The brand in one line</div>
+    <p><strong>First Principles Studio makes hard ideas visible: honestly, from India, for anyone curious.</strong> After watching, you understand how it works; you haven't just heard about it. Curious, calm, honest, warm, a little playful. Never outrage, hype, fear, side-taking or generic AI gloss.</p>
+    <p><b>The story behind the symbol:</b> every idea starts from one point. In Hindi and Sanskrit a point is a <em>bindu</em> (बिंदु), and early Indian manuscripts wrote zero as a dot (the Bakhshali manuscript does). Our mascot is Bindu, a warm drop of light; our logo is her drop. The same drop also reads as a lamp's flame: light on a hard question.</p>
+  </div>
+
+  <h3>Brand architecture</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Level</th><th>Name</th><th>Covers</th></tr></thead>
+    <tbody>
+      <tr><td>Master brand</td><td><b>First Principles Studio</b> (short: FP Studio)</td><td>the company, the website, contracts, schools, press</td></tr>
+      <tr><td>The channel</td><td><b>First Principles Studio</b> on every platform</td><td>every film and Short</td></tr>
+      <tr><td>The product</td><td><b>First Principles Lab</b></td><td>the interactive experiences, the future app, school licences</td></tr>
+      <tr><td>Series (playlists, not channels)</td><td>First Principles · In Context · Business, Unpacked · Imagine · Case File · <b>What If You…</b> (अगर आप…)</td><td>each keeps its type and accent, all under the drop and the amber</td></tr>
+      <tr><td>Characters</td><td><b>Bindu</b> (the guide, the logo come alive) · <b>Gappu</b> (you)</td><td>animated films, end cards, posts, the Lab, the app</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>One channel, not many.</strong> Subscribers, watch hours and the partner-program gates add up in one place; Hindi goes on the same videos as an audio track. A separate Hindi channel only if Hindi Shorts prove themselves (say, over ~30 % of Shorts views for two months).</p>
+
+  <h3>The name</h3>
+  <div class="two">
+    <div><h3>What we found (12 Nov)</h3><ul class="plain small">
+      <li>The channel at <code>@firstprinciplesstudio</code> shows the name <b>"First Principles"</b> (46 subscribers, 38 videos; I assume it's ours).</li>
+      <li><b>Another channel already holds <code>@firstprinciples</code></b>, with the same name.</li>
+      <li>YouTube's search for "first principles" is full of "first principles thinking" videos (Elon Musk clips, self-help).</li>
+      <li>The phrase describes a method, so on its own it's hard to register as a trademark.</li>
+      <li>For a Hindi viewer, "first principles" is English jargon.</li>
+      <li>X handles stop at 15 characters; ours has 21.</li>
+    </ul></div>
+    <div><h3>Recommendation: keep it, fix the gaps</h3><ul class="plain small">
+      <li>We own the domain, the Lab, 14 films and this handbook under it, and the name <em>is</em> our method.</li>
+      <li>Show the <b>full name, "First Principles Studio"</b>, everywhere; never "First Principles" alone.</li>
+      <li>Let <b>Bindu</b> be the face people remember, and the drop the symbol.</li>
+      <li>A Hindi tagline rather than a translated name.</li>
+      <li>One short handle where the long one doesn't fit, e.g. <code>@FPStudioIN</code> (free on YouTube; check X and Instagram while signed in). Reserve it everywhere against impersonation.</li>
+    </ul></div>
+  </div>
+  <div class="callout"><strong>Your decision: keep the name, or rename now?</strong> At 46 subscribers, a rename will never be cheaper. Two directions worth weighing: <b>Bindu</b> (the point, India's zero, our mascot: short and bilingual, but a common given name, so handles and trademark are harder) or <b>Mool</b> (मूल, root; "first principles" in Hindi is <em>mool siddhant</em>: meaningful in Hindi, obscure in English). Before any rename: a trademark search, the handle on every platform, the domain.</div>
+  <p class="note"><b>Trademark:</b> file the name together with the drop mark in India in classes 41 (education and entertainment), 9 (apps, downloadable media) and 42 (online software: the Lab); later 16 (books), 25 (clothing), 28 (toys). A trademark attorney searches first; the official e-filing fee is about ₹4,500 a class for individuals, startups and small businesses (check the current fee).</p>
+
+  <h3>The logo: from monogram to drop <span class="pill wait">concept</span></h3>
+  <div class="logo-compare">
+    <figure><img src="img/brand/current-logo.webp" width="128" height="128" alt="The current logo: a chrome FP monogram in a glowing blue ring" loading="lazy"><figcaption><b>Now</b> · AI-made chrome "FP" in a neon ring. At 48 px it reads as a blue ring; it has the glowing-AI look our rules avoid; "FP" means nothing to a new viewer; it can't be recoloured or animated cleanly.</figcaption></figure>
+    <figure><svg width="128" height="128" role="img" aria-label="Concept logo: an amber drop of light on night indigo" class="round"><use href="#avatar"/></svg><figcaption><b>Concept</b> · the Bindu drop: a warm amber drop of light on night indigo, drawn in code. Clear at 16 px, the same shape as Bindu (the logo comes alive as the mascot), no letters so it works in both languages, and it animates: a point appears, swells into a drop, light spreads.</figcaption></figure>
+  </div>
+  <div class="sizes" aria-label="The concept at avatar sizes">
+    <svg width="98" height="98" class="round" aria-hidden="true"><use href="#avatar"/></svg>
+    <svg width="48" height="48" class="round" aria-hidden="true"><use href="#avatar"/></svg>
+    <svg width="32" height="32" class="round" aria-hidden="true"><use href="#avatar"/></svg>
+    <svg width="16" height="16" aria-hidden="true"><use href="#drop"/></svg>
+    <span class="note">98 · 48 · 32 px avatars, and the 16 px favicon</span>
+  </div>
+  <div class="lockup-band">
+    <div class="lockup">
+      <svg width="64" height="64" aria-hidden="true"><use href="#drop"/></svg>
+      <div><div class="wordmark">First Principles Studio</div><div class="tag">Complex ideas. Made visible.</div><div class="tag hi" lang="hi">मुश्किल सवाल, साफ़ तस्वीर</div></div>
+    </div>
+  </div>
+  <div class="versions" aria-label="Logo versions">
+    <div style="background:#141a3a"><svg width="56" height="56" aria-hidden="true"><use href="#drop"/></svg><span>on night</span></div>
+    <div style="background:#fff1d6"><svg width="56" height="56" aria-hidden="true"><use href="#drop"/></svg><span style="color:#1b2140">on cream</span></div>
+    <div style="background:#fff1d6;color:#141a3a"><svg width="56" height="56" aria-hidden="true"><use href="#dropFlat"/></svg><span style="color:#1b2140">one colour</span></div>
+    <div style="background:#141a3a;color:#fffaf2"><svg width="56" height="56" aria-hidden="true"><use href="#dropFlat"/></svg><span>white</span></div>
+    <div style="background:#141a3a"><svg width="56" height="56" style="border-radius:13px" aria-hidden="true"><use href="#avatar"/></svg><span>app icon</span></div>
+  </div>
+  <p class="small"><b>Rules:</b> clear space of half the drop's height; minimum 16 px; never stretched, outlined, chromed or recoloured; on photos, the one-colour version on a dark scrim. <b>Wordmark:</b> Anek Bold, with Anek Devanagari for Hindi (the First Principles series face). <b>Tagline:</b> <em>Complex ideas. Made visible.</em> In Hindi, its own line: <b lang="hi">"मुश्किल सवाल, साफ़ तस्वीर"</b> ("hard questions, a clear picture"), to check with native speakers.</p>
+
+  <h3>Colour, sound, motion, voice</h3>
+  <div class="swatches">
+    <div><i style="background:#141a3a"></i><b>Night</b><code>#141a3a</code></div>
+    <div><i style="background:#0a1124"></i><b>Deep night</b><code>#0a1124</code></div>
+    <div><i style="background:#ffb347"></i><b>Amber</b><code>#ffb347</code></div>
+    <div><i style="background:#f08a2c"></i><b>Ember</b><code>#f08a2c</code></div>
+    <div><i style="background:#ffe2a6"></i><b>Glow</b><code>#ffe2a6</code></div>
+    <div><i style="background:#fff1d6"></i><b>Cream</b><code>#fff1d6</code></div>
+    <div><i style="background:#1b2140"></i><b>Ink</b><code>#1b2140</code></div>
+    <div><i style="background:#2f6fe0"></i><b>Gappu blue</b><code>#2f6fe0</code></div>
+  </div>
+  <p class="small"><b>Amber is the constant</b> across every series; series keep their own accents and type. <b>Sound:</b> a two-second sonic logo from the Organ &amp; Time score (one low organ note, a soft bell as the drop lights), the same at every end card, the Lab's start and the app's launch. <b>Motion:</b> the logo sting, 2 seconds, after the cold open; amber light is the cue that an idea has clicked. <b>Voice:</b> we say "here's how it works", "we don't know yet", "sources below"; never "shocking", "they don't want you to know", "destroyed" or "exposed".</p>
+
+  <h3>Honesty marks: a brand asset nobody else has</h3>
+  <div class="marks" aria-label="Honesty marks">
+    <span>SOURCE</span><span>AS OF 12 NOV 2026</span><span>AI SHOT</span><span>ILLUSTRATION</span><span>MODEL</span><span>SCENARIO</span>
+  </div>
+  <p class="small">The rules already require these labels. Designed once, as part of the brand, they become trust signals people learn to recognise. A cheap channel can copy a style, but not years of consistent labelling.</p>
+
+  <h3>Characters</h3>
+  <div class="cast">
+    <figure><img src="img/brand/bindu.webp" width="180" height="180" alt="Bindu, a warm amber drop of light with a happy face, waving" loading="lazy"><figcaption><b>Bindu</b>, the guide: the logo come alive. In every animated film, on end cards and in Community posts; later the stickers, the app's helper and the error page ("Bindu couldn't find that page").</figcaption></figure>
+    <figure><img src="img/brand/gappu.webp" width="107" height="180" alt="Gappu, an Indian kid in a blue hoodie, looking surprised" loading="lazy"><figcaption><b>Gappu</b>, you: the star of "What If You…".</figcaption></figure>
+  </div>
+  <p class="small"><b>Rules:</b> drawn in code only, never AI-generated (they stay identical everywhere); never redesigned without your approval; not used in films about tragedies; Bindu never states a fact the sources don't back. Sheets to make: expressions, a turnaround, key poses, a sticker set. No more characters for now: two that people know beat five they don't.</p>
+
+  <h3>The asset kit</h3>
+  <p class="small"><b>Core</b>, made once in code and versioned:</p>
+  <ul class="plain small">
+    <li>every logo version, the wordmark and lockups;</li>
+    <li>the colour tokens and the fonts;</li>
+    <li>Bindu and Gappu sheets;</li>
+    <li>the sonic logo and the logo sting;</li>
+    <li>a lower third, the 20-second end card and the honesty marks;</li>
+    <li>a thumbnail template per series;</li>
+    <li>a press kit, with a description in English and Hindi.</li>
+  </ul>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Platform</th><th>Assets (recommended sizes, Nov 2026; check each upload page)</th></tr></thead>
+    <tbody>
+      <tr><td>YouTube</td><td>avatar 800×800 (shown as a 98 px circle) · banner 2560×1440 with text and logo inside the central 1235×338 · watermark 150×150 · thumbnails 1280×720 · end screen 20 s · channel trailer</td></tr>
+      <tr><td>Instagram</td><td>profile 320×320+ (circle) · Reel cover 1080×1920 with the key content inside the 3:4 grid crop · highlight covers</td></tr>
+      <tr><td>X</td><td>avatar 400×400 · header 1500×500</td></tr>
+      <tr><td>Facebook</td><td>profile picture (circle) · cover shown at about 851×315 on desktop</td></tr>
+      <tr><td>LinkedIn</td><td>page logo 400×400 · page cover 1128×191</td></tr>
+      <tr><td>WhatsApp Channel</td><td>icon 640×640 (circle)</td></tr>
+      <tr><td>Website</td><td>favicon (SVG + 32 px) · Apple touch icon 180×180 · Android 192 and 512 (maskable) · share image 1200×630</td></tr>
+      <tr><td>App</td><td>iOS icon 1024×1024 (no transparency) · Android 512×512 with adaptive layers · Play feature graphic 1024×500 · splash screen</td></tr>
+      <tr><td>Email · merchandise</td><td>header 600 px wide · later: Bindu stickers, diagram posters, T-shirts</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>One brand across every platform, the website and the app</h3>
+  <div class="two">
+    <div><h3>The same everywhere</h3><p>the name; the handle (or its short form); the drop avatar; amber on night; Bindu; the promise in the bio; one link, <code>firstprinciplesstudio.in</code>.</p><p class="note">Bio: "Complex ideas, made visible. Films, Shorts and a Lab you can play with. English + हिंदी." The link goes to our own <code>/links</code> page, not a third-party link tool.</p></div>
+    <div><h3>Different per platform</h3><p><b>YouTube:</b> full films, the series system. <b>Instagram:</b> diagram carousels with Bindu. <b>X:</b> sharper English, sources in the thread. <b>LinkedIn:</b> the business frame. <b>WhatsApp:</b> warm, often Hindi.</p></div>
+    <div><h3>The website</h3><p>One domain: <code>/</code> (the latest film and the Lab), <code>/films</code> by series, <code>/lab</code>, <code>/links</code>, <code>/press</code>, later <code>/learn</code>.</p></div>
+    <div><h3>The app</h3><p><b>The web Lab first</b>, installable as a web app. A native app only once the Lab has repeat visitors (Gate 3 or later): it costs far more to build and keep up. Its job: the Lab offline, the films by series, "one idea a day" from Bindu, later memberships. Its icon is the drop; Bindu is its guide.</p></div>
+  </div>
+
+  <h3>Rollout</h3>
+  <ol class="weeks">
+    <li><b>This week</b><span>You decide the name (keep or rename) and approve or redirect the logo concept and the Hindi tagline.</span></li>
+    <li><b>Weeks 1–2</b><span>Build the kit in code: every logo version, PNGs at every platform size, the sting, the sonic logo, the honesty marks, the thumbnail templates. Change the YouTube avatar and banner on the same day, with a Community post about the new look.</span></li>
+    <li><b>Week 2</b><span>Reserve the handles everywhere; the same avatar, bio and link on every platform.</span></li>
+    <li><b>Week 3</b><span>The Lab site, this handbook and the share images move to the new mark.</span></li>
+    <li><b>Week 4</b><span>Trademark search and filing through an attorney.</span></li>
+    <li><b>Later</b><span>The app icon and store listing, the press page, merchandise. The old monogram retires; published films keep it.</span></li>
+  </ol>
+  <p class="note">The full brand plan, in the studio repository: <code>docs/BRAND.md</code>; the concept file: <code>assets/brand/concepts/drop-mark.svg</code>.</p>
 </section>
 
 <!-- ============================================================ SOURCES -->
