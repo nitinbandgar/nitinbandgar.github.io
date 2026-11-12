@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="First Principles Studio's growth playbook: how our films reach millions of views and earn, from topics, length and format to every platform's rules and a 90-day plan.">
+<meta property="og:title" content="Growth playbook · First Principles Studio">
+<meta property="og:description" content="What to make, how long, in which format, where it goes and how it earns: the plan to reach millions of views.">
+<title>Growth Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an edit-suite "production handbook". One reading column: pick a format, follow the shared stages, then
+   manage productions in the tracker. Tokens are shared by light and dark themes. */
+:root {
+  --paper: #f6f4ef; --sheet: #fffdf8; --ink: #1d1f24; --muted: #5d606b; --rule: #ded9cc;
+  --accent: #c2410c; --accent-soft: #fbe6d8; --code-bg: #f0ece2; --ok: #2f7d4b; --ok-soft: #e1f0e5;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --body: "Literata", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15161a; --sheet: #1c1d22; --ink: #ecebe6; --muted: #a3a3ab; --rule: #33343b;
+    --accent: #fb8a4c; --accent-soft: #3a2418; --code-bg: #24252b; --ok: #6cc28c; --ok-soft: #1d2d22; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15161a; --sheet: #1c1d22; --ink: #ecebe6; --muted: #a3a3ab; --rule: #33343b;
+  --accent: #fb8a4c; --accent-soft: #3a2418; --code-bg: #24252b; --ok: #6cc28c; --ok-soft: #1d2d22; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { height: 100%; scroll-behavior: smooth; }
+body {
+  background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.65;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 80px; margin: 0;
+}
+main { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 60px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.45rem, 3.4vw, 1.9rem); font-weight: 700; }
+h3 { font-size: 1.08rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 14px; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.lede { font-size: 1.14rem; color: var(--muted); max-width: 62ch; }
+.note { font-size: 0.9rem; color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+pre { margin: 0; overflow-x: auto; background: var(--code-bg); border-radius: 8px; padding: 14px 16px; font-family: var(--mono); font-size: 0.8rem; line-height: 1.6; }
+pre code { background: none; padding: 0; font-size: inherit; overflow-wrap: normal; }
+.c { color: var(--muted); }
+.k { color: var(--accent); }
+a { color: var(--accent); }
+ul.plain, ol.plain { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.96rem; }
+
+/* quick navigation */
+.jump { display: flex; flex-wrap: wrap; gap: 8px; }
+.jump a { font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--sheet); border-radius: 999px; padding: 4px 12px; }
+.jump a:hover { border-color: var(--accent); color: var(--accent); }
+
+.summary { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; }
+.summary p { font-size: 1.05rem; }
+
+/* format picker */
+.formats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
+.fmt { text-align: left; font: inherit; color: var(--ink); background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; cursor: pointer; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.fmt b { font-family: var(--display); font-size: 1rem; }
+.fmt span { font-size: 0.82rem; color: var(--muted); line-height: 1.35; }
+.fmt .tag { font-family: var(--mono); font-size: 0.68rem; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; }
+.fmt[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.panel { background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.panel[hidden] { display: none; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.facts div { border-top: 2px solid var(--rule); padding-top: 6px; font-size: 0.9rem; }
+.facts dt { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 2px 0 0; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.cols > div { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.prompt { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.prompt pre { white-space: pre-wrap; width: 100%; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+/* stages */
+.stage { display: grid; grid-template-columns: 64px 1fr; gap: 20px; border-top: 1px solid var(--rule); padding-top: 24px; }
+.stage-no { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); display: flex; flex-direction: column; gap: 2px; padding-top: 4px; }
+.stage-no strong { font-family: var(--display); font-size: 2rem; color: var(--accent); line-height: 1; }
+.stage-body { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.files { display: flex; flex-wrap: wrap; gap: 8px; }
+.file { font-family: var(--mono); font-size: 0.76rem; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; color: var(--muted); background: var(--sheet); overflow-wrap: anywhere; }
+.file.out { border-color: var(--accent); color: var(--accent); }
+.gate { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.74rem; color: var(--ok); background: var(--ok-soft); border-radius: 999px; padding: 2px 10px; width: fit-content; }
+
+/* tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--sheet); }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; min-width: 560px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+tr:last-child td { border-bottom: none; }
+.pill { font-family: var(--mono); font-size: 0.72rem; border: 1px solid var(--rule); border-radius: 999px; padding: 1px 9px; color: var(--muted); white-space: nowrap; }
+.pill.live { border-color: var(--ok); color: var(--ok); }
+.pill.wait { border-color: var(--accent); color: var(--accent); }
+.nowrap { white-space: nowrap; }
+
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.two > div { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+
+/* demo */
+.demo { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.demo canvas { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 6px; background: #0d0f15; display: block; }
+.demo label { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+.demo input[type=range] { flex: 1 1 200px; accent-color: var(--accent); min-width: 0; }
+.demo output { font-family: var(--mono); font-size: 0.82rem; font-variant-numeric: tabular-nums; min-width: 15ch; }
+
+/* controls */
+button, .btn { font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--accent); background: transparent; color: var(--accent); padding: 5px 12px; border-radius: 6px; cursor: pointer; }
+button.solid { background: var(--accent); color: var(--sheet); }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+input[type=text], input[type=date], select, textarea { font: inherit; font-size: 0.92rem; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 6px 10px; min-width: 0; }
+
+/* tracker */
+.tracker-form { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr) minmax(0, 1fr) auto; gap: 8px; align-items: end; }
+.tracker-form label { display: flex; flex-direction: column; gap: 4px; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+.tracker-form label { min-width: 0; }
+.tracker-form input, .tracker-form select { width: 100%; }
+.prods { display: flex; flex-direction: column; gap: 12px; }
+.prod { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.prod-head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: baseline; justify-content: space-between; }
+.prod-head h3 { overflow-wrap: anywhere; }
+.bar { height: 6px; background: var(--code-bg); border-radius: 999px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--ok); }
+.checks { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 4px 14px; font-size: 0.9rem; }
+.checks label { display: flex; gap: 8px; align-items: flex-start; cursor: pointer; }
+.checks input { margin-top: 5px; accent-color: var(--ok); }
+.checks .gatebox { color: var(--ok); }
+.prod textarea { width: 100%; min-height: 56px; resize: vertical; }
+.empty { border: 1px dashed var(--rule); border-radius: 10px; padding: 18px; color: var(--muted); font-size: 0.95rem; }
+
+footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 20px; display: flex; flex-direction: column; gap: 6px; }
+
+@media (max-width: 620px) { .tracker-form { grid-template-columns: 1fr 1fr; } .tracker-form .title { grid-column: 1 / -1; } }
+@media (max-width: 520px) {
+  .stage { grid-template-columns: 1fr; gap: 8px; }
+  .stage-no { flex-direction: row; align-items: baseline; gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
+
+/* growth page */
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: 10px; margin: 0; }
+.tiles div { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; min-width: 0; }
+.tiles dt { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.tiles dd { margin: 2px 0 0; font-family: var(--display); font-size: 1.3rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.tool { background: var(--sheet); border: 1px solid var(--accent); border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px 18px; }
+.tool label { display: flex; flex-direction: column; gap: 6px; font-family: var(--mono); font-size: 0.76rem; color: var(--muted); min-width: 0; }
+.tool label output { color: var(--ink); font-variant-numeric: tabular-nums; }
+.tool input[type=range] { width: 100%; accent-color: var(--accent); }
+.tool select, .tool input[type=text] { width: 100%; }
+.tool-out { font-family: var(--display); font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.tool-out .note { font-family: var(--body); font-weight: 400; font-size: 0.95rem; margin-left: 6px; }
+.score-rows { display: flex; flex-direction: column; gap: 8px; }
+.score-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; border-top: 1px solid var(--rule); padding-top: 8px; }
+.score-row p { font-size: 0.9rem; }
+.score-row p b { font-family: var(--display); }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; }
+.seg button { border: none; border-radius: 0; color: var(--ink); padding: 4px 12px; min-width: 38px; }
+.seg button + button { border-left: 1px solid var(--rule); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--sheet); }
+@media (max-width: 520px) { .score-row { grid-template-columns: 1fr; } }
+.gates, .weeks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; counter-reset: g; }
+.gates li, .weeks li { background: var(--sheet); border: 1px solid var(--rule); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+.gates b, .weeks b { font-family: var(--display); }
+.gates span, .weeks span { font-size: 0.94rem; }
+.gates em { font-style: normal; font-size: 0.92rem; color: var(--ok); }
+.chain { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; }
+.chain li { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; position: relative; }
+.chain b { font-family: var(--display); font-size: 0.95rem; }
+.chain span { font-size: 0.82rem; color: var(--muted); line-height: 1.35; }
+.chain li:not(:last-child)::after { content: "→"; position: absolute; right: -9px; top: 50%; transform: translateY(-50%); color: var(--accent); font-family: var(--mono); font-size: 0.85rem; background: var(--paper); line-height: 1; }
+.engines { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.engines div { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+.engines b { font-family: var(--display); font-size: 1.8rem; color: var(--accent); line-height: 1; }
+.engines p { font-size: 0.92rem; }
+.plats, .bank { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.plats > div, .bank > div { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; font-size: 0.92rem; }
+.bank ol { font-size: 0.92rem; }
+.small { font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+
+<header class="stack">
+  <div class="eyebrow">First Principles Studio · growth playbook</div>
+  <h1>Reaching millions, and earning from it</h1>
+  <p><span class="pill live">Growth v1.0</span> <span class="note">12 November 2026, with handbook v1.21. The production steps are on <a href="./">the content pipeline</a>; this page decides what we make, how long, in which format, where it goes and how it earns.</span></p>
+  <p class="lede">Your brief: videos that reach millions of views and earn, India first, in English and Hindi, explaining the news without taking sides, at one long film and 5–7 Shorts a week. Here is the plan, with the numbers behind it.</p>
+  <nav class="jump" aria-label="On this page">
+    <a href="./">← Content pipeline</a>
+    <a href="#goal">0 · The goal in numbers</a>
+    <a href="#algo">1 · How YouTube decides</a>
+    <a href="#examples">2 · What viral examples teach</a>
+    <a href="#topics">3 · Topics</a>
+    <a href="#length">4 · Length</a>
+    <a href="#format">5 · Format</a>
+    <a href="#engage">6 · Engagement</a>
+    <a href="#platforms">7 · Every platform</a>
+    <a href="#standout">8 · Standing out</a>
+    <a href="#bank">9 · Topic bank</a>
+    <a href="#money">10 · Money, stage by stage</a>
+    <a href="#policies">11 · Policies</a>
+    <a href="#loop">12 · The numbers loop</a>
+    <a href="#plan">13 · The first 90 days</a>
+    <a href="#sources">Sources</a>
+  </nav>
+</header>
+
+<section class="summary" aria-label="In one paragraph">
+  <div class="eyebrow">The plan in one paragraph</div>
+  <p><strong>Shorts bring the audience; long films bring the money.</strong> A million Short views earn about what 10,000–30,000 long-form views earn. So every week we make one 8–12 minute film and 5–7 Shorts that point to it. The money engine is <strong>"What if you…"</strong>, with Gappu as you, the format behind a channel that earned $27.3K in 28 days. Topics come from three engines: the "why" behind this week's news, the first principles of everyday things, and imagination. We switch on one source of money at a time, as each gate opens. What sets us apart is what cheap AI channels can't copy: truth with sources, first principles, India first, our own characters, and a Lab where the viewer plays with the machine they just watched.</p>
+</section>
+
+<p class="note">Labels: <span class="pill live">official</span> from YouTube, Meta or X's own pages · <span class="pill wait">reported</span> from creator posts, press or blogs, to check before relying on it · <span class="pill">ours</span> our own numbers · <span class="pill">aim</span> a target we set, not a forecast.</p>
+
+<!-- ============================================================ 0 -->
+<section class="stack" aria-labelledby="goal">
+  <div class="eyebrow">0</div>
+  <h2 id="goal">The goal in numbers</h2>
+  <p><strong>Where we are</strong> <span class="pill">ours</span> (29 Sep – 26 Oct 2026):</p>
+  <dl class="tiles">
+    <div><dt>Views, 28 days</dt><dd>1,181</dd></div>
+    <div><dt>Watch hours</dt><dd>13.1</dd></div>
+    <div><dt>Subscribers</dt><dd>5</dd></div>
+    <div><dt>Watched of a long film</dt><dd>12–17 %</dd></div>
+    <div><dt>Short watched</dt><dd>56 %</dd></div>
+    <div><dt>Click-through</dt><dd>4.5 %</dd></div>
+  </dl>
+  <p>Viewers watched 2–5 minutes of 19–31 minute films, and views stopped after the launch burst. <strong>The first problem is retention and packaging, not the number of topics.</strong></p>
+
+  <h3>What a million views is worth <span class="pill wait">reported</span></h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>One million views of…</th><th>Rough creator revenue</th></tr></thead>
+    <tbody>
+      <tr><td>English long-form, global audience, education (Ifverse's screenshot works out at ≈ $2.9 per 1,000 views)</td><td class="nowrap">$2,000–4,000 (₹1.7–3.5 lakh)</td></tr>
+      <tr><td>English long-form, mostly Indian audience (education ≈ ₹40–180 per 1,000)</td><td class="nowrap">₹40,000–1.8 lakh</td></tr>
+      <tr><td>Hindi long-form</td><td>about a half to a fifth of English</td></tr>
+      <tr><td>Shorts, any language (≈ $0.03–0.10 per 1,000)</td><td class="nowrap">$30–100 (₹2,500–9,000)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="tool" id="calc">
+    <div class="eyebrow">Try it · what a video earns</div>
+    <div class="tool-grid">
+      <label>Views <output id="c-views-out">1,000,000</output>
+        <input id="c-views" type="range" min="3" max="7" step="0.05" value="6" aria-describedby="c-note"></label>
+      <label>Kind
+        <select id="c-kind">
+          <option value="global">Long film, English, global audience</option>
+          <option value="inEn" selected>Long film, English, mostly India</option>
+          <option value="inHi">Long film, Hindi</option>
+          <option value="shorts">Shorts</option>
+        </select></label>
+    </div>
+    <p class="tool-out"><span id="c-out">₹40,000 – ₹1,80,000</span></p>
+    <p class="note" id="c-note">Reported ranges per 1,000 views after YouTube's share, at ₹87 to the dollar. Real rates depend on the topic, the country of the viewers, the season and the length (mid-roll ads only from 8 minutes).</p>
+  </div>
+
+  <h3>The road to ads</h3>
+  <p>Ads need 4,000 long-form watch hours in 12 months: 240,000 minutes. <strong>Doubling retention halves the road.</strong></p>
+  <div class="tool" id="road">
+    <div class="eyebrow">Try it · months to 4,000 watch hours</div>
+    <div class="tool-grid">
+      <label>Average minutes watched <output id="r-avd-out">2.5</output>
+        <input id="r-avd" type="range" min="1" max="8" step="0.5" value="2.5"></label>
+      <label>Views per long film (first year) <output id="r-views-out">1,000</output>
+        <input id="r-views" type="range" min="200" max="20000" step="100" value="1000"></label>
+      <label>Long films a week <output id="r-per-out">1</output>
+        <input id="r-per" type="range" min="1" max="3" step="1" value="1"></label>
+    </div>
+    <p class="tool-out"><span id="r-out">…</span></p>
+    <p class="note">Counts long-form views only; Shorts views don't add watch hours for this gate (they have their own route: 10M Shorts views in 90 days).</p>
+  </div>
+
+  <h3>Five gates</h3>
+  <ol class="gates">
+    <li><b>Gate 1 · aim 90–120 days</b><span>500 subscribers, 3 uploads in 90 days, and 3,000 long-form watch hours in a year or 3M Shorts views in 90 days <span class="pill live">official</span></span><em>Partner Program, first tier: memberships, Super Thanks, Shopping; <strong>Hype</strong> (partner channels with 500–500,000 subscribers)</em></li>
+    <li><b>Gate 2 · aim 6–9 months</b><span>1,000 subscribers and 4,000 watch hours in a year, or 10M Shorts views in 90 days <span class="pill live">official</span></span><em>ad revenue: creators keep 55 % on long films, 45 % of the Shorts pool</em></li>
+    <li><b>Gate 3 · aim 9–15 months</b><span>~10K subscribers and ~20K+ views per long film, steady</span><em>first sponsors, priced from our own views</em></li>
+    <li><b>Gate 4 · aim 18–30 months</b><span>~50–100K subscribers</span><em>memberships with real perks, Instagram subscriptions, X rewards, Lab licences for schools</em></li>
+    <li><b>Gate 5</b><span>a loyal audience that trusts us</span><em>our own products: paid Lab experiences, courses, workshops, books</em></li>
+  </ol>
+  <p class="note">Reports of YouTube raising the thresholds in 2027 are unconfirmed; check the official page before planning around them.</p>
+</section>
+
+<!-- ============================================================ 1 -->
+<section class="stack" aria-labelledby="algo">
+  <div class="eyebrow">1</div>
+  <h2 id="algo">How YouTube decides what to show</h2>
+  <p>YouTube doesn't push a video out. It <strong>pulls a video in for each viewer</strong> when it predicts that viewer will watch it and be glad they did <span class="pill live">official</span>. It names clicks, watch time, survey answers, shares, likes, dislikes and "Not interested" as signals. Only watch time that viewers rate 4 or 5 stars in its surveys counts as "valued watch time".</p>
+  <ol class="chain" aria-label="The chain we can influence">
+    <li><b>Impressions</b><span>the topic</span></li>
+    <li><b>Click</b><span>title and thumbnail</span></li>
+    <li><b>First 30 s</b><span>the promise, delivered</span></li>
+    <li><b>Minutes watched</b><span>no drag</span></li>
+    <li><b>Glad they watched</b><span>likes, shares, the next video, coming back</span></li>
+    <li><b>Wider circles</b><span>shown to more people like them</span></li>
+  </ol>
+  <p>A video goes viral when it keeps winning each wider circle.</p>
+  <div class="two">
+    <div><h3>Where views come from</h3><p><b>Browse</b> (the home page): packaging and satisfaction. <b>Suggested</b> (next to similar videos): where news-wave films ride. <b>Search</b>: the words people type, for years. <b>Shorts feed</b>: viewed vs swiped away, % viewed, loops, shares.</p></div>
+    <div><h3>Test &amp; Compare</h3><p>Up to three thumbnails, titles or both. The winner is chosen by <strong>watch-time share, not clicks</strong>, so a misleading thumbnail loses even when it gets clicked. <span class="pill live">official</span></p></div>
+    <div><h3>Hype</h3><p>Viewers get three free hypes a week for long videos under seven days old; hyped videos climb a country leaderboard. Open to partner channels with 500–500,000 subscribers: ask for it after Gate 1. <span class="pill live">official</span></p></div>
+    <div><h3>Clickbait in India</h3><p>Since 18 Dec 2024 YouTube removes videos whose title or thumbnail promises what the video doesn't deliver, especially on news, starting in India. Our rule: the promise is delivered in 15 seconds. <span class="pill live">official</span></p></div>
+  </div>
+</section>
+
+<!-- ============================================================ 2 -->
+<section class="stack" aria-labelledby="examples">
+  <div class="eyebrow">2</div>
+  <h2 id="examples">What the viral examples teach</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Example</th><th>Numbers <span class="pill wait">reported</span></th><th>Why it spreads</th><th>What we take</th></tr></thead>
+    <tbody>
+      <tr><td>Ifverse Studio, "What If You…" (<a href="https://x.com/treyscalez/status/2119187113484722477">treyscalez</a>)</td><td>9.4M views, 530.4K watch hours, +60.1K subscribers, $27.3K in 28 days (a Studio screenshot)</td><td>6–9 min second-person stories, simple stick figures, one look, Part 2 / Final Part, two-word thumbnails</td><td><strong>You</strong> as the hero, series parts, 6–10 minutes. Ours uses <strong>Gappu</strong>, already "you" in our animated shorts</td></tr>
+      <tr><td>@joinyoucan 3D anatomy (<a href="https://x.com/ErnestoSOFTWARE/status/2119926871882174818">Ernesto</a>)</td><td>~9.4M views a video</td><td>utility ("what this does to your body"), one clean 3D body, ends on its own app</td><td>utility plus curiosity; <strong>a product at the end</strong>. HUMAN already has the anatomy</td></tr>
+      <tr><td>"What if it rained…" (<a href="https://x.com/Vynqorxe/status/2119070454723891661">Vynqorxe</a>)</td><td>23.4M views in 14 days, 48 videos</td><td>the same scene each time, a visible time counter, ideas from comments</td><td>a counter on screen; comments as the idea list. <strong>Not</strong> the near-identical repeats</td></tr>
+      <tr><td>2.5D story shorts (the Ricks Clips style)</td><td>~8M a video (a course's claim)</td><td>a lit 3D world, a "laughed-at plan", a moving camera</td><td>already our format</td></tr>
+      <tr><td>Physics loops</td><td>30–35M on two videos from one account</td><td>escalation, a perfect loop, no language needed</td><td>the loop short, with a real idea inside</td></tr>
+      <tr><td>Our History of AI <span class="pill">ours</span></td><td>197 views, 5:08 average</td><td>a strong topic at 31 minutes</td><td>split long films into parts; the promise first</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Seven patterns behind them</h3>
+  <ol class="plain">
+    <li>One idea per video, nameable in 2–5 words.</li>
+    <li>The viewer is inside the story: "you".</li>
+    <li>A visible counter or progress gives a reason to stay.</li>
+    <li>Every beat bigger than the last.</li>
+    <li>Series parts that end on an open question.</li>
+    <li>One recognisable look, so the thumbnail is known before it's read.</li>
+    <li>A next step at the end: the next part, the Lab, the product.</li>
+  </ol>
+</section>
+
+<!-- ============================================================ 3 -->
+<section class="stack" aria-labelledby="topics">
+  <div class="eyebrow">3</div>
+  <h2 id="topics">Topics: what to make</h2>
+  <div class="engines">
+    <div><b>~30 %</b><h3>Wave</h3><p>The "why" behind what India is talking about this week. Rides searches and suggested views while interest peaks.</p></div>
+    <div><b>~45 %</b><h3>Evergreen</h3><p>First principles of everyday things and big ideas. Search traffic for years; the base of watch hours.</p></div>
+    <div><b>~25 %</b><h3>Imagination</h3><p>"What if you…", Imagine · Past and Future. The most shareable, and the best money per minute made.</p></div>
+  </div>
+
+  <div class="tool" id="score">
+    <div class="eyebrow">Try it · score a topic before scripting</div>
+    <label class="wide">Topic <input id="s-topic" type="text" placeholder="e.g. Why Delhi's air is worst every November"></label>
+    <div id="s-rows" class="score-rows"></div>
+    <p class="tool-out"><span id="s-out">0 / 14</span> <span id="s-verdict" class="note">Score each line 0, 1 or 2.</span></p>
+    <p class="note">10+ go · 7–9 find a better angle · under 7 skip. Where to look: Google Trends India, YouTube's search suggestions, Studio's Research and Inspiration tabs, outlier videos (5× their channel's average) in our niches, our comments, Google News India.</p>
+  </div>
+
+  <h3>News: explain it, never take sides</h3>
+  <p>In Context moves from "slow news" to <strong>timely, not breaking</strong>: we publish when the questions peak (Shorts within 24–72 hours, the long film within about a week), and every In Context rule stays.</p>
+  <ul class="plain">
+    <li>The <strong>"why" layer</strong>, not the headline: the mechanism underneath, and what it means for an Indian viewer.</li>
+    <li>Every claim classed and dated "as of"; corrections pinned.</li>
+    <li>Each side's strongest case in its own words. <strong>No verdict</strong>, no election predictions.</li>
+    <li><strong>Faith and epics:</strong> "the text says", "historians say", "many believe"; never "debunked", never mocking.</li>
+    <li><strong>War and tragedy:</strong> maps, mechanisms and consequences; no graphic footage, casualty images or fear thumbnails.</li>
+    <li><strong>Allegations:</strong> only what is on record (filings, regulators, courts), labelled "alleged", with the reply.</li>
+    <li><strong>Security:</strong> what goes wrong and why, never how.</li>
+    <li><strong>No film or TV footage:</strong> we draw it. India's "fair dealing" is narrower than US fair use.</li>
+  </ul>
+
+  <h3>Your examples, worked through</h3>
+  <div class="two">
+    <div><h3>Ramayana: Rise of a Legend</h3><p class="note">reported opening 6 Nov abroad, 8 Nov in India</p><p>"One story, 300 tellings: how the Ramayana travelled across Asia" · "What would Ayodhya look like as Valmiki describes it?" (text and interpretation labelled apart, like our Kurukshetra film) · "How a VFX epic is built, from first principles" (never presented as the film's own internals).</p></div>
+    <div><h3>Israel–Iran</h3><p>"Why a war 3,000 km away moves India's petrol price" (oil, the Strait of Hormuz, the rupee) · "How missile defence works" (the physics, at concept level) · "What the Gulf means to the millions of Indians who work there".</p></div>
+    <div><h3>NVIDIA in the news</h3><p>The evergreen film: "Why the AI world runs on one company's chips" (Business, Unpacked). The timely film explains the specific story from the record only.</p></div>
+    <div><h3>US midterms (3 Nov 2026)</h3><p>"How America votes, and what the result means for H-1B visas, tariffs and the rupee": the mechanics, no sides.</p></div>
+  </div>
+
+  <h3>India's calendar of waves</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Month</th><th>Waves</th></tr></thead>
+    <tbody>
+      <tr><td>Jan</td><td>Republic Day; CES; New Year resolutions (body, money)</td></tr>
+      <tr><td>Feb</td><td>Union Budget (1 Feb); board exams</td></tr>
+      <tr><td>Mar</td><td>IPL begins; NVIDIA GTC; Holi</td></tr>
+      <tr><td>Apr–May</td><td>results season; heatwaves</td></tr>
+      <tr><td>Jun</td><td>monsoon onset; World Environment Day</td></tr>
+      <tr><td>Jul–Aug</td><td>monsoon floods; Independence Day</td></tr>
+      <tr><td>Sep</td><td>Apple's phone event; Ganesh Chaturthi</td></tr>
+      <tr><td>Oct</td><td>Nobel week; Navratri and Dussehra</td></tr>
+      <tr><td>Nov</td><td>Diwali; Delhi's air; climate talks</td></tr>
+      <tr><td>Dec</td><td>year in review; Google's Year in Search</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Plus ISRO launches, major elections, big film releases and cricket series as they are announced.</p>
+</section>
+
+<!-- ============================================================ 4 -->
+<section class="stack" aria-labelledby="length">
+  <div class="eyebrow">4</div>
+  <h2 id="length">Length: how long</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Length</th><th>Use</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><b>Shorts, 20–40 s</b> (up to 3 min allowed)</td><td>reach, testing topics, feeding the long films</td><td>payoff early, a looping end; our Short lost half its viewers</td></tr>
+      <tr><td><b>Long, 8–12 min</b> · the default</td><td>money, subscribers, watch hours</td><td>mid-roll ads from 8 minutes <span class="pill live">official</span>; Ifverse earns at 6–9 minutes; our viewers left at 2–5 minutes of 19–31</td></tr>
+      <tr><td><b>Deep, 15–25 min</b></td><td>only a proven topic, once retention at the halfway point is above ~50 %</td><td>it earns its length, or it's split</td></tr>
+      <tr><td><b>Series: Part 1, Part 2, Final Part</b></td><td>a big topic, or a hit that deserves a sequel</td><td>each part ends on an open question; a series playlist plays them in order</td></tr>
+      <tr><td><b>Chapters</b></td><td>inside every long film</td><td>search and navigation; each chapter opens on a re-hook</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============================================================ 5 -->
+<section class="stack" aria-labelledby="format">
+  <div class="eyebrow">5</div>
+  <h2 id="format">Format: which look for which goal</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Format</th><th>Best for</th><th>Effort</th><th>Reach</th><th>Money</th></tr></thead>
+    <tbody>
+      <tr><td><b>"What if you…"</b> (Gappu as you)</td><td>a long 6–10 min series plus Shorts; a counter on screen, Bindu explains, a new story every episode</td><td>low–medium</td><td>high</td><td><strong>high</strong></td></tr>
+      <tr><td>2.5D story short (the Ricks Clips style)</td><td>Shorts; history's "laughed-at plans"</td><td>medium</td><td>high</td><td>low</td></tr>
+      <tr><td>Cinematic short / Case file</td><td>mysteries and evidence (always real)</td><td>medium</td><td>high</td><td>medium</td></tr>
+      <tr><td>First Principles explainer</td><td>evergreen search, 8–12 min</td><td>medium</td><td>medium</td><td>medium</td></tr>
+      <tr><td>In Context evidence film</td><td>waves</td><td>medium</td><td>high on a wave</td><td>medium</td></tr>
+      <tr><td>Business, Unpacked</td><td>sponsors and a business audience; no investment advice</td><td>medium</td><td>medium</td><td><strong>high rates</strong></td></tr>
+      <tr><td>Imagine (3D worlds)</td><td>tentpoles, trailers, scroll-stopping thumbnails; 2–4 a year</td><td>high</td><td>high</td><td>medium</td></tr>
+      <tr><td>Your body (HUMAN's 3D anatomy)</td><td>"what happens in your body when…"; HUMAN's medical safety rules; ends on the HUMAN Lab</td><td>medium</td><td><strong>high</strong></td><td>medium</td></tr>
+      <tr><td>Loop short</td><td>shares, no language barrier; an honest model inside</td><td>low after the first</td><td>high</td><td>low</td></tr>
+      <tr><td>Trailer</td><td>launching a series or a Lab experience</td><td>medium</td><td>medium</td><td>—</td></tr>
+      <tr><td>Interactive figure / Lab</td><td>the product: every film can end "play with it"</td><td>high</td><td>—</td><td>the funnel</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><strong>For the first 90 days:</strong> the long film rotates week A "What if you…" · week B a wave or In Context · week C "What if you…" · week D an evergreen explainer, a body film or Business, Unpacked. A big wave can take any slot. Shorts come from all of them, plus loop shorts, and one 2.5D or cinematic tentpole Short a month.</div>
+</section>
+
+<!-- ============================================================ 6 -->
+<section class="stack" aria-labelledby="engage">
+  <div class="eyebrow">6</div>
+  <h2 id="engage">Engagement: keep them watching, bring them back</h2>
+  <div class="two">
+    <div><h3>Shorts open</h3><p>Frame 1 is the post: subject and motion, no logo. The question or stake in 1–2 seconds; the payoff by ~70 %; the last frame loops into the first.</p></div>
+    <div><h3>Long films open</h3><p>The promise said and shown in 15 seconds. <strong>The logo sting moves after the cold open.</strong> Aim: 70 % still watching at 30 seconds.</p></div>
+  </div>
+  <p><strong>Shape:</strong> promise → stakes for "you" → escalate (every beat bigger) → a re-hook every 60–90 seconds → payoff → the next question, handed to the end screen (the next part, 20 seconds).</p>
+  <h3>Devices</h3>
+  <ul class="plain">
+    <li>A counter on screen: day 1 → day 30, ₹ spent, km, °C.</li>
+    <li>"Pause and guess" before a reveal: the Lab's predict → act → consequence.</li>
+    <li>"You decide": a Community poll chooses what Gappu does next episode.</li>
+    <li>"You asked": an idea from the comments, credited to the commenter's handle.</li>
+    <li>Bindu and Gappu in every animated film; numbered series; one recurring sign-off question.</li>
+  </ul>
+  <div class="two">
+    <div><h3>Fun, not drag</h3><p>Something new every 5–10 seconds (a fact, an image, a joke, a turn). No throat-clearing, no recaps. Humour from Gappu's reactions; the music changes at each act; never faster than ~190 words a minute.</p></div>
+    <div><h3>Cadence</h3><p>Shorts 5–7 a week at the same time; the long film the same day and time each week. A <strong>daily</strong> series only for Shorts that take under an hour each (loop shorts, a one-idea-a-day series). A daily long series isn't sustainable for one person with a job.</p></div>
+    <div><h3>"Subscribe to watch more"</h3><p>Ask once, after the first payoff, with a reason ("Part 2: what happens on day 31"). Never hold the payoff back on a public video. After Gate 1, members get parts early.</p></div>
+    <div><h3>Beyond the video</h3><p>Ask for Hype after Gate 1; quizzes in Community posts; Lab challenges ("can you land Vikram?") with a leaderboard; reply to comments in the first hour after a publish.</p></div>
+  </div>
+</section>
+
+<!-- ============================================================ 7 -->
+<section class="stack" aria-labelledby="platforms">
+  <div class="eyebrow">7</div>
+  <h2 id="platforms">Every platform, and the rules for earning on each</h2>
+  <p><strong>YouTube is home</strong> (money, long films, search). Other platforms bring reach and relationships. Our own channels (email, WhatsApp) are insurance against an algorithm change.</p>
+  <div class="plats">
+    <div><h3>YouTube <span class="pill">home</span></h3><p><b>Post:</b> long films with a Hindi audio track, Shorts, Community posts.</p><p><b>Earn:</b> the gates above <span class="pill live">official</span>: memberships and Super Thanks from Gate 1, ads from Gate 2.</p><p><b>Set up:</b> a trailer for new visitors, series playlists, a description template with sources, a brand account with 2FA.</p></div>
+    <div><h3>Instagram <span class="pill">India reach</span></h3><p><b>Post:</b> the same verticals uploaded natively, diagram carousels, Story polls, Trial Reels to test with non-followers.</p><p><b>Earn:</b> no Reels ad share in India; Gifts (from ~500 followers), Subscriptions (from ~10K), brand deals <span class="pill wait">reported</span>.</p><p><b>Set up:</b> a creator account, the same handle, the Lab in the bio.</p></div>
+    <div><h3>Facebook <span class="pill">cheap reach</span></h3><p><b>Post:</b> Reels and long films cross-posted from Meta Business Suite.</p><p><b>Earn:</b> Content Monetization, invite-only, ~10K followers and 600K minutes in 60 days; low Indian rates <span class="pill wait">reported</span>.</p></div>
+    <div><h3>X <span class="pill">English, tech, news</span></h3><p><b>Post:</b> 30–90 s clips and threads on wave topics.</p><p><b>Earn:</b> Original Content Rewards: Premium, 500 verified followers, 500K verified impressions in 90 days, replies excluded <span class="pill wait">reported</span>.</p><p><b>Set up:</b> Premium only when near the threshold.</p></div>
+    <div><h3>LinkedIn <span class="pill">business</span></h3><p><b>Post:</b> Business, Unpacked and AI films as native video with a short post.</p><p><b>Earn:</b> no creator payout; leads for sponsors and school licences.</p></div>
+    <div><h3>WhatsApp Channel <span class="pill">direct line</span></h3><p><b>Post:</b> new-film alerts, one diagram a week; the best route to Hindi viewers.</p><p><b>Earn:</b> no payout. Threads: a low-effort repost, no payout. Email: a weekly "one idea" letter, sponsors later.</p></div>
+  </div>
+  <div class="two">
+    <div><h3>Hindi</h3><p>Upload <strong>our own Hindi audio track</strong> on the same long video, so all the views count on one video; YouTube's auto-dubbing is the fallback. Test separate Hindi Shorts on the same channel.</p></div>
+    <div><h3>Platform tweaks</h3><p>Burned-in captions everywhere; text out of the Reels interface zones (bottom ~20 %, right edge); never another platform's watermark; few hashtags.</p></div>
+  </div>
+  <h3>One film, every platform</h3>
+  <ol class="chain" aria-label="Repurposing chain">
+    <li><b>1 long film</b><span>English master, Hindi track</span></li>
+    <li><b>5–7 Shorts</b><span>each a complete idea</span></li>
+    <li><b>Reels, Facebook, X</b><span>the same verticals</span></li>
+    <li><b>X thread · LinkedIn post</b><span>business and AI</span></li>
+    <li><b>WhatsApp · Community</b><span>the alert</span></li>
+  </ol>
+</section>
+
+<!-- ============================================================ 8 -->
+<section class="stack" aria-labelledby="standout">
+  <div class="eyebrow">8</div>
+  <h2 id="standout">Standing out from the clutter</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>What makes AI channels look cheap</th><th>Ours</th></tr></thead>
+    <tbody>
+      <tr><td>generic AI images</td><td>code-drawn worlds, one look per series, AI only where it raises quality, always labelled</td></tr>
+      <tr><td>a flat robotic voice</td><td>one tested narrator, natural pacing, under ~190 wpm</td></tr>
+      <tr><td>no sources</td><td>sources on screen and in the description, corrections pinned</td></tr>
+      <tr><td>the same template with a word swapped</td><td>a new story every episode</td></tr>
+      <tr><td>a title the video doesn't deliver</td><td>the promise delivered in 15 seconds</td></tr>
+      <tr><td>stock footage</td><td>real archive, or drawn</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Our seven moats</h3>
+  <ol class="plain">
+    <li><strong>Truth</strong> in an age of slop: evidence labelled, sources shown, corrections kept.</li>
+    <li><strong>First principles:</strong> you'll understand it, not just hear it.</li>
+    <li><strong>India first:</strong> the global story told through an Indian viewer's money, city, history and future.</li>
+    <li><strong>Our own world:</strong> Bindu and Gappu, our type per series, our organ score.</li>
+    <li><strong>The Lab:</strong> the viewer plays with the machine they just watched. No other channel has that.</li>
+    <li><strong>Two languages on one video.</strong></li>
+    <li><strong>Recognisable packaging:</strong> a thumbnail system per series (for "What if you…": Gappu, a two-word line, one bright object).</li>
+  </ol>
+  <p class="note">The human behind it: a five-second "I make these" moment or a voice note in a Community post builds trust. Your call; not required.</p>
+</section>
+
+<!-- ============================================================ 9 -->
+<section class="stack" aria-labelledby="bank">
+  <div class="eyebrow">9</div>
+  <h2 id="bank">A topic bank</h2>
+  <p>Ideas to research and score. All facts are checked when a topic is picked.</p>
+  <div class="bank">
+    <div><h3>What if you… (Gappu)</h3><ol class="plain">
+      <li>What if you stopped sleeping?</li>
+      <li>What if you walked from Kashmir to Kanyakumari?</li>
+      <li>What if you breathed Delhi's November air for a year?</li>
+      <li>What if you lived at 50 °C?</li>
+      <li>What if you were on Vikram when it landed?</li>
+      <li>What if you fell into the Mariana Trench?</li>
+      <li>What if you were the last person to leave Mohenjo-daro?</li>
+      <li>What if you lived through Bombay's 1918 flu?</li>
+      <li>What if your phone was hacked? (what goes wrong, how to stop it)</li>
+      <li>What if your grandfather had saved ₹1,000 in 1980? (not investment advice)</li>
+    </ol></div>
+    <div><h3>In Context (Nov–Dec 2026)</h3><ol class="plain" start="11">
+      <li>Why Delhi's air is worst every November</li>
+      <li>Why a war 3,000 km away moves India's petrol price</li>
+      <li>How missile defence works</li>
+      <li>How America votes, and why India should care</li>
+      <li>One story, 300 tellings: the Ramayana across Asia</li>
+    </ol>
+    <h3>Your body (HUMAN)</h3><ol class="plain" start="16">
+      <li>What a 45 °C day does to your body</li>
+      <li>What happens when you hold your breath</li>
+      <li>What 10,000 steps actually do</li>
+    </ol></div>
+    <div><h3>First Principles</h3><ol class="plain" start="19">
+      <li>How does a metro train stop exactly at its door marks?</li>
+      <li>How do thousands of trains a day not collide? (Kavach)</li>
+      <li>How does Google Maps know about traffic?</li>
+      <li>How does an ATM know you have money?</li>
+      <li>Why does a pressure cooker whistle?</li>
+      <li>How is a monsoon forecast made?</li>
+    </ol></div>
+    <div><h3>Business, Unpacked</h3><ol class="plain" start="25">
+      <li>How 10-minute delivery actually works</li>
+      <li>Why the AI world runs on one company's chips</li>
+      <li>How the IPL makes money</li>
+      <li>How Jio made data cheap</li>
+      <li>How Amul works, a cooperative at scale</li>
+    </ol></div>
+    <div><h3>Imagine · Past and Future</h3><ol class="plain" start="30">
+      <li>Hampi's bazaar in 1520</li>
+      <li>Nalanda's library at its height</li>
+      <li>A Mumbai monsoon day in 2040</li>
+    </ol>
+    <h3>Loop shorts</h3><ol class="plain" start="33">
+      <li>One rumour, eight billion people</li>
+      <li>₹1 doubled 30 times</li>
+      <li>One neutron, one chain reaction</li>
+    </ol></div>
+    <div><h3>2.5D story / cinematic</h3><ol class="plain" start="36">
+      <li>The flood gates the engineers laughed at</li>
+      <li>Building the Konkan Railway through the mountains</li>
+      <li>The Iron Pillar (Pilot 2, ready for its narrator)</li>
+    </ol></div>
+  </div>
+</section>
+
+<!-- ============================================================ 10 -->
+<section class="stack" aria-labelledby="money">
+  <div class="eyebrow">10</div>
+  <h2 id="money">Money, one stage at a time</h2>
+  <p>You asked whether to switch on every source of money at once, or one by one. <strong>One by one.</strong> Each stage needs the audience the previous one built, and splitting effort early takes it away from the one thing that matters first: better films.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Stage</th><th>Turn on</th><th>Ignore for now</th></tr></thead>
+    <tbody>
+      <tr><td class="nowrap">Now → Gate 1</td><td>views, retention, packaging; a Lab link in every description</td><td>sponsors, memberships, products</td></tr>
+      <tr><td>Gate 1</td><td>Super Thanks; one membership tier (early parts, a vote on the next episode, behind the scenes); ask for Hype</td><td>more tiers</td></tr>
+      <tr><td>Gate 2</td><td>ads; mid-rolls on 8+ minute films at natural breaks; the Hindi track on every long film</td><td></td></tr>
+      <tr><td>Gate 3</td><td>sponsors: a media kit (audience, countries, retention) and a rate card from our own views; one 60–90 s integration per film</td><td>brands that don't fit</td></tr>
+      <tr><td>Gate 4</td><td>memberships with real value; Instagram subscriptions; X rewards; Lab licences for schools</td><td></td></tr>
+      <tr><td>Gate 5</td><td>paid Lab experiences, courses, workshops, posters, books</td><td></td></tr>
+    </tbody>
+  </table></div>
+  <div class="two">
+    <div><h3>Sponsor rules</h3><p>Always disclosed (YouTube's paid-promotion box and India's ASCI influencer rules). Only brands that fit; never in news, health or children's topics. Never real-money gaming (banned in India, advertising included, by the Online Gaming Act 2025), betting, crypto schemes or "get rich" products. Reported rates at ~100K subscribers: ₹50,000–3 lakh a video <span class="pill wait">reported</span>; ours will come from our own average views.</p></div>
+    <div><h3>Money admin</h3><p>AdSense pays in dollars. Submit the US tax form in AdSense, so earnings from US viewers aren't withheld at the highest rate (check the current rate for India). Talk to a chartered accountant about income tax and GST once revenue starts.</p></div>
+  </div>
+</section>
+
+<!-- ============================================================ 11 -->
+<section class="stack" aria-labelledby="policies">
+  <div class="eyebrow">11</div>
+  <h2 id="policies">Policies that can stop a channel</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Rule</th><th>What it means for us</th></tr></thead>
+    <tbody>
+      <tr><td><b>Inauthentic content</b> (15 Jul 2025) <span class="pill live">official</span></td><td>mass-produced or near-identical videos lose monetisation. Every episode has a new story, original research and your approvals</td></tr>
+      <tr><td><b>AI disclosure</b> <span class="pill live">official</span></td><td>realistic altered or synthetic content is disclosed in Studio; we label AI shots anyway</td></tr>
+      <tr><td><b>Made for kids</b></td><td>our animated films are for teens and adults: set "not made for kids" honestly and keep the tone general-audience. A video truly made for children loses personalised ads, comments and memberships</td></tr>
+      <tr><td><b>Advertiser-friendly</b></td><td>conflict, tragedy and medical topics without graphic images or shock thumbnails; self-certify honestly</td></tr>
+      <tr><td><b>Clickbait in India</b> (Dec 2024)</td><td>the promise is delivered</td></tr>
+      <tr><td><b>Copyright</b></td><td>our own score; the archive rules; no film or TV clips; no compilations of other people's videos</td></tr>
+      <tr><td><b>Health</b></td><td>HUMAN's safety rules: educational only, no personal advice</td></tr>
+      <tr><td><b>Elections</b></td><td>no misleading claims about voting; sources on screen</td></tr>
+      <tr><td><b>Account safety</b></td><td>2FA, no shared passwords, backup codes kept offline: channel takeovers are common</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ============================================================ 12 -->
+<section class="stack" aria-labelledby="loop">
+  <div class="eyebrow">12</div>
+  <h2 id="loop">The weekly numbers loop</h2>
+  <p>Every film is logged at 7 and 28 days. These aims are starting points <span class="pill">aim</span>, replaced by our own medians after 10 films.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Measure</th><th>Aim</th><th>If it's low</th></tr></thead>
+    <tbody>
+      <tr><td>Impressions, first 7 days</td><td>rising film on film</td><td>the topic or the packaging isn't clear: score the topic again</td></tr>
+      <tr><td>Click-through</td><td>4–10 %</td><td>Test &amp; Compare three thumbnails; two words, one subject</td></tr>
+      <tr><td>Long: still watching at 30 s</td><td>≥ 70 %</td><td>recut the opening</td></tr>
+      <tr><td>Long: average view duration</td><td>≥ 40 % of a 10-minute film</td><td>cut what the retention graph shows as drag</td></tr>
+      <tr><td>Shorts: stayed to watch</td><td>≥ 70 %</td><td>frame 1 and the first line</td></tr>
+      <tr><td>Shorts: % viewed</td><td>≥ 90 % (loops over 100 %)</td><td>shorter, payoff earlier, loop the end</td></tr>
+      <tr><td>Subscribers per 1,000 views (long)</td><td>≥ 5</td><td>a stronger series promise; the end screen</td></tr>
+      <tr><td>Returning viewers</td><td>rising</td><td>series and a steady day</td></tr>
+      <tr><td>Shares per 1,000 views</td><td>rising</td><td>more usefulness, more surprise</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><strong>Double down, kill fast.</strong> Every 4 weeks, the top 20 % of films (by views per impression and retention) get Part 2s and sister topics; a format that misses three times is dropped.</div>
+</section>
+
+<!-- ============================================================ 13 -->
+<section class="stack" aria-labelledby="plan">
+  <div class="eyebrow">13</div>
+  <h2 id="plan">The first 90 days</h2>
+  <ol class="weeks">
+    <li><b>Weeks 1–2 · set up and repackage</b><span>Channel trailer, series playlists, banner, one handle everywhere, the Lab link, the description template, 2FA. Re-cut the 31-minute History of AI into three ~10-minute parts and India 2040 into two, retitled with search words, three thumbnails each in Test &amp; Compare. Publish the Shorts from Pilots 1–4 as their masters finish. Script the first "What if you…".</span></li>
+    <li><b>Weeks 3–6 · the cadence</b><span>1 long film and 5–7 Shorts a week; two experiments a week (one packaging, one format). Waves when they come: Delhi's air is one right now.</span></li>
+    <li><b>Weeks 7–10 · double down</b><span>Part 2s of what worked, sister topics; Instagram and X going.</span></li>
+    <li><b>Weeks 11–13 · review</b><span>Progress to Gate 1; decide which platforms stay; draft the first membership tier.</span></li>
+  </ol>
+  <dl class="tiles">
+    <div><dt>Day 30 aim</dt><dd>4 long · ~25 Shorts</dd></div>
+    <div><dt>Day 90 aim</dt><dd>12 long · ~75 Shorts</dd></div>
+    <div><dt>Day 90 aim</dt><dd>500 subscribers</dd></div>
+    <div><dt>Day 90 aim</dt><dd>1,000 watch hours</dd></div>
+  </dl>
+  <h3>Your week: about 20 minutes a day, plus the weekend gates</h3>
+  <div class="two">
+    <div><h3>Saturday</h3><p>Score next week's topics; approve the scripts (gate 1).</p></div>
+    <div><h3>Sunday</h3><p>Approve the look and the preview (gate 2).</p></div>
+    <div><h3>Monday–Friday</h3><p>Claude builds and the critics review; you watch, approve, publish one Short a day and reply to comments in the first hour.</p></div>
+    <div><h3>The same evening each week</h3><p>The long film goes out (check Studio's "When your viewers are on YouTube").</p></div>
+  </div>
+</section>
+
+<!-- ============================================================ SOURCES -->
+<section class="stack" aria-labelledby="sources">
+  <h2 id="sources">Sources</h2>
+  <div class="two">
+    <div><h3>Official</h3><ul class="plain small">
+      <li><a href="https://support.google.com/youtube/answer/13429240">YouTube Partner Program overview</a></li>
+      <li><a href="https://support.google.com/youtube/answer/72857">How to earn money on YouTube</a></li>
+      <li><a href="https://support.google.com/youtube/answer/13861714">Test &amp; compare thumbnails</a> · <a href="https://support.google.com/youtube/answer/16391400">titles</a></li>
+      <li><a href="https://support.google.com/youtube/answer/15509925">Hype eligibility</a></li>
+      <li><a href="https://support.google.com/youtube/answer/7636690">Channel memberships</a> · <a href="https://support.google.com/youtube/answer/10879035">Super Thanks</a></li>
+      <li><a href="https://blog.youtube/inside-youtube/on-youtubes-recommendation-system/">On YouTube's recommendation system</a></li>
+      <li><a href="https://www.youtube.com/howyoutubeworks/product-features/recommendations">How YouTube works: recommendations</a></li>
+      <li><a href="https://blog.google/intl/en-in/products/platforms/strengthening-enforcement-against-egregious-clickbait-on-youtube/">Egregious clickbait in India</a></li>
+    </ul></div>
+    <div><h3>Posts analysed</h3><ul class="plain small">
+      <li><a href="https://x.com/ErnestoSOFTWARE/status/2119926871882174818">Ernesto: 3D anatomy videos</a></li>
+      <li><a href="https://x.com/Vynqorxe/status/2119070454723891661">Vynqorxe: the "what if" account</a></li>
+      <li><a href="https://x.com/treyscalez/status/2119187113484722477">treyscalez: Ifverse's 28 days</a></li>
+    </ul>
+    <h3>Reported (check before relying)</h3><ul class="plain small">
+      <li><a href="https://fluxnote.io/guides/youtube-income-india-2026">India rates</a> · <a href="https://bosswallah.com/blog/creator-hub/youtube-sponsorship-rates-2026-why-some-creators-get-paid-10x-more/">sponsor rates</a></li>
+      <li><a href="https://vidiq.com/blog/post/youtube-shorts-monetization/">Shorts revenue share</a></li>
+      <li><a href="https://faceless.my/youtube/youtube-inauthentic-content-policy-faceless-ai-2026/">Inauthentic content</a> · <a href="https://minimatters.com/youtube-altered-or-synthetic-content-disclosure/">AI disclosure</a></li>
+      <li><a href="https://www.indiatvnews.com/technology/news/youtube-auto-dubbing-feature-expands-to-all-users-now-supports-27-languages-2026-02-05-1029070">Auto-dubbing for all creators</a></li>
+      <li><a href="https://retales.in/knowledge/articles/instagram-monetization-rules-partnership-ads-subscriptions">Instagram in India</a> · <a href="https://buffer.com/resources/how-to-make-money-on-facebook/">Facebook</a></li>
+      <li><a href="https://opentweet.io/blog/x-original-content-rewards-2026">X Original Content Rewards</a></li>
+      <li><a href="https://www.exchange4media.com/influence-zone-news/youtube-rolls-out-hype-feature-in-india-to-boost-smaller-creators-145430.html">Hype in India</a></li>
+      <li><a href="https://varietyindia.com/ramayana-to-release-internationally-two-days-before-india-producer-namit-malhotra-confirms/">Ramayana release</a> · <a href="https://www.mondaq.com/india/gaming/1676566/summary-promotion-and-regulation-of-online-gaming-act-2025">Online Gaming Act 2025</a></li>
+    </ul></div>
+  </div>
+  <p class="note">The full plan, in the studio repository: <code>docs/GROWTH.md</code>.</p>
+</section>
+
+<footer>
+  <span>First Principles Studio · <em>Complex ideas. Made visible.</em></span>
+  <span><a href="./">The content pipeline</a> · this growth playbook</span>
+</footer>
+</main>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const inr = n => '₹' + Math.round(n).toLocaleString('en-IN');
+  const nf = n => Math.round(n).toLocaleString('en-IN');
+  // earnings: reported ranges in rupees per 1,000 views after YouTube's share (₹87 to the dollar)
+  const RATES = { global: [174, 348], inEn: [40, 180], inHi: [10, 80], shorts: [2.6, 8.7] };
+  function calc() {
+    const views = Math.round(Math.pow(10, +$('c-views').value) / 1000) * 1000;
+    const [lo, hi] = RATES[$('c-kind').value];
+    $('c-views-out').textContent = nf(views);
+    $('c-out').textContent = inr(views / 1000 * lo) + ' – ' + inr(views / 1000 * hi);
+  }
+  ['c-views', 'c-kind'].forEach(id => $(id).addEventListener('input', calc));
+  calc();
+  // road to 4,000 watch hours
+  function road() {
+    const avd = +$('r-avd').value, views = +$('r-views').value, per = +$('r-per').value;
+    $('r-avd-out').textContent = avd.toFixed(1); $('r-views-out').textContent = nf(views); $('r-per-out').textContent = per;
+    const perMonth = avd * views * per * 52 / 12 / 60;
+    const months = 4000 / perMonth;
+    const need = Math.ceil(4000 * 60 / (avd * per * 52) / 100) * 100;
+    $('r-out').textContent = months <= 12
+      ? 'About ' + Math.max(1, Math.ceil(months)) + ' months (' + nf(perMonth * 12) + ' hours a year)'
+      : 'Not within a year: ' + nf(perMonth * 12) + ' hours a year. Needs ~' + nf(need) + ' views a film at this retention.';
+  }
+  ['r-avd', 'r-views', 'r-per'].forEach(id => $(id).addEventListener('input', road));
+  road();
+  // topic score
+  const CRIT = [
+    ['Demand', 'people are searching or talking about it'],
+    ['Wave', 'in the news this week, or a dated event is coming'],
+    ['Our angle', 'a first-principles "how" or "why" nobody explains well'],
+    ['Picture', 'it can be shown, with a hero shot for the thumbnail'],
+    ['India stake', "a clear reason an Indian viewer cares"],
+    ['Safe to earn', 'advertiser-friendly, no graphic material, no side to take'],
+    ['Long tail', 'still searched a year from now']
+  ];
+  const vals = CRIT.map(() => 0);
+  const rows = $('s-rows');
+  CRIT.forEach(([name, two], i) => {
+    const row = document.createElement('div'); row.className = 'score-row';
+    const p = document.createElement('p'); p.innerHTML = '<b>' + name + '</b> · 2 means ' + two;
+    const seg = document.createElement('div'); seg.className = 'seg'; seg.setAttribute('role', 'group'); seg.setAttribute('aria-label', name);
+    [0, 1, 2].forEach(v => {
+      const b = document.createElement('button'); b.type = 'button'; b.textContent = v; b.setAttribute('aria-pressed', v === 0);
+      b.addEventListener('click', () => { vals[i] = v; [...seg.children].forEach((c, j) => c.setAttribute('aria-pressed', j === v)); score(); });
+      seg.appendChild(b);
+    });
+    row.append(p, seg); rows.appendChild(row);
+  });
+  function score() {
+    const t = vals.reduce((a, b) => a + b, 0);
+    $('s-out').textContent = t + ' / 14';
+    $('s-verdict').textContent = t >= 10 ? 'Go: script it.' : t >= 7 ? 'Find a better angle first.' : (t === 0 ? 'Score each line 0, 1 or 2.' : 'Skip it.');
+  }
+})();
+</script>
+</body>
+</html>

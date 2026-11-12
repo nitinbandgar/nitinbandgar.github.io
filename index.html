@@ -155,7 +155,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
 <header class="stack">
   <div class="eyebrow">First Principles Studio · production handbook</div>
   <h1>The content pipeline</h1>
-  <p><span class="pill live">Pipeline v1.20</span> <span class="note">First fixed on 27 October 2026; v1.20 on 12 November 2026. Changes go through the <a href="#ideas">ideas log</a> and the <a href="#changelog">changelog</a>.</span></p>
+  <p><span class="pill live">Pipeline v1.21</span> <span class="note">First fixed on 27 October 2026; v1.21 on 12 November 2026. Changes go through the <a href="#ideas">ideas log</a> and the <a href="#changelog">changelog</a>.</span></p>
   <p class="lede">How we turn a question into a film, a Short, a Hindi version or an interactive experience, all made in code, with no camera and no editing timeline. Pick what you're making, follow the steps, and track each production at the bottom of this page.</p>
   <nav class="jump" aria-label="On this page">
     <a href="#pick">1 · Pick a format</a>
@@ -170,7 +170,9 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <a href="#ideas">Ideas reviewed</a>
     <a href="#changelog">Changelog</a>
     <a href="#where">Where things live</a>
+    <a href="growth.html"><strong>Growth playbook →</strong></a>
   </nav>
+  <p class="callout"><strong>New: <a href="growth.html">the growth playbook</a>.</strong> How our films reach millions of views and earn: the goal in numbers, how YouTube decides, topics (including the news, explained without sides), length, format, engagement, every platform's earning rules, money switched on one stage at a time, and a 90-day plan.</p>
 </header>
 
 <section class="summary" aria-label="In one paragraph">
@@ -1641,6 +1643,7 @@ LABEL    AI-generated illustration</code></pre>
     <table>
       <thead><tr><th>Date</th><th>Idea</th><th>Verdict</th></tr></thead>
       <tbody>
+        <tr><td class="nowrap">12 Nov 2026</td><td>Your growth brief: a playbook for videos that reach millions and earn, with three posts (<a href="https://x.com/ErnestoSOFTWARE/status/2119926871882174818">Ernesto</a> on 3D anatomy videos at ~9.4M views each, <a href="https://x.com/Vynqorxe/status/2119070454723891661">Vynqorxe</a> on a "what if" account at 23.4M views in 14 days, <a href="https://x.com/treyscalez/status/2119187113484722477">treyscalez</a> on Ifverse's $27.3K in 28 days) and research on YouTube's recommendations, the partner program, rates in India and every platform's earning rules</td><td>Adopted as the <a href="growth.html">growth playbook</a>. Not adopted: near-identical repeats, which YouTube's inauthentic-content rule targets.</td></tr>
         <tr><td class="nowrap">23 Oct 2026</td><td>Nine open-source motion-design guides for AI assistants (<a href="https://github.com/Lob0Garou/opus-visual-motion-engine">opus-visual-motion-engine</a>, <a href="https://github.com/howseen-ai/claude-motion-design">claude-motion-design</a>, <a href="https://github.com/tuzhechen2005/opus-video-skills">opus-video-skills</a>, <a href="https://github.com/iart-ai/motion-design-skills">iart-ai</a>, <a href="https://github.com/siyuanfeng636-cpu/agentic-motion-graphics">agentic-motion-graphics</a>, <a href="https://github.com/haidrrrry/claude-remotion-skill">claude-remotion-skill</a>, <a href="https://github.com/LottieFiles/motion-design-skill">LottieFiles</a>, <a href="https://github.com/frankxai/awesome-motion-design-agent-skills">awesome-motion-design</a>, <a href="https://github.com/wilwaldon/Claude-Code-Video-Toolkit">Video Toolkit</a>)</td><td>Adopted the craft rules and most of the roadmap. Kept our own engine: it already has their core idea, and switching would cost weeks for no visible gain.</td></tr>
         <tr><td class="nowrap">23 Oct 2026</td><td>Search archive.org's Prelinger and 78rpm collections for b-roll and period music</td><td>Adopted with a licence check: most Prelinger films aren't public domain, and the 78s are for research only. Added FedFlix and NASA as cleaner sources.</td></tr>
         <tr><td class="nowrap">23 Oct 2026</td><td><a href="https://x.com/0xjmori/status/2111793914206171234">"Motion Engineering: One Bot, Five Departments"</a> (Mori)</td><td>Adopted the process (stages, approval gates, an independent critic, a two-try repair limit) as the <code>/make-film</code> skill. Skipped its tool choice (Remotion).</td></tr>
@@ -1686,6 +1689,7 @@ LABEL    AI-generated illustration</code></pre>
 <section class="stack" aria-labelledby="changelog">
   <h2 id="changelog">Changelog</h2>
   <ul class="plain">
+    <li><strong>v1.21 · 12 Nov 2026.</strong> A separate <a href="growth.html">growth playbook</a>: how films reach millions and earn, with a revenue estimator, a road-to-ads calculator and a topic score. In Context becomes "timely, not breaking"; long films default to 8–12 minutes; "What if you…" with Gappu becomes the money engine; money is switched on one stage at a time.</li>
     <li><strong>v1.20 · 12 Nov 2026.</strong> A new occasional format, the <strong>loop short</strong>; brief cards per format with a growing list of known problems; escalation and looping endings for Shorts; tests before every full render; end-screen space; AI-art and 3D rules for real people.</li>
     <li><strong>v1.19 · 12 Nov 2026.</strong> A motion language per series; measured camera and acting numbers for the 2.5D story short (and a correction: characters take the set's light); motion matched to references by measurement; an Interactive figure that shows itself off when idle.</li>
     <li><strong>v1.18 · 10 Nov 2026.</strong> Worlds built in 3D code for Imagine films (the Athenaion method: an art bible with numbers, measured colour matching, offline rendering); a worlds kit and an Imagine pilot on the roadmap.</li>
@@ -1756,6 +1760,7 @@ LABEL    AI-generated illustration</code></pre>
   <div class="two">
     <div><h3>Films and Shorts</h3><p><code>FirstPrinciplesStudio</code> (private): the engine, every film in <code>videos/</code>, the <code>/make-film</code> skill. Start with <code>docs/PLAYBOOK.md</code>; editorial standards in <code>docs/CHANNEL.md</code>; archive rules in <code>docs/ARCHIVAL.md</code>; real and AI assets in <code>docs/ASSETS.md</code>, and each film's uploads in <code>videos/&lt;film&gt;/assets/inbox/</code>.</p></div>
     <div><h3>Interactive experiences</h3><p><code>FirstPrinciplesInteractive</code> (private): the Lab, live at <a href="https://firstprinciplesstudio.in">firstprinciplesstudio.in</a>. Its standard is <code>docs/LAB-PRINCIPLES.md</code>.</p></div>
+    <div><h3>Growing the channel</h3><p>The <a href="growth.html">growth playbook</a> on this site; the same plan in <code>docs/GROWTH.md</code> in the studio repository, and every film's numbers in <code>docs/ANALYTICS.md</code>.</p></div>
     <div><h3>This page</h3><p><code>nitinbandgar.github.io</code>: the handbook and tracker. When the pipeline changes, this page is updated with it.</p></div>
     <div><h3>Working rules for Claude</h3><p><code>CLAUDE.md</code> in each repository: the narrator, the music style, where masters go, the archive rules and the asset rules. Every session reads them.</p></div>
   </div>

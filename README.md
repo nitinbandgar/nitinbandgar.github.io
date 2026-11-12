@@ -9,6 +9,8 @@ is made in code, organised by format, in plain language, with a production track
 - **How every film is made:** the seven stages of the `/make-film` skill (director, art director, animator, render
   engineer, critic, repair, delivery), with the creator's approval gates.
 - **Ingredients, quality rules, roadmap, ideas reviewed, where things live.**
+- **Growth playbook** (`growth.html`): how films reach millions and earn, by topic, length, format, engagement and
+  platform, with money switched on one stage at a time, a 90-day plan, and three small calculators.
 - **Production tracker:** saved in the browser (`localStorage`), with JSON export and import.
 
 Live at https://nitinbandgar.github.io/
