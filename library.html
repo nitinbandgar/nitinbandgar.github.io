@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Every film, Short, pilot, Lab experience and asset First Principles Studio has made so far, with where to find it.">
+<meta property="og:title" content="Library · First Principles Studio">
+<meta property="og:description" content="Everything we've made: films, Shorts, pilots, Lab experiences, brand assets and tools.">
+<title>Studio Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an edit-suite "production handbook". One reading column: pick a format, follow the shared stages, then
+   manage productions in the tracker. Tokens are shared by light and dark themes. */
+:root {
+  --paper: #f6f4ef; --sheet: #fffdf8; --ink: #1d1f24; --muted: #5d606b; --rule: #ded9cc;
+  --accent: #c2410c; --accent-soft: #fbe6d8; --code-bg: #f0ece2; --ok: #2f7d4b; --ok-soft: #e1f0e5;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --body: "Literata", Georgia, "Times New Roman", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15161a; --sheet: #1c1d22; --ink: #ecebe6; --muted: #a3a3ab; --rule: #33343b;
+    --accent: #fb8a4c; --accent-soft: #3a2418; --code-bg: #24252b; --ok: #6cc28c; --ok-soft: #1d2d22; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15161a; --sheet: #1c1d22; --ink: #ecebe6; --muted: #a3a3ab; --rule: #33343b;
+  --accent: #fb8a4c; --accent-soft: #3a2418; --code-bg: #24252b; --ok: #6cc28c; --ok-soft: #1d2d22; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { height: 100%; scroll-behavior: smooth; }
+body {
+  background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.65;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 40px 80px; margin: 0;
+}
+main { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 60px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.45rem, 3.4vw, 1.9rem); font-weight: 700; }
+h3 { font-size: 1.08rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 14px; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.lede { font-size: 1.14rem; color: var(--muted); max-width: 62ch; }
+.note { font-size: 0.9rem; color: var(--muted); }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--code-bg); padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+pre { margin: 0; overflow-x: auto; background: var(--code-bg); border-radius: 8px; padding: 14px 16px; font-family: var(--mono); font-size: 0.8rem; line-height: 1.6; }
+pre code { background: none; padding: 0; font-size: inherit; overflow-wrap: normal; }
+.c { color: var(--muted); }
+.k { color: var(--accent); }
+a { color: var(--accent); }
+ul.plain, ol.plain { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; }
+.callout { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 0.96rem; }
+
+/* quick navigation */
+.jump { display: flex; flex-wrap: wrap; gap: 8px; }
+.jump a { font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--ink); border: 1px solid var(--rule); background: var(--sheet); border-radius: 999px; padding: 4px 12px; }
+.jump a:hover { border-color: var(--accent); color: var(--accent); }
+
+.summary { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 20px 22px; display: flex; flex-direction: column; gap: 10px; }
+.summary p { font-size: 1.05rem; }
+
+/* format picker */
+.formats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; }
+.fmt { text-align: left; font: inherit; color: var(--ink); background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; cursor: pointer; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.fmt b { font-family: var(--display); font-size: 1rem; }
+.fmt span { font-size: 0.82rem; color: var(--muted); line-height: 1.35; }
+.fmt .tag { font-family: var(--mono); font-size: 0.68rem; color: var(--accent); letter-spacing: 0.06em; text-transform: uppercase; }
+.fmt[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.panel { background: var(--sheet); border: 1px solid var(--rule); border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.panel[hidden] { display: none; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.facts div { border-top: 2px solid var(--rule); padding-top: 6px; font-size: 0.9rem; }
+.facts dt { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 2px 0 0; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.cols > div { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.prompt { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
+.prompt pre { white-space: pre-wrap; width: 100%; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+/* stages */
+.stage { display: grid; grid-template-columns: 64px 1fr; gap: 20px; border-top: 1px solid var(--rule); padding-top: 24px; }
+.stage-no { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); display: flex; flex-direction: column; gap: 2px; padding-top: 4px; }
+.stage-no strong { font-family: var(--display); font-size: 2rem; color: var(--accent); line-height: 1; }
+.stage-body { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.files { display: flex; flex-wrap: wrap; gap: 8px; }
+.file { font-family: var(--mono); font-size: 0.76rem; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; color: var(--muted); background: var(--sheet); overflow-wrap: anywhere; }
+.file.out { border-color: var(--accent); color: var(--accent); }
+.gate { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 0.74rem; color: var(--ok); background: var(--ok-soft); border-radius: 999px; padding: 2px 10px; width: fit-content; }
+
+/* tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 8px; background: var(--sheet); }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; min-width: 560px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--display); font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+tr:last-child td { border-bottom: none; }
+.pill { font-family: var(--mono); font-size: 0.72rem; border: 1px solid var(--rule); border-radius: 999px; padding: 1px 9px; color: var(--muted); white-space: nowrap; }
+.pill.live { border-color: var(--ok); color: var(--ok); }
+.pill.wait { border-color: var(--accent); color: var(--accent); }
+.nowrap { white-space: nowrap; }
+
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.two > div { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+
+/* demo */
+.demo { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.demo canvas { width: 100%; max-width: 100%; aspect-ratio: 16 / 9; border-radius: 6px; background: #0d0f15; display: block; }
+.demo label { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+.demo input[type=range] { flex: 1 1 200px; accent-color: var(--accent); min-width: 0; }
+.demo output { font-family: var(--mono); font-size: 0.82rem; font-variant-numeric: tabular-nums; min-width: 15ch; }
+
+/* controls */
+button, .btn { font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--accent); background: transparent; color: var(--accent); padding: 5px 12px; border-radius: 6px; cursor: pointer; }
+button.solid { background: var(--accent); color: var(--sheet); }
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+input[type=text], input[type=date], select, textarea { font: inherit; font-size: 0.92rem; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 6px 10px; min-width: 0; }
+
+/* tracker */
+.tracker-form { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr) minmax(0, 1fr) auto; gap: 8px; align-items: end; }
+.tracker-form label { display: flex; flex-direction: column; gap: 4px; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+.tracker-form label { min-width: 0; }
+.tracker-form input, .tracker-form select { width: 100%; }
+.prods { display: flex; flex-direction: column; gap: 12px; }
+.prod { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.prod-head { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: baseline; justify-content: space-between; }
+.prod-head h3 { overflow-wrap: anywhere; }
+.bar { height: 6px; background: var(--code-bg); border-radius: 999px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--ok); }
+.checks { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 4px 14px; font-size: 0.9rem; }
+.checks label { display: flex; gap: 8px; align-items: flex-start; cursor: pointer; }
+.checks input { margin-top: 5px; accent-color: var(--ok); }
+.checks .gatebox { color: var(--ok); }
+.prod textarea { width: 100%; min-height: 56px; resize: vertical; }
+.empty { border: 1px dashed var(--rule); border-radius: 10px; padding: 18px; color: var(--muted); font-size: 0.95rem; }
+
+footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 20px; display: flex; flex-direction: column; gap: 6px; }
+
+@media (max-width: 620px) { .tracker-form { grid-template-columns: 1fr 1fr; } .tracker-form .title { grid-column: 1 / -1; } }
+@media (max-width: 520px) {
+  .stage { grid-template-columns: 1fr; gap: 8px; }
+  .stage-no { flex-direction: row; align-items: baseline; gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
+
+/* library */
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: 10px; margin: 0; }
+@media (max-width: 520px) { .tiles { grid-template-columns: 1fr 1fr 1fr; } }
+.tiles div { background: var(--sheet); border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; min-width: 0; }
+.tiles dt { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.tiles dd { margin: 2px 0 0; font-family: var(--display); font-size: 1.5rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button[aria-pressed="true"] { background: var(--accent); color: var(--sheet); }
+section[hidden] { display: none; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+.grid.wide { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.grid.wide .item:first-child { grid-column: 1 / -1; }
+.item { background: var(--sheet); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.item img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; background: #0d0f15; }
+.grid.wide .item:first-child img { aspect-ratio: auto; object-fit: contain; }
+.item img.contain { object-fit: contain; background: linear-gradient(#1d2350, #141a3a); padding: 10px; }
+.item > div { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 4px; }
+.item h3 { font-size: 1rem; }
+.item p { font-size: 0.88rem; color: var(--muted); }
+.item .kicker { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.item.text-only { justify-content: flex-end; min-height: 120px; border-style: dashed; }
+</style>
+</head>
+<body>
+<main>
+
+<header class="stack">
+  <div class="eyebrow">First Principles Studio · library</div>
+  <h1>Everything we've made</h1>
+  <p><span class="pill live">Library · 13 Nov 2026</span> <span class="note">Every film, Short, pilot, Lab experience and asset so far, with where to find it. The production steps are on <a href="./">the content pipeline</a>; the plan to grow is in <a href="growth.html">the growth playbook</a>.</span></p>
+  <nav class="jump" aria-label="On this page">
+    <a href="./">← Content pipeline</a>
+    <a href="#films">Films</a>
+    <a href="#pilots">Pilots and drafts</a>
+    <a href="#lab">Lab experiences</a>
+    <a href="#brand">Brand and characters</a>
+    <a href="#engine">Tools we built</a>
+    <a href="#where">Where to find them</a>
+  </nav>
+</header>
+
+<dl class="tiles" aria-label="Totals">
+  <div><dt>Finished films</dt><dd>10</dd></div>
+  <div><dt>Vertical Shorts</dt><dd>41</dd></div>
+  <div><dt>Pilots and drafts</dt><dd>6</dd></div>
+  <div><dt>Lab experiences live</dt><dd>5</dd></div>
+  <div><dt>Interactive figures</dt><dd>1</dd></div>
+  <div><dt>Brand kit files</dt><dd>33</dd></div>
+</dl>
+
+<div class="filters" role="group" aria-label="Show">
+  <button type="button" data-f="all" aria-pressed="true">All</button>
+  <button type="button" data-f="film" aria-pressed="false">Films</button>
+  <button type="button" data-f="pilot" aria-pressed="false">Pilots</button>
+  <button type="button" data-f="lab" aria-pressed="false">Lab</button>
+  <button type="button" data-f="asset" aria-pressed="false">Assets</button>
+</div>
+
+<!-- ============================================================ FILMS -->
+<section class="stack" aria-labelledby="films" data-kind="film">
+  <h2 id="films">Films</h2>
+  <p class="note">Each has a full-quality master on the <code>masters</code> branch, a thumbnail, Shorts and an upload kit (<code>youtube.md</code>).</p>
+  <div class="grid">
+    <article class="item"><img src="img/library/01-the-thinking-machines.webp" alt="" loading="lazy"><div><span class="kicker">01 · First Principles · 30:50</span><h3>The Thinking Machines: a history of AI</h3><p>7 Shorts · also with the Interstellar-style score</p></div></article>
+    <article class="item"><img src="img/library/02-how-chatgpt-works.webp" alt="" loading="lazy"><div><span class="kicker">02 · First Principles · 14:07</span><h3>How ChatGPT Actually Works</h3><p>5 Shorts · Interstellar-style score · <strong>Hindi version</strong> (17:38)</p></div></article>
+    <article class="item"><img src="img/library/03-images-from-noise.webp" alt="" loading="lazy"><div><span class="kicker">03 · First Principles · 9:38</span><h3>How Does AI Create Images From Noise?</h3><p>3 Shorts</p></div></article>
+    <article class="item"><img src="img/library/04-money-vs-message.webp" alt="" loading="lazy"><div><span class="kicker">04 · First Principles · 10:17</span><h3>Why Can't Money Move Like a WhatsApp Message?</h3><p>3 Shorts</p></div></article>
+    <article class="item"><img src="img/library/05-kurukshetra.webp" alt="" loading="lazy"><div><span class="kicker">05 · Imagine · Past · 13:36</span><h3>What Would Kurukshetra Actually Look Like?</h3><p>3 Shorts · a Lab experience</p></div></article>
+    <article class="item"><img src="img/library/06-ai-electricity-race.webp" alt="" loading="lazy"><div><span class="kicker">06 · In Context · 15:16</span><h3>The AI Race Is Becoming an Electricity Race</h3><p>3 Shorts</p></div></article>
+    <article class="item"><img src="img/library/07-asml.webp" alt="" loading="lazy"><div><span class="kicker">07 · Business, Unpacked · 18:06</span><h3>Why Can Only One Company Build This Machine?</h3><p>3 Shorts · a Lab experience</p></div></article>
+    <article class="item"><img src="img/library/08-india-2040.webp" alt="" loading="lazy"><div><span class="kicker">08 · Imagine · Future · 19:03</span><h3>India 2040: A Day in the Future</h3><p>5 Shorts · Interstellar-style score · a Lab experience</p></div></article>
+    <article class="item"><img src="img/library/10-cyber-security.webp" alt="" loading="lazy"><div><span class="kicker">10 · First Principles · 25:40</span><h3>Cyber Security, from First Principles</h3><p>7 Shorts · the first film narrated by Arjun</p></div></article>
+    <article class="item"><img src="img/library/11-password-leak.webp" alt="" loading="lazy"><div><span class="kicker">11 · Animated short · 1:17</span><h3>What If Every Password in India Leaked Tomorrow?</h3><p>Bindu and Gappu · Arjun · the full film in 9:16 and a 26 s Short</p></div></article>
+  </div>
+</section>
+
+<!-- ============================================================ PILOTS -->
+<section class="stack" aria-labelledby="pilots" data-kind="pilot">
+  <h2 id="pilots">Pilots and drafts</h2>
+  <p class="note">Each pilot tests a format. A draft passes the automatic checks and the critic panel. It goes to the masters branch once it has Arjun's voice and your sign-off.</p>
+  <div class="grid">
+    <article class="item"><img src="img/library/16-delhi-air.webp" alt="" loading="lazy"><div><span class="kicker">16 · Survival story · 1:36</span><h3>Survive It: Delhi's Worst Air Day, Part 1</h3><p><span class="pill live">draft · Arjun</span> one smoggy street drawn in code · checks pass · critics 8.5 / 8.5</p></div></article>
+    <article class="item"><img src="img/library/15-konark.webp" alt="" loading="lazy"><div><span class="kicker">15 · Cinematic short · 1:14</span><h3>The Temple Full of Sand (Konark)</h3><p><span class="pill wait">rendering · Arjun</span> credited photos, including an 1890 view; the sealed hall drawn in code</p></div></article>
+    <article class="item"><img src="img/library/13-iron-pillar.webp" alt="" loading="lazy"><div><span class="kicker">13 · Cinematic short · 0:48</span><h3>The Pillar That Won't Rust</h3><p><span class="pill">draft</span> with three labelled AI shots · kept for later · needs Arjun (~3 credits)</p></div></article>
+    <article class="item"><img src="img/library/14-survive-flood.webp" alt="" loading="lazy"><div><span class="kicker">14 · Survival story · 1:07</span><h3>Survive It: A Mumbai Flood, Part 1</h3><p><span class="pill">draft</span> kept for the monsoon · needs Arjun</p></div></article>
+    <article class="item"><img src="img/library/12-buildit-road.webp" alt="" loading="lazy"><div><span class="kicker">12 · Build-it short · 1:09</span><h3>You Built a Road That Survives the Monsoon</h3><p><span class="pill">draft</span> critics 8.6 / 8.7 · needs Arjun</p></div></article>
+    <article class="item"><img src="img/library/09-hormuz-pilot.webp" alt="" loading="lazy"><div><span class="kicker">09 · In Context · pilot · 1:30</span><h3>The Strait and the Field</h3><p><span class="pill">pilot</span> the In Context look and score</p></div></article>
+  </div>
+</section>
+
+<!-- ============================================================ LAB -->
+<section class="stack" aria-labelledby="lab" data-kind="lab">
+  <h2 id="lab">Lab experiences</h2>
+  <p class="note">Interactive 3D experiences at <a href="https://firstprinciplesstudio.in">firstprinciplesstudio.in</a>: the visitor predicts, acts and sees the consequence.</p>
+  <div class="grid">
+    <article class="item"><img src="img/library/lab-inside-ai.webp" alt="" loading="lazy"><div><span class="kicker">Live</span><h3>Inside AI</h3><p>Follow one prompt.</p></div></article>
+    <article class="item"><img src="img/library/lab-human.webp" alt="" loading="lazy"><div><span class="kicker">Live</span><h3>Human</h3><p>Explore the system that keeps you alive.</p></div></article>
+    <article class="item"><img src="img/library/lab-india-2040.webp" alt="" loading="lazy"><div><span class="kicker">Live</span><h3>India 2040</h3><p>Step into one possible future.</p></div></article>
+    <article class="item"><img src="img/library/lab-inside-asml.webp" alt="" loading="lazy"><div><span class="kicker">Live</span><h3>Inside ASML</h3><p>Follow one drop of tin.</p></div></article>
+    <article class="item"><img src="img/library/lab-kurukshetra.webp" alt="" loading="lazy"><div><span class="kicker">Live</span><h3>Kurukshetra</h3><p>Inside the Mahabharata.</p></div></article>
+    <article class="item"><img src="img/library/fig-vikram.webp" alt="" loading="lazy"><div><span class="kicker">Interactive figure · draft</span><h3>Vikram, the lander</h3><p>Take Chandrayaan-3's lander apart and land what's left; a 10 s Short captured from it</p></div></article>
+    <article class="item text-only"><div><span class="kicker">In development</span><h3>The Large Hadron Collider</h3><p>Become a proton.</p></div></article>
+    <article class="item text-only"><div><span class="kicker">In development</span><h3>Mars</h3><p>Survive one sol.</p></div></article>
+  </div>
+</section>
+
+<!-- ============================================================ BRAND -->
+<section class="stack" aria-labelledby="brand" data-kind="asset">
+  <h2 id="brand">Brand and characters</h2>
+  <div class="grid wide">
+    <article class="item"><img src="img/library/brand-sheet.webp" alt="The brand kit's contact sheet: banner, avatars, app icons, lockups and headers" loading="lazy"><div><span class="kicker">Brand kit v1 · for your review</span><h3>The Bindu drop</h3><p>33 files: avatars for every platform, the YouTube banner, X, LinkedIn and Facebook covers, web and app icons, lockups, one-colour marks. Made by <code>scripts/brand_kit.mjs</code>. Plan: <a href="growth.html#brand">growth playbook, section 14</a>.</p></div></article>
+    <article class="item"><img src="img/brand/bindu.webp" alt="" loading="lazy" class="contain"><div><span class="kicker">Mascot</span><h3>Bindu</h3><p>The guide: a warm drop of light, and the logo come alive. Drawn in code.</p></div></article>
+    <article class="item"><img src="img/brand/gappu.webp" alt="" loading="lazy" class="contain"><div><span class="kicker">The viewer</span><h3>Gappu</h3><p>"You" in the animated films: the star of What If You… and Survive It.</p></div></article>
+  </div>
+</section>
+
+<!-- ============================================================ ENGINE -->
+<section class="stack" aria-labelledby="engine" data-kind="asset">
+  <h2 id="engine">Tools we built</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>The film engine</td><td>every frame drawn in code from the narration's clock; 16:9 and 9:16 from one script (<code>engine/video</code>)</td></tr>
+      <tr><td>2.5D plates</td><td>a photo turned into depth layers a camera can move through (<code>depth.py</code>, <code>plate()</code>)</td></tr>
+      <tr><td>Voices</td><td>Kokoro for drafts; Arjun recorded once per scene and kept in git: films 10, 11, 15 and 16 (<code>voice_lines.py</code>)</td></tr>
+      <tr><td>Music</td><td>"Organ & Time" scores and a thriller cue, written in code and hit on the word (<code>engine/audio</code>)</td></tr>
+      <tr><td>Archive</td><td>licence-checked public-domain film and 78 rpm sound from archive.org (<code>scripts/archive_org.py</code>)</td></tr>
+      <tr><td>Assets</td><td>real uploads and AI shots, with credits and labels recorded (<code>scripts/assets.py</code>)</td></tr>
+      <tr><td>Quality report</td><td>loudness, speech clarity, one-frame jumps, subtitles and asset rights on every render (<code>scripts/qa.py</code>)</td></tr>
+      <tr><td>Masters</td><td>full-quality files in ~95 MB pieces with checksums and join scripts (<code>scripts/publish_master.sh</code>)</td></tr>
+      <tr><td>Type per series</td><td>six type pairs with their Hindi partners (<code>docs/type/</code>)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="stack" aria-labelledby="where">
+  <h2 id="where">Where to find them</h2>
+  <div class="two">
+    <div><h3>Full-quality films</h3><p>The <code>masters</code> branch of the studio repository: open a film's folder and run <code>join.sh</code> (macOS, Linux) or <code>join.bat</code> (Windows) to rebuild the MP4. The <code>.srt</code> beside it is the caption file for YouTube.</p></div>
+    <div><h3>Shorts, thumbnails, upload kits</h3><p>In each film's folder: <code>videos/&lt;film&gt;/shorts/</code>, <code>thumbnail.png</code> and <code>youtube.md</code> (titles, description with sources, chapters, tags).</p></div>
+    <div><h3>Drafts</h3><p>Pilot renders aren't kept in git until they become masters. Each one is rebuilt from its code and recorded voice at any time, and sent to you when it's finished.</p></div>
+    <div><h3>The channel</h3><p><a href="https://www.youtube.com/@firstprinciplesstudio">youtube.com/@firstprinciplesstudio</a> · the Lab at <a href="https://firstprinciplesstudio.in">firstprinciplesstudio.in</a></p></div>
+  </div>
+</section>
+
+<footer>
+  <span>First Principles Studio · <em>Complex ideas. Made visible.</em></span>
+  <span><a href="./">The content pipeline</a> · <a href="growth.html">Growth playbook</a> · this library</span>
+</footer>
+</main>
+<script>
+(function () {
+  const btns = [...document.querySelectorAll('.filters button')];
+  btns.forEach(b => b.addEventListener('click', () => {
+    btns.forEach(x => x.setAttribute('aria-pressed', x === b));
+    const f = b.dataset.f;
+    document.querySelectorAll('section[data-kind]').forEach(s => { s.hidden = !(f === 'all' || s.dataset.kind === f); });
+  }));
+})();
+</script>
+</body>
+</html>
