@@ -155,9 +155,10 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
 <header class="stack">
   <div class="eyebrow">First Principles Studio · production handbook</div>
   <h1>The content pipeline</h1>
-  <p><span class="pill live">Pipeline v1.26</span> <span class="note">First fixed on 27 October 2026; v1.26 on 15 November 2026. Changes go through the <a href="#ideas">ideas log</a> and the <a href="#changelog">changelog</a>.</span></p>
+  <p><span class="pill live">Pipeline v1.27</span> <span class="note">First fixed on 27 October 2026; v1.27 on 15 November 2026. Changes go through the <a href="#ideas">ideas log</a> and the <a href="#changelog">changelog</a>.</span></p>
   <p class="lede">How we turn a question into a film, a Short, a Hindi version or an interactive experience, all made in code, with no camera and no editing timeline. Pick what you're making, follow the steps, and track each production at the bottom of this page.</p>
   <nav class="jump" aria-label="On this page">
+    <a href="#channel"><strong>The channel: five series</strong></a>
     <a href="#pick">1 · Pick a format</a>
     <a href="#process">2 · How every film is made</a>
     <a href="#ingredients">3 · Ingredients</a>
@@ -179,6 +180,69 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
 <section class="summary" aria-label="In one paragraph">
   <div class="eyebrow">The idea in one paragraph</div>
   <p>A film starts as a <strong>text script</strong> with a short label on every sentence. A voice model reads each sentence, and the program notes the exact second each one starts. That list of times is the film's <strong>clock</strong>. Everything else follows the clock: the animation is code that draws each frame from "which sentence is playing", the music puts its big moments on chosen sentences, and the subtitles come straight from the script. Change a sentence and everything moves with it. Claude (the AI assistant) does the research, writing and code. <strong>You stay the editor:</strong> you approve the story and the look before anything is built, and you watch the film before it goes out.</p>
+</section>
+
+<!-- ============================================================ 0. THE CHANNEL -->
+<section class="stack" aria-labelledby="channel">
+  <div class="eyebrow">Start here</div>
+  <h2 id="channel">The channel: one channel, five series</h2>
+  <p>Your decisions (15 November): <strong>one YouTube channel with five playlists, English first.</strong> Capacity is not the limit; what matters is the right length and films worth watching again. Every film is filed under one series before anything is made. The formats in step 1 are the tools; this table says which series uses which. Full detail: <a href="https://github.com/nitinbandgar/FirstPrinciplesStudio/blob/claude/archive-org-footage/docs/SERIES.md">the channel map</a>.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Series (playlist)</th><th>The promise</th><th>Topics</th><th>Main film</th><th>Shorts and Reels</th></tr></thead>
+      <tbody>
+        <tr><td><strong>First Principles</strong></td><td>"Now I finally get how it works." Make tech and science cool again.</td><td>how ChatGPT works, image generation, GPUs, UPI, smog in your lungs; <em>Paper, Explained</em> monthly (the research paper behind a technology)</td><td>10–14 min (<a href="#p-machine">Inside the Machine</a>); 6–9 min (<a href="#p-animexp">Animated explainer</a>)</td><td>4–6 a film, 35–55 s</td></tr>
+        <tr><td><strong>The Case</strong></td><td>"Now I see how it's all connected."</td><td>the Jensen case, Tata Sons vs the Tata Trusts, why AI will be shaped by electricity</td><td>10–15 min; a big case as a season of 3–5 episodes</td><td>3–5 a film, 40–60 s</td></tr>
+        <tr><td><strong>Survive It</strong></td><td>"Now I know what to do."</td><td>a phishing email, Mumbai's heaviest rain, a severe-air day, habits, scams</td><td>4–7 min; seasons of 6 hazards</td><td>the core: 45–75 s, one rule each</td></tr>
+        <tr><td><strong>Business, Unpacked</strong></td><td>"So that's how they built it."</td><td>ASML, Zerodha, Amul, IndiGo, startups that won or failed</td><td>12–16 min</td><td>4–6 a film, 40–60 s</td></tr>
+        <tr><td><strong>Next</strong></td><td>"Now I can see it coming, and prepare."</td><td>India 2040, a heatwave year, jobs after AI</td><td>8–12 min</td><td>3–5 a film, 30–50 s</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>History is a chapter, not a series</strong>: the "how we got here" part of a film, or a rare special when the news makes it urgent. <strong>Research papers</strong> live in First Principles as <em>Paper, Explained</em> (from arXiv; archive.org is our footage archive). The older names map in: In Context → The Case and First Principles; Imagine → Next; Case File → The Case; What If You… → Survive It and Next; Animated → the look of Survive It.</p>
+  <div class="cols">
+    <div>
+      <h3>One look as the spine, two supporting layers</h3>
+      <ul class="plain">
+        <li><strong>First Principles:</strong> animation (the machine or the journey), with real footage and cinematic hooks.</li>
+        <li><strong>The Case:</strong> sketch figures, with real photos, clippings and short news clips.</li>
+        <li><strong>Survive It:</strong> Gappu and Bindu animation, with real hazard footage and official guidance cards.</li>
+        <li><strong>Business, Unpacked:</strong> real footage and photos, with soft-3D diagrams and cinematic hooks.</li>
+        <li><strong>Next:</strong> cinematic scenes, with animated data and real "today" footage.</li>
+        <li>Each layer has one job: <strong>real</strong> = proof; <strong>animation</strong> = mechanisms no camera can film; <strong>cinematic</strong> = hooks, scale, the future; <strong>sketch</strong> = unfilmed moments and the viewer's questions. Layers join through the world (a photo pinned as a print, a zoom through a lens), not hard cuts.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Worth watching again</h3>
+      <ul class="plain">
+        <li>A hook in 5 s, the promise by 20 s, a reveal every 60–90 s, something new every 3–6 s, nothing filler (cut any 30 s nobody would miss).</li>
+        <li><strong>Rewatch devices</strong> (four a film, two a Short): Shorts that loop; one pause-worthy frame per chapter; hidden details (Bindu cameos, the next episode's object on a shelf); "pause and guess" before a reveal; a last line that answers the first; a recurring cast and sign-off; seasons that end on the next question; a vote in the pinned comment; a line for experts; sounds you remember.</li>
+        <li>Never a fake cliffhanger, a title the film doesn't pay off, or "like, share, subscribe" before the story.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cols">
+    <div>
+      <h3>How every film is made</h3>
+      <ol>
+        <li>Topic, with a reason to watch now, filed under its series.</li>
+        <li>Claims list: every fact with its source.</li>
+        <li>Script in the series' shape.</li>
+        <li>Asset plan in three lists: <strong>I find</strong> (archive.org, public images and documents, our music, sounds and kits); <strong>I generate</strong> (AI scenes, voices; cost approved first); <strong>you collect</strong> (TV clips of 5 s or less, paywalled clippings, licensed photos of real people, your phone recordings and measurements, photos of places), uploaded to <code>assets/inbox/</code>.</li>
+        <li>A pilot of the hardest 60–90 s; you review the script and the pilot.</li>
+        <li>The full film, QA and the critic; then the distribution kit.</li>
+      </ol>
+    </div>
+    <div>
+      <h3>Where it goes</h3>
+      <ul class="plain">
+        <li><strong>YouTube (home):</strong> one chaptered main film per topic; 3–6 Shorts cut from it, each standalone and linked to the film; seasons as playlists in order; a 10–20 s end screen with Bindu pointing to the next episode.</li>
+        <li><strong>Instagram:</strong> standalone Reels of 30–75 s; seasons as "Part 1, 2, 3" with a Highlight, each part with its own hook and ending; carousels for the key facts.</li>
+        <li><strong>Cadence to start:</strong> one main film a week, rotating the series; 4–6 Shorts and Reels a week; seasons weekly on a fixed day.</li>
+        <li><strong>Measure after 6–8 uploads:</strong> click-through, percentage viewed and retention at 30 s on YouTube; shares and saves on Instagram. Double down on what holds.</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <!-- ============================================================ 1. FORMATS -->
@@ -1776,6 +1840,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td>On-screen labels (15 Nov)</td><td>no "illustration", "AI" or "drawn in code" notes in drawn looks (the description says it); logos may identify a company we report on; the mix is set per film</td><td>a label on every shot</td></tr>
         <tr><td>Inside the Machine (15 Nov)</td><td>a new First Principles format for everyday machines explained from the inside (working name), from the graphics-card film you chose; pilot on a UPI payment</td><td>keep explainers short</td></tr>
         <tr><td>Animated explainer (15 Nov)</td><td>a new format in the Animated series: one journey inward with no cuts, Gappu and Bindu, from the coronavirus film you liked (craft only, never its look); pilot on smog in the lungs</td><td>keep animated films short</td></tr>
+        <tr><td>The channel (15 Nov)</td><td>one YouTube channel, five series as playlists: First Principles, The Case, Survive It, Business, Unpacked, Next; English first; history as a chapter, not a series; research papers as <em>Paper, Explained</em> in First Principles; capacity not the limit, the right length and rewatch value are</td><td>separate channels per topic; a history series</td></tr>
         <tr><td>Expert review</td><td>you review each technical film before it goes out</td><td>an outside reviewer, named on screen</td></tr>
         <tr><td>News footage you supply</td><td>used as short quotations: each excerpt 5 s or less, with our commentary, the source on screen, and credits and thanks in the description. A private upload passes YouTube's copyright Checks before publishing.</td><td>a licence from the broadcaster, or a clipping of the same story</td></tr>
         <tr><td>Learning loop</td><td>you share YouTube Studio numbers at 7 and 28 days (first ones received 27 Oct 2026)</td><td>none</td></tr>
@@ -1911,6 +1976,7 @@ LABEL    AI-generated illustration</code></pre>
 <section class="stack" aria-labelledby="changelog">
   <h2 id="changelog">Changelog</h2>
   <ul class="plain">
+    <li><strong>v1.27 · 15 Nov 2026.</strong> <a href="#channel">The channel: one channel, five series</a> (First Principles, The Case, Survive It, Business, Unpacked, Next): the promise of each, the look that carries it, the right length for films and Shorts, ten rewatch devices, the three-list asset plan, the pilot-first flow, and where each film goes. History becomes a chapter; research papers become <em>Paper, Explained</em>.</li>
     <li><strong>v1.26 · 15 Nov 2026.</strong> A new format in the Animated series, the <a href="#p-animexp">Animated explainer</a>: one journey inward with no cuts, every world opening through a lens, Gappu as the body and Bindu as guide; proven on a 94-second pilot, What Delhi's Smog Does Inside Your Lungs (10 credits, 60 fps).</li>
     <li><strong>v1.25 · 15 Nov 2026.</strong> A new First Principles format, <a href="#p-machine">Inside the Machine</a> (working name): an everyday machine explained from the inside, with a paradox hook, one worked example reused, photoreal hero shots and a soft-3D machine drawn in code; proven on a 90-second pilot, Inside a ₹20 Payment (UPI). The clarity check now reads ₹ amounts as spoken.</li>
     <li><strong>v1.24 · 15 Nov 2026.</strong> A new type, <a href="#p-thecase">The Case</a>: investigative journalism in a drawn world, 8–15 minutes, with recognisable real people, two analysts (Tara and Dev), the source beside every claim, our view marked, and the investigation pulse score; proven on a test scene about Tata Sons and the Tata Trusts. Your decisions on living people, opinions, on-screen labels and the mix are under <a href="#decisions">Your decisions</a>.</li>
