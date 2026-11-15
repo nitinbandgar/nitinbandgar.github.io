@@ -155,7 +155,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
 <header class="stack">
   <div class="eyebrow">First Principles Studio · production handbook</div>
   <h1>The content pipeline</h1>
-  <p><span class="pill live">Pipeline v1.24</span> <span class="note">First fixed on 27 October 2026; v1.24 on 15 November 2026. Changes go through the <a href="#ideas">ideas log</a> and the <a href="#changelog">changelog</a>.</span></p>
+  <p><span class="pill live">Pipeline v1.25</span> <span class="note">First fixed on 27 October 2026; v1.25 on 15 November 2026. Changes go through the <a href="#ideas">ideas log</a> and the <a href="#changelog">changelog</a>.</span></p>
   <p class="lede">How we turn a question into a film, a Short, a Hindi version or an interactive experience, all made in code, with no camera and no editing timeline. Pick what you're making, follow the steps, and track each production at the bottom of this page.</p>
   <nav class="jump" aria-label="On this page">
     <a href="#pick">1 · Pick a format</a>
@@ -197,6 +197,7 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <button class="fmt" role="tab" id="t-buildit" aria-controls="p-buildit" aria-selected="false"><span class="tag">Short · First Principles</span><b>Build-it short</b><span>60–75 s: build an everyday thing, one problem at a time</span></button>
     <button class="fmt" role="tab" id="t-casefile" aria-controls="p-casefile" aria-selected="false"><span class="tag">Film · Case File</span><b>Case file</b><span>4–8 min: a true story, on a board or in chapters</span></button>
     <button class="fmt" role="tab" id="t-thecase" aria-controls="p-thecase" aria-selected="false"><span class="tag">Film · The Case</span><b>The Case</b><span>8–15 min: investigative journalism, drawn</span></button>
+    <button class="fmt" role="tab" id="t-machine" aria-controls="p-machine" aria-selected="false"><span class="tag">Film · First Principles</span><b>Inside the Machine</b><span>12–16 min: an everyday machine, from the inside</span></button>
     <button class="fmt" role="tab" id="t-cinematic" aria-controls="p-cinematic" aria-selected="false"><span class="tag">Film · Cinematic</span><b>Cinematic short</b><span>35–60 s: one mystery, real photos that move</span></button>
     <button class="fmt" role="tab" id="t-story25" aria-controls="p-story25" aria-selected="false"><span class="tag">Short · Animated</span><b>2.5D story short</b><span>the Ricks Clips style · 55–70 s: a true story, flat characters in lit 3D sets</span></button>
     <button class="fmt" role="tab" id="t-shorts" aria-controls="p-shorts" aria-selected="false"><span class="tag">From every film</span><b>Shorts</b><span>one idea, vertical, under a minute</span></button>
@@ -820,6 +821,72 @@ footer { font-size: 0.86rem; color: var(--muted); border-top: 1px solid var(--ru
     <div class="row"><button class="track solid" type="button">Track a new case</button></div>
   </div>
 
+  <div class="panel" role="tabpanel" id="p-machine" aria-labelledby="t-machine" data-format="machine" hidden>
+    <h3>Inside the Machine: an everyday machine explained from the inside, in 12–16 minutes</h3>
+    <p>One machine or system you use every day but have never seen inside: a payment, a phone camera, a chip, a battery, the power grid. A paradox opens it ("What does your phone send when you pay ₹20? Not money. Just a message."), one worked example carries it, and the last line answers the first. The human side is photoreal; the mechanism is a soft-3D machine drawn in code. From the graphics-card film you chose as the reference (working name; 15 Nov 2026).</p>
+    <p><img src="img/inside-machine-proof.jpg" alt="A dark studio floor with glowing blocks: the switch in gold, your bank in amber showing ₹1,220, the chaiwala's bank in teal showing ₹580, a glowing message token between them" style="width:100%;height:auto;border-radius:14px"><br><span class="note">From the pilot, Inside a ₹20 Payment (90 s): the message reaches the chaiwala's bank; two numbers change in two books.</span></p>
+    <dl class="facts">
+      <div><dt>Length</dt><dd>12–16 min (about 1,900–2,600 words); the cleanest worked example also as a 9:16 Short</dd></div>
+      <div><dt>Pace</dt><dd>~150–165 words a minute; long camera moves in the mechanism, faster cuts in montages</dd></div>
+      <div><dt>Example</dt><dd>pilot 20 Inside a ₹20 Payment (UPI); reference: "What Happens Inside a Graphics Card"</dd></div>
+      <div><dt>Approvals</dt><dd>topic and claims list, then the beat sheet, then the hero shots' cost, then the full film</dd></div>
+    </dl>
+    <div class="cols">
+      <div>
+        <h3>The script, in order</h3>
+        <ol>
+          <li><strong>A paradox hook:</strong> what it does against what it knows or is, and the promise of what you'll understand.</li>
+          <li><strong>Outside in:</strong> start with what you can see and set most of it aside, so the one part that matters lands.</li>
+          <li><strong>One idea that sorts everything,</strong> said plainly; every chapter after applies it.</li>
+          <li><strong>One worked example done by hand</strong> (a ₹20 chai), followed stop by stop, then reused with new meanings.</li>
+          <li><strong>Jargon renamed:</strong> said once, then replaced by a picture ("the PSP" becomes "your app's bank").</li>
+          <li><strong>The history in one minute,</strong> then <strong>a fair comparison</strong> with its caveat said out loud.</li>
+          <li><strong>Our own test</strong> where anything can be measured: "don't watch who wins, watch what decides it".</li>
+          <li><strong>Bookends:</strong> the last line answers the hook over the opening image.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Craft rules</h3>
+        <ul class="plain">
+          <li><strong>Numbers at human scale:</strong> every big number gets an everyday picture (822 million payments a day).</li>
+          <li><strong>One picture per abstraction,</strong> chosen once and held all film, in our own design.</li>
+          <li><strong>A colour code</strong> for the things the film contrasts (amber you, teal the payee, gold the switch), from the first diagram to the last.</li>
+          <li><strong>Corner tags</strong> on every shot that needs one: "AI ILLUSTRATION", "DIAGRAM · NOT TO SCALE", "EXAMPLE NUMBERS", "OUR RUN · method", "NPCI DATA".</li>
+          <li><strong>Real-looking shots for people and places,</strong> with screens, signs and QR codes drawn in by code; the machine itself drawn in code.</li>
+          <li><strong>Never a real company's insides presented as fact:</strong> "AI ILLUSTRATION · NOT NPCI'S HALL"; example numbers say so; our measurements show their method.</li>
+          <li><strong>Sound:</strong> Organ &amp; Time under the pulse, layers following the story, a stop on the reveal, a sound for every moving part.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cols">
+      <div>
+        <h3>How it's built</h3>
+        <ul class="plain">
+          <li>A claims list first (<code>claims.json</code>), then a beat sheet: beat, line, the one picture, its corner tag.</li>
+          <li>Hero shots as AI photos (blank screens and signs so our words go in by code) or real footage.</li>
+          <li>The machine kit (<code>engine/video/machine/iso.mjs</code>): a soft-3D studio floor, lit blocks, glowing tracks, travelling tokens, tags, a camera that glides on the words. Anek type.</li>
+          <li>Blender on a rented cloud GPU later, when a film needs true 3D (about US$5–10 a film).</li>
+          <li>Cost: the pilot took 69 credits; a 14-minute film about 400–600.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Done when</h3>
+        <ul class="plain">
+          <li>The worked example is followed end to end and reused, and the last line answers the hook.</li>
+          <li>Every shot that needs a corner tag has one, and every claim is in the claims list.</li>
+          <li>Anything we could measure, we measured, with the method on screen.</li>
+          <li><code>qa.py</code> reads ALL PASS; a Short cut from the worked example points back to the film.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="prompt">
+      <div class="eyebrow">Kick it off in Claude Code</div>
+<pre><code>/make-film Inside the Machine, about 14 minutes: "[the machine or system]". A paradox hook (what it does vs what it knows), answered by the last line; outside in; one idea that sorts everything; one worked example done by hand, then reused with new meanings; jargon renamed into pictures; a minute of history; a fair comparison; our own measurements with the method on screen. Photoreal hero shots with our words drawn in; the mechanism in the machine kit; a colour code and corner tags on every shot. Claims list first, then the beat sheet, then the hero shots' cost.</code></pre>
+      <button class="copy" type="button">Copy prompt</button>
+    </div>
+    <div class="row"><button class="track solid" type="button">Track a new machine film</button></div>
+  </div>
+
   <div class="panel" role="tabpanel" id="p-cinematic" aria-labelledby="t-cinematic" data-format="cinematic" hidden>
     <h3>Cinematic short: one mystery in 35–60 seconds</h3>
     <p>A dark, filmic short built on one "why" ("Why hasn't the Delhi iron pillar rusted in 1,600 years?"). Every line gets its own shot: a real photo that the camera moves <em>through</em> (near things slide past far ones, so a still plays like a shot), one big word on screen, and a reveal every few seconds. It answers the mystery from first principles, which is where we differ from the channels that only tease it.</p>
@@ -1086,6 +1153,7 @@ npm run build:static        <span class="c"># → out/ for Hostinger</span></cod
         <tr><td><strong>Loop short</strong></td><td>15–25 s</td><td>no narration</td><td>none</td><td>sound per event only</td><td>a physics loop, every wave bigger, a perfect loop</td><td>idea + model · event log · render</td><td>9:16</td></tr>
         <tr><td><strong>Case file</strong></td><td>4–8 min</td><td>Board ~130 wpm; Cinematic 80–110</td><td>Arjun</td><td>Organ &amp; Time</td><td>Board: one evidence board, one camera, no cuts · Cinematic: dated chapters, archive in 2.5D, a returning motif</td><td>story + sources + rights · board and beat table · preview</td><td>film, 3–5 Shorts, thumbnails, kit, master</td></tr>
         <tr><td><strong>The Case</strong></td><td>8–15 min</td><td>~150 wpm; a shot every ~3 s</td><td>Arjun, with Tara and Dev</td><td>the investigation pulse (Organ &amp; Time harmony)</td><td>a drawn world, real people in photos or recognisable sketches, the source beside every claim, our view marked</td><td>claims list · cast sheet · set plates' cost</td><td>16:9 film, a 9:16 Short, thumbnail, kit</td></tr>
+        <tr><td><strong>Inside the Machine</strong></td><td>12–16 min</td><td>~150–165 wpm</td><td>Arjun</td><td>Organ &amp; Time under the pulse</td><td>photoreal hero shots, a soft-3D machine drawn in code, one worked example, corner tags, a colour code</td><td>claims list · beat sheet · hero shots' cost</td><td>16:9 film, a 9:16 Short, thumbnail, kit</td></tr>
         <tr><td><strong>Cinematic short</strong></td><td>35–60 s</td><td>~130 wpm</td><td>Arjun</td><td>Organ &amp; Time, low and dark</td><td>real photos moved in 2.5D, one word per shot</td><td>story + photo list · animatic</td><td>16:9 film, 9:16 version, thumbnail, kit</td></tr>
         <tr><td>Shorts</td><td>20–35 s</td><td>up to 165 wpm</td><td>from the film</td><td>from the film</td><td>re-laid out for 9:16, payoff title, 6 s call to the film</td><td>the list of Shorts</td><td>Shorts + per-Short kit (title, description, cover frame, pinned comment, day)</td></tr>
         <tr><td>Hindi version</td><td>as the film</td><td>as the film</td><td>hm_psi (Kokoro) at 0.9</td><td>as the film</td><td>every on-screen word in Hindi</td><td>Hindi script</td><td>Hindi film, Shorts, thumbnails, kit</td></tr>
@@ -1124,6 +1192,7 @@ npm run build:static        <span class="c"># → out/ for Hostinger</span></cod
         <tr><td>Imagine</td><td>Indian native mediums for epics and history (leather shadow puppetry, woodcut, ink wash, scroll painting), with one move only that medium can make at the peak; never imitating a named artist</td></tr>
         <tr><td>Case File</td><td>Board: one big sheet with a following camera (a briefing board, a visual investigation) · Cinematic: an archive light table (a loupe over a real negative)</td></tr>
         <tr><td>The Case</td><td>a drawn world: marker outlines, flat colour, paper grain; corkboards, ballots, stamps and two-key locks as the evidence</td></tr>
+        <tr><td>Inside the Machine</td><td>a dark studio floor with lit blocks, glowing tracks and travelling tokens; real-looking photos for people and places</td></tr>
         <tr><td>Cinematic short</td><td>an archive light table; one native move</td></tr>
         <tr><td>Animated story</td><td>a chronology joined by shape morphs (one object becomes the next scene)</td></tr>
         <tr><td>Build-it short</td><td>one locked-off cutaway that builds, or the real making steps in order</td></tr>
@@ -1636,6 +1705,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td>Real people (15 Nov)</td><td>both real photos and sketches, chosen by what each film and scene needs: a credited real photo or short footage when the moment was recorded, a recognisable sketch (from reference photos) when no camera was there; never realistic or an AI likeness; their recorded words or dramatised lines faithful to the record</td><td>photos only, or sketches only</td></tr>
         <tr><td>Opinions (15 Nov)</td><td>our films reach educated opinions and judgements, marked as ours, reasoned from checked facts, with the other side argued; facts always checked first</td><td>facts only</td></tr>
         <tr><td>On-screen labels (15 Nov)</td><td>no "illustration", "AI" or "drawn in code" notes in drawn looks (the description says it); logos may identify a company we report on; the mix is set per film</td><td>a label on every shot</td></tr>
+        <tr><td>Inside the Machine (15 Nov)</td><td>a new First Principles format for everyday machines explained from the inside (working name), from the graphics-card film you chose; pilot on a UPI payment</td><td>keep explainers short</td></tr>
         <tr><td>Expert review</td><td>you review each technical film before it goes out</td><td>an outside reviewer, named on screen</td></tr>
         <tr><td>News footage you supply</td><td>used as short quotations: each excerpt 5 s or less, with our commentary, the source on screen, and credits and thanks in the description. A private upload passes YouTube's copyright Checks before publishing.</td><td>a licence from the broadcaster, or a clipping of the same story</td></tr>
         <tr><td>Learning loop</td><td>you share YouTube Studio numbers at 7 and 28 days (first ones received 27 Oct 2026)</td><td>none</td></tr>
@@ -1744,6 +1814,7 @@ LABEL    AI-generated illustration</code></pre>
         <tr><td class="nowrap">10 Nov 2026</td><td><a href="https://x.com/rileybrown/status/2119902109709537708">A one-prompt path-traced 3D film</a> (Riley Brown, 481k views): a room built in Blender from code, a web page as the laptop screen, 13 shots, the sun from golden hour to night to sunrise, 4K rendered on 10 rented graphics cards in 52 minutes for $5.75</td><td>Measured: 59 s, 13 shots of about 4.5 s, four captions, −14 LUFS, a quiet dip before the payoff and the peak on it. Adopted: light as the clock, real pages on in-scene screens, hands and screen in sync, the trailer sound arc, rented cloud graphics cards as a third 3D route (cost approved first), and a new occasional format, the <strong>trailer</strong>. Not taken: its AI music, a real product's interface. <a href="https://github.com/nitinbandgar/FirstPrinciplesStudio/blob/claude/archive-org-footage/docs/references/one-prompt-3d-film-review.md">The review</a>.</td></tr>
         <tr><td class="nowrap">10 Nov 2026</td><td><a href="https://x.com/caesarscales/status/2119747660966195394">A full build prompt for the cartoon-in-3D style</a> (caesar), the same format as our 2.5D story short, with a 63-second example about a wearable roulette computer</td><td>Measured: 217 words at 206 a minute, a new view every ~3 s, −14.5 LUFS. Adopted: the "laughed-at plan" story shape with timings, sentences joined with commas so the voice doesn't stop and start, the story's words on signs and boards inside the world, ink outlines on the 3D sets, a camera that frames faces automatically, and a one-click render for your graphics card that resumes and refuses to finish with missing frames. We stay at or under ~190 words a minute. You decided that real historical people may be drawn as clearly cartoon characters, labelled (see <a href="#decisions">Your decisions</a>). <a href="https://github.com/nitinbandgar/FirstPrinciplesStudio/blob/claude/archive-org-footage/docs/references/2-5d-build-prompt-review.md">The review</a>.</td></tr>
         <tr><td class="nowrap">15 Nov 2026</td><td>"Jensen Huang Scandal Explained Like You're 5" (14:30), shared by you as the standard for investigative case studies</td><td>Measured: 152 words a minute, 315 shots (one every 2.8 s), a push-in on every shot, 18 black turn cards, a corkboard of numbered anomalies, the source written beside claims, a closing debate. Adopted as a new type, <a href="#p-thecase">The Case</a>, and proven on a 73-second test scene about Tata Sons and the Tata Trusts. Not copied: its character design and lettering, and its claims (unchecked). <a href="https://github.com/nitinbandgar/FirstPrinciplesStudio/blob/claude/archive-org-footage/docs/references/the-case-sample.md">The review</a>.</td></tr>
+        <tr><td class="nowrap">15 Nov 2026</td><td>"What Happens Inside a Graphics Card" (15:25, made in Blender), shared by you: complex tech explained visually and simply</td><td>Measured: 164 words a minute, 140 shots (long camera flights up to 48 s), amber for the CPU and blue for the GPU all film, corner tags, its own benchmarks. Adopted as a new First Principles format, <a href="#p-machine">Inside the Machine</a> (working name): the paradox hook, outside in, one sorting idea, one worked example reused, jargon renamed, human-scale numbers, a colour code, corner tags, our own measurements, bookends. Proven on a 90-second pilot about a UPI payment. Not copied: its metaphors, look and type. <a href="https://github.com/nitinbandgar/FirstPrinciplesStudio/blob/claude/archive-org-footage/docs/references/inside-the-machine-sample.md">The review</a>.</td></tr>
         <tr><td class="nowrap">10 Nov 2026</td><td><a href="https://x.com/noisyb0y1/status/2109971347895919070">"REA Engineering"</a> (453k views), on a free tool that lets an AI agent take apart apps without their source code</td><td>Not a video technique, and we don't take the tool: it's not our work, it can be misused, and our Lab never presents a real company's internals. We took its discipline for everything we rebuild (the Vikram figure, the Lab's simulations) and for fact tables: one mechanism at a time, a plain-words description of the behaviour before any code, every finding marked confirmed or a guess, and the model checked against real published numbers. A topic idea from it: the true story of how the IBM PC's BIOS was legally rebuilt by a "clean room" team (to be fact-checked). <a href="https://github.com/nitinbandgar/FirstPrinciplesStudio/blob/claude/archive-org-footage/docs/references/evidence-discipline-review.md">The review</a>.</td></tr>
         <tr><td class="nowrap">10 Nov 2026</td><td><a href="https://github.com/Leonxlnx/athenaion">Athenaion</a>: an ancient Greek world (temple, colossal statues, 57 waterfalls, a city, 149,000 trees) built entirely in 3D code by 55 Claude agents over about 45 hours, matched to 9 AI concept pictures and rendered in 4K on a laptop</td><td>Not a new category: a way to build worlds for our Imagine films, the 2.5D sets, trailers and the Lab (it uses the same 3D library as our Lab). Adopted: a written "art bible" with numbers, colour measured against the references, a camera plan solved from the pictures, rules for many agents working at once, and patient offline rendering for cinema quality on modest hardware. Cautions: it took two days and a large compute budget, so ours start with one place and a few shots, cost estimated first; big worlds need a real graphics card. <a href="https://github.com/nitinbandgar/FirstPrinciplesStudio/blob/claude/archive-org-footage/docs/references/athenaion-review.md">The review</a>.</td></tr>
         <tr><td class="nowrap">12 Nov 2026</td><td><a href="https://x.com/dyfwsammy/status/2117905023145267550">"Build a Motion Studio Around Opus 5.5"</a> (298k views) and <a href="https://x.com/aifindr/status/2120262427510251823">11 free skills for video, 3D and voice</a> (all 11 read)</td><td>Adopted: a written motion language per series, checked automatically; measured numbers for the 2.5D story short from a skill that studied 20 shorts of the original channel (characters do take the set's light, which corrects our earlier note; the camera glides and rarely cuts; quick blinks; actions just before the word); matching a reference's motion by measurement; rules that keep Bindu and Gappu alive instead of switching poses; an Interactive figure that demonstrates itself when idle. Not adopted: a voice-cloning app (we never clone our narrator or anyone's voice). <a href="https://github.com/nitinbandgar/FirstPrinciplesStudio/blob/claude/archive-org-footage/docs/references/motion-studio-and-11-skills-review.md">The review</a>.</td></tr>
@@ -1769,6 +1840,7 @@ LABEL    AI-generated illustration</code></pre>
 <section class="stack" aria-labelledby="changelog">
   <h2 id="changelog">Changelog</h2>
   <ul class="plain">
+    <li><strong>v1.25 · 15 Nov 2026.</strong> A new First Principles format, <a href="#p-machine">Inside the Machine</a> (working name): an everyday machine explained from the inside, with a paradox hook, one worked example reused, photoreal hero shots and a soft-3D machine drawn in code; proven on a 90-second pilot, Inside a ₹20 Payment (UPI). The clarity check now reads ₹ amounts as spoken.</li>
     <li><strong>v1.24 · 15 Nov 2026.</strong> A new type, <a href="#p-thecase">The Case</a>: investigative journalism in a drawn world, 8–15 minutes, with recognisable real people, two analysts (Tara and Dev), the source beside every claim, our view marked, and the investigation pulse score; proven on a test scene about Tata Sons and the Tata Trusts. Your decisions on living people, opinions, on-screen labels and the mix are under <a href="#decisions">Your decisions</a>.</li>
     <li><strong>v1.23 · 13 Nov 2026.</strong> A <a href="library.html">library</a> of everything made so far (10 films, 41 Shorts, 6 pilots, 5 live Lab experiences, the Vikram figure, the brand kit, the tools). From a review of AI Video Factory: a render audit on the exported file, acceptances tied to one export, a claim register, a voice audit, one shared pronunciation dictionary, shot intent as data and a frozen benchmark, all on the roadmap. Seedance MCP not needed: Runway already offers Seedance; its rules for chaining clips are kept.</li>
     <li><strong>v1.22 · 12 Nov 2026.</strong> <a href="growth.html#brand">The brand</a> joins the growth playbook: keep the name First Principles Studio shown in full (or rename now, your call), a concept logo (the Bindu drop) to replace the AI-made monogram, amber on night, a Hindi tagline, a sonic logo, honesty marks, character rules, every asset with its platform size, the website and the app, and a rollout.</li>
@@ -1893,6 +1965,7 @@ LABEL    AI-generated illustration</code></pre>
     animated: { name: 'Animated short', steps: ['Story, script and characters approved', 'Key frames approved', 'Draft voice and clock built', 'World and characters animated on the words', 'Score and code effects', 'Animated preview approved', 'Arjun recorded (cost approved)', 'Final render, QA all pass', '9:16 version re-laid out', 'Thumbnail and upload kit', 'Published, linked to the full film'] },
     casefile: { name: 'Case file', steps: ['Story, sources and photo rights approved', 'Board layout and beat table approved', 'Photos and documents fetched and credited', 'Draft voice and clock built', 'Board and camera path built on the words', 'Marks, captions and score', 'Preview approved', 'Arjun recorded (cost approved)', 'Final render, QA all pass', 'Shorts', 'Thumbnails and upload kit', 'Master', 'Published'] },
     thecase: { name: 'The Case', steps: ['Story and claims list approved', 'Cast sheet approved (likenesses)', 'Set plates priced and approved', 'Set plates made', 'Draft voice and clock built', 'Scenes built on the words', 'Pulse score and prop sounds', 'Preview approved', 'Arjun and the analysts recorded (cost approved)', 'Final render, QA all pass', 'Short', 'Thumbnails and upload kit', 'Master', 'Published'] },
+    machine: { name: 'Inside the Machine', steps: ['Topic and claims list approved', 'Beat sheet approved (one worked example, the sorting idea)', 'Hero shots priced and approved', 'Hero shots made, words drawn in', 'Draft voice and clock built', 'Machine scenes built on the words', 'Our own measurements run', 'Score and prop sounds', 'Preview approved', 'Arjun recorded (cost approved)', 'Final render, QA all pass', 'Short', 'Thumbnails and upload kit', 'Master', 'Published'] },
     cinematic: { name: 'Cinematic short', steps: ['Story, sources and photo list approved', 'Photos fetched and credited', 'Depth plates built', 'Animatic approved (moves and words)', 'Draft voice and clock built', 'Score', 'Arjun recorded (cost approved)', 'Final render, QA all pass', '9:16 version', 'Thumbnail and upload kit', 'Published'] },
     loop: { name: 'Loop short', steps: ['Idea and honest model approved', 'Simulation log and test sheet approved', 'Sound per event', 'Final render, QA all pass', 'Published'] },
     trailer: { name: 'Trailer', steps: ['Shot list and set look approved', 'Route and any GPU cost approved', 'Set built and lit, real page captured', 'Shots animated, light arc set', 'Score and sound', 'Preview approved', 'Final render, QA all pass', 'Published'] },
